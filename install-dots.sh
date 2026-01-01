@@ -18,7 +18,7 @@ require_cmd() {
 }
 
 install_with_yay() {
-    for pkg in niri noctalia-shell fuzzel; do
+    for pkg in niri noctalia-shell fuzzel ttf-jetbrains-mono ttf-inter ttf-jetbrains-mono-nerd; do
         if yay -Qi "$pkg" >/dev/null 2>&1; then
             log "$pkg already installed"
         else
