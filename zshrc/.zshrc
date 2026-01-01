@@ -21,7 +21,7 @@ bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 
 fastfetch
 
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 

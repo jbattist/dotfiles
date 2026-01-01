@@ -33,12 +33,18 @@ resolve_script_dir() {
 }
 
 install_with_yay() {
-	require_cmd yay || {
-		err "Please install 'yay' first."
-		exit 1
-	}
+	if ! command -v yay >/dev/null 2>&1; then
+		log "'yay' not found. Installing yay..."
+		require_cmd git || { err "git is required to install yay."; exit 1; }
+		require_cmd make || { err "make is required to install yay."; exit 1; }
+		require_cmd gcc || { err "gcc is required to install yay."; exit 1; }
+		tmpdir=$(mktemp -d)
+		git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
+		(cd "$tmpdir/yay" && makepkg -si --noconfirm)
+		rm -rf "$tmpdir"
+	fi
 
-	packages="zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow"
+	packages="zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty"
 
 	for pkg in $packages; do
 		if yay -Qi "$pkg" >/dev/null 2>&1; then
@@ -63,6 +69,19 @@ link_dotfiles() {
 
 	log "Linking starship config via stow"
 	stow -d "$repo_root" -R -t "$HOME" starship
+
+	log "Linking fastfetch config via stow"
+	stow -d "$repo_root" -R -t "$HOME" fastfetch
+
+	log "Linking ghostty config via stow"
+	# Backup existing ghostty config if it exists
+	ghostty_target="$HOME/.config/ghostty"
+	if [ -e "$ghostty_target" ] || [ -L "$ghostty_target" ]; then
+		backup_name="$ghostty_target.backup.$(date +%Y%m%d%H%M%S)"
+		log "Backing up existing ghostty config to $backup_name"
+		mv "$ghostty_target" "$backup_name"
+	fi
+	stow -d "$repo_root" -R -t "$HOME" ghostty
 }
 
 ensure_default_shell() {
@@ -86,6 +105,17 @@ main() {
 	link_dotfiles
 	ensure_default_shell
 	log "Setup complete. Open a new terminal session to start zsh."
+	echo
+	read -rp "Would you like to reboot now? [y/N]: " answer
+	case "$answer" in
+		[Yy]*)
+			log "Rebooting..."
+			sudo reboot
+			;;
+		*)
+			log "Reboot skipped. Please reboot manually if needed."
+			;;
+	esac
 }
 
 main "$@"
