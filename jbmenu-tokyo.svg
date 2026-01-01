@@ -1,0 +1,16 @@
+<svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top row -->
+    <circle cx="8" cy="8" r="3" fill="#9ece6a"/>
+    <circle cx="19" cy="8" r="3" fill="#7aa2f7"/>
+    <circle cx="30" cy="8" r="3" fill="white"/>
+
+    <!-- Middle row -->
+    <circle cx="8" cy="19" r="3" fill="white"/>
+    <circle cx="19" cy="19" r="3" fill="#bb9af7"/>
+    <circle cx="30" cy="19" r="3" fill="white"/>
+
+    <!-- Bottom row -->
+    <circle cx="8" cy="30" r="3" fill="#e0af68"/>
+    <circle cx="19" cy="30" r="3" fill="white"/>
+    <circle cx="30" cy="30" r="3" fill="#7dcfff"/>
+</svg>

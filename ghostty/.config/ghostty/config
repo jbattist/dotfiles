@@ -60,5 +60,4 @@ gtk-titlebar = false
 
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
-# theme = Gruvbox Dark Hard 
-theme = TokyoNight Night
+theme = noctalia
