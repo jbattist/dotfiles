@@ -1,0 +1,357 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Merged starship configuration with all three themes
+# Colors are named by their usage position in the prompt
+# Theme selection: change 'palette' value to desired theme:
+#   - catppuccin_mocha (default)
+#   - gruvbox_dark
+#   - tokyo_night
+
+# Color naming convention:
+# - os_section_bg: background for OS/username section
+# - dir_section_bg: background for directory section
+# - git_section_bg: background for git branch/status section
+# - lang_section_bg: background for language/tool section
+# - docker_section_bg: background for docker/container section
+# - time_section_bg: background for time section
+# - text_light: light foreground text in sections
+# - text_dark: dark foreground text for contrast
+# - success_fg: success indicator color
+# - error_fg: error indicator color
+
+# Pipes ╰─ ╭─
+# Powerline symbols                                     
+# Wedges 🭧🭒 🭣🭧🭓
+# Random noise 🬖🬥🬔🬗
+# Cool stuff 󰜥   
+
+format = """
+[](os_section_bg)\
+$os\
+$username\
+[](bg:dir_section_bg fg:os_section_bg)\
+$directory\
+[](fg:dir_section_bg bg:git_section_bg)\
+$git_branch\
+$git_status\
+[](fg:git_section_bg bg:lang_section_bg)\
+$c\
+$rust\
+$python\
+[](fg:lang_section_bg bg:docker_section_bg)\
+$docker_context\
+$container\
+[](fg:docker_section_bg bg:time_section_bg)\
+$time\
+[ ](fg:time_section_bg)\
+$line_break$character"""
+
+palette = 'tokyo_night'
+
+# ============================================================================
+# CATPPUCCIN MOCHA PALETTE
+# ============================================================================
+[palettes.catppuccin_mocha]
+os_section_bg = "#45475a"
+dir_section_bg = "#e1a44c"
+git_section_bg = "#9ece6a"
+lang_section_bg = "#7dcfff"
+docker_section_bg = "#7aa2f7"
+time_section_bg = "#bb9af7"
+text_light = "#cdd6f4"
+text_dark = "#1e1e2e"
+success_fg = "#9ece6a"
+error_fg = "#f38ba8"
+
+
+# ============================================================================
+# GRUVBOX DARK PALETTE
+# ============================================================================
+[palettes.gruvbox_dark]
+os_section_bg = "#d65d0e"
+dir_section_bg = "#d79921"
+git_section_bg = "#689d6a"
+lang_section_bg = "#458588"
+docker_section_bg = "#665c54"
+time_section_bg = "#3c3836"
+text_light = "#fbf1c7"
+text_dark = "#fbf1c7"
+success_fg = "#98971a"
+error_fg = "#cc241d"
+
+[palettes.gruvbox_dark_old]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
+
+
+# ============================================================================
+# TOKYO NIGHT PALETTE
+# ============================================================================
+[palettes.tokyo_night]
+os_section_bg = "#e1a44c"
+dir_section_bg = "#9ece6a"
+git_section_bg = "#7dcfff"
+lang_section_bg = "#7aa2f7"
+docker_section_bg = "#414868"
+time_section_bg = "#bb9af7"
+# text_light = "#cfc9c2"
+text_light = "#45475a"
+text_dark = "#1a1b27"
+success_fg = "#9ece6a"
+error_fg = "#f7768e"
+
+
+# ============================================================================
+# OS CONFIGURATION
+# ============================================================================
+[os]
+disabled = false
+style = "bg:os_section_bg fg:text_light"
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+AOSC = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+# ============================================================================
+# USER CONFIGURATION
+# ============================================================================
+[username]
+show_always = true
+style_user = "bg:os_section_bg fg:text_light"
+format = '[ $user ]($style)'
+
+# ============================================================================
+# DIRECTORY CONFIGURATION
+# ============================================================================
+[directory]
+style = "fg:text_dark bg:dir_section_bg"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+# ============================================================================
+# GIT CONFIGURATION
+# ============================================================================
+[git_branch]
+symbol = ""
+style = "bg:git_section_bg"
+format = '[[ $symbol $branch ](fg:text_dark bg:git_section_bg)]($style)'
+
+[git_status]
+style = "bg:git_section_bg"
+format = '[[($all_status$ahead_behind )](fg:text_dark bg:git_section_bg)]($style)'
+
+# ============================================================================
+# LANGUAGE CONFIGURATION
+# ============================================================================
+[c]
+symbol = " "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
+
+[cpp]
+symbol = " "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
+
+[rust]
+symbol = "󱘗 "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_light bg:lang_section_bg)]($style)'
+
+[python]
+symbol = " "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
+
+[nodejs]
+symbol = " "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
+
+[golang]
+symbol = " "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
+
+[php]
+symbol = " "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
+
+[java]
+symbol = " "
+style = "bg:lang_section_bg"
+format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
+
+
+# ============================================================================
+# DOCKER/CONTAINER CONFIGURATION
+# ============================================================================
+[docker_context]
+symbol = " "
+style = "bg:docker_section_bg"
+format = '[[ $symbol( $context) ](fg:text_light bg:docker_section_bg)]($style)'
+
+[container]
+symbol = " "
+# symbol = "󰏗 "
+style = "bg:docker_section_bg"
+format = '[[ $symbol( $name) ](fg:text_light bg:docker_section_bg)]($style)'
+
+# ============================================================================
+# TIME CONFIGURATION
+# ============================================================================
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:time_section_bg"
+format = '[[  $time ](fg:text_dark bg:time_section_bg)]($style)'
+
+# ============================================================================
+# PROMPT CONFIGURATION
+# ============================================================================
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = '[](bold fg:success_fg)'
+error_symbol = '[](bold fg:error_fg)'
+
+# ============================================================================
+# ADDITIONAL LANGUAGE SYMBOLS (REFERENCE)
+# ============================================================================
+[buf]
+symbol = " "
+
+[bun]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[deno]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fortran]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[gcloud]
+symbol = " "
+
+[gradle]
+symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[ocaml]
+symbol = " "
