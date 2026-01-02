@@ -1,5 +1,6 @@
 # dotfiles
 
-Run ahell script
+Run shell script
+
 Run the install script
 
