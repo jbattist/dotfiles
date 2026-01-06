@@ -62,4 +62,3 @@ keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
 
 theme = noctalia
-#config-file = ./config-dankcolors
