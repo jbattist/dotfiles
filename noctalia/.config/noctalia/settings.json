@@ -495,7 +495,7 @@
     "templates": {
         "alacritty": false,
         "cava": false,
-        "code": true,
+        "code": false,
         "discord": false,
         "emacs": false,
         "enableUserTemplates": false,
