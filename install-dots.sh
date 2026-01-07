@@ -51,6 +51,7 @@ main() {
     backup_and_stow "$repo_root" niri ".config/niri"
     backup_and_stow "$repo_root" noctalia ".config/noctalia"
     backup_and_stow "$repo_root" fuzzel ".config/fuzzel"
+    backup_and_stow "$repo_root" plasma".config"
 
     log "Dotfiles and configs installed."
 }
