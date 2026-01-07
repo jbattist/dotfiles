@@ -634,5 +634,11 @@ debug {
     render-drm-device "/dev/dri/card1"
 }
 
+// Environment vars to set
+environment {
+    QT_QPA_PLATFORMTHEME "kde"
+    QT_QPA_PLATFORMTHEME_QT6 "kde"
+}
+
 spawn-at-startup "qs" "-c" "noctalia-shell"
 include "./noctalia.kdl"
