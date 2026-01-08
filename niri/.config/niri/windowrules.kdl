@@ -38,6 +38,12 @@ window-rule {
 
 window-rule {
     match title="ARC Raiders"
-    open-on-workspace 2
     open-fullscreen true
+    open-on-workspace "2"
+}
+
+window-rule {
+    // Only this specific terminal floats
+    match app-id="com.mitchellh.ghostty" title="floating-terminal"
+    open-floating true
 }
