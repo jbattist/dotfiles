@@ -37,9 +37,10 @@ window-rule {
 }
 
 window-rule {
-    match title="ARC Raiders"
+    // match title="ARC Raiders"
+    match app-id="steam_app_1808500"
     open-fullscreen true
-    open-on-workspace "2"
+    // open-on-workspace "Games"
 }
 
 window-rule {
