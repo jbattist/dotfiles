@@ -33,3 +33,10 @@ recent-windows {
         urgent-color "#fb4934"
     }
 }
+
+recent-windows {
+    highlight {
+        active-color "#adc6ff"
+        urgent-color "#ffb4ab"
+    }
+}
