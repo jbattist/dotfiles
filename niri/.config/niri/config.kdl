@@ -327,7 +327,9 @@ environment {
     QT_QPA_PLATFORMTHEME_QT6 "kde"
 }
 
-spawn-at-startup "qs" "-c" "noctalia-shell"
-include "./noctalia.kdl"
 include "./keybinds.kdl"
-include "windowrules.kdl"
+include "./windowrules.kdl"
+
+// spawn-at-startup "qs" "-c" "noctalia-shell"
+// include "./noctalia.kdl"
+
