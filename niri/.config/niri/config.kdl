@@ -330,6 +330,6 @@ environment {
 include "./keybinds.kdl"
 include "./windowrules.kdl"
 
-// spawn-at-startup "qs" "-c" "noctalia-shell"
-// include "./noctalia.kdl"
+spawn-at-startup "qs" "-c" "noctalia-shell"
+include "./noctalia.kdl"
 
