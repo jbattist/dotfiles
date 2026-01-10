@@ -1,0 +1,18 @@
+[
+	{
+		"local": "/mnt/immich-backup",
+		"remote": "/immich-backup",
+		"syncMode": "cloudBackup"
+	},
+    {
+        "local": "/mnt/proxmox-backup",
+        "remote": "/proxmox-backup",
+        "syncMode": "cloudBackup"
+    },
+    {
+        "local": "/mnt/paperless",
+        "remote": "/paperless",
+        "syncMode": "cloudBackup"
+    }
+
+]

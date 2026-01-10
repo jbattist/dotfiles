@@ -39,3 +39,6 @@ alias ls="eza --icons=always"
 # Partial directory name cd with zoxide
 eval "$(zoxide init zsh)"
 alias cd="z"
+
+# filen-cli
+PATH=$PATH:~/.filen-cli/bin
