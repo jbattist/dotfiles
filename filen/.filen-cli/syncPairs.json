@@ -4,11 +4,7 @@
 		"remote": "/immich-backup",
 		"syncMode": "localToCloud"
 	},
-    {
-        "local": "/mnt/proxmox-backup",
-        "remote": "/proxmox-backup",
-        "syncMode": "localToCloud"
-    },
+
     {
         "local": "/mnt/paperless",
         "remote": "/paperless",
