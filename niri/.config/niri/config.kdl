@@ -96,6 +96,7 @@ output "DP-1" {
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
     mode "5120x1440@60.00"
+//mode "3840x1080@60.00"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
     scale 1
@@ -331,5 +332,7 @@ environment {
     QT_QPA_PLATFORMTHEME_QT6 "kde"
 }
 
+spawn-at-startup "qs" "-c" "noctalia-shell"
+include "./noctalia.kdl"
 include "./keybinds.kdl"
 include "./windowrules.kdl"
