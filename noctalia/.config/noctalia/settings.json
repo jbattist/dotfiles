@@ -486,6 +486,10 @@
             {
                 "enabled": true,
                 "id": "fuzzel"
+            },
+            {
+                "enabled": true,
+                "id": "niri"
             }
         ],
         "enableUserTemplates": false
