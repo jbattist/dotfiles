@@ -85,7 +85,7 @@ gestures {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-output "DP-3" {
+output "DP-1" {
     // Uncomment this line to disable this output.
     // off
 
@@ -95,10 +95,11 @@ output "DP-3" {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "3840x2160@240.00"
+    mode "5120x1440@60.00"
+//mode "3840x1080@60.00"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 1.5
+    scale 1
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -124,7 +125,7 @@ layout {
     gaps 10
 
     // When to center a column when changing focus, options are:
-    // - "never", default behavior, focusing an off-screen column will keep at the left
+    // - "nev0er", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
     // - "always", the focused column will always be centered.
     // - "on-overflow", focusing a column will center it if it doesn't fit
@@ -137,9 +138,13 @@ layout {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
         // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
         // The default preset widths are 1/3, 1/2 and 2/3 of the output.
-        proportion 0.33333
+        // proportion 0.33333
+        // proportion 0.5
+        // proportion 0.66667
+
+        proportion 0.25
+        proportion 0.3333
         proportion 0.5
-        proportion 0.66667
 
         // Fixed sets the width in logical pixels exactly.
         // fixed 1920
@@ -149,7 +154,7 @@ layout {
     // preset-window-heights { }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.3333; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
@@ -327,9 +332,7 @@ environment {
     QT_QPA_PLATFORMTHEME_QT6 "kde"
 }
 
-include "./keybinds.kdl"
-include "./windowrules.kdl"
-
 spawn-at-startup "qs" "-c" "noctalia-shell"
 include "./noctalia.kdl"
-
+include "./keybinds.kdl"
+include "./windowrules.kdl"
