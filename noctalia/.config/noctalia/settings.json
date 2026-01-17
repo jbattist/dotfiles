@@ -1,14 +1,12 @@
 {
     "appLauncher": {
-        "autoPasteClipboard": false,
-        "clipboardWrapText": true,
         "customLaunchPrefix": "",
         "customLaunchPrefixEnabled": false,
         "enableClipPreview": true,
         "enableClipboardHistory": true,
         "iconMode": "native",
         "ignoreMouseInput": false,
-        "pinnedApps": [
+        "pinnedExecs": [
         ],
         "position": "center",
         "screenshotAnnotationTool": "",
@@ -21,6 +19,7 @@
     },
     "audio": {
         "cavaFrameRate": 30,
+        "externalMixer": "pwvucontrol || pavucontrol",
         "mprisBlacklist": [
         ],
         "preferredPlayer": "",
@@ -76,15 +75,10 @@
                     "useFixedWidth": true
                 },
                 {
-                    "compactMode": false,
-                    "compactShowAlbumArt": true,
-                    "compactShowVisualizer": false,
                     "hideMode": "hidden",
                     "hideWhenIdle": false,
                     "id": "MediaMini",
                     "maxWidth": 145,
-                    "panelShowAlbumArt": true,
-                    "panelShowVisualizer": true,
                     "scrollingMode": "hover",
                     "showAlbumArt": true,
                     "showArtistFirst": true,
@@ -142,8 +136,7 @@
                 },
                 {
                     "displayMode": "onhover",
-                    "id": "Volume",
-                    "middleClickCommand": "pwvucontrol || pavucontrol"
+                    "id": "Volume"
                 },
                 {
                     "displayMode": "onhover",
@@ -202,12 +195,13 @@
     },
     "colorSchemes": {
         "darkMode": true,
+        "generateTemplatesForPredefined": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "matugenSchemeType": "scheme-fruit-salad",
         "predefinedScheme": "Gruvbox",
         "schedulingMode": "off",
-        "useWallpaperColors": true
+        "useWallpaperColors": false
     },
     "controlCenter": {
         "cards": [
@@ -292,7 +286,6 @@
         "pinnedApps": [
         ],
         "pinnedStatic": false,
-        "position": "bottom",
         "size": 1
     },
     "general": {
@@ -314,7 +307,6 @@
         "shadowDirection": "bottom_right",
         "shadowOffsetX": 2,
         "shadowOffsetY": 3,
-        "showChangelogOnStartup": true,
         "showHibernateOnLockScreen": false,
         "showScreenCorners": false,
         "showSessionButtonsOnLockScreen": true
@@ -331,8 +323,6 @@
     "location": {
         "analogClockInCalendar": false,
         "firstDayOfWeek": -1,
-        "hideWeatherCityName": false,
-        "hideWeatherTimezone": false,
         "name": "Hooksett, NH",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
@@ -347,7 +337,7 @@
         "bluetoothHideUnnamedDevices": false,
         "bluetoothRssiPollIntervalMs": 10000,
         "bluetoothRssiPollingEnabled": false,
-        "wifiDetailsViewMode": "list",
+        "wifiDetailsViewMode": "grid",
         "wifiEnabled": true
     },
     "nightLight": {
@@ -402,6 +392,18 @@
         ],
         "overlayLayer": true
     },
+    "screenRecorder": {
+        "audioCodec": "opus",
+        "audioSource": "default_output",
+        "colorRange": "limited",
+        "copyToClipboard": false,
+        "directory": "/home/joe/Videos",
+        "frameRate": 60,
+        "quality": "very_high",
+        "showCursor": true,
+        "videoCodec": "h264",
+        "videoSource": "portal"
+    },
     "sessionMenu": {
         "countdownDuration": 10000,
         "enableCountdown": true,
@@ -449,7 +451,7 @@
         "showHeader": true,
         "showNumberLabels": true
     },
-    "settingsVersion": 39,
+    "settingsVersion": 37,
     "systemMonitor": {
         "cpuCriticalThreshold": 90,
         "cpuPollingInterval": 3000,
@@ -490,7 +492,7 @@
         "kcolorscheme": false,
         "kitty": false,
         "mango": false,
-        "niri": true,
+        "niri": false,
         "pywalfox": false,
         "qt": false,
         "spicetify": false,
@@ -499,23 +501,18 @@
         "walker": false,
         "wezterm": false,
         "yazi": false,
-        "zed": false,
-        "zenBrowser": false
+        "zed": false
     },
     "ui": {
-        "bluetoothDetailsViewMode": "grid",
-        "bluetoothHideUnnamedDevices": false,
         "boxBorderEnabled": false,
         "fontDefault": "Inter",
         "fontDefaultScale": 1,
         "fontFixed": "JetBrainsMono Nerd Font",
         "fontFixedScale": 1,
-        "networkPanelView": "wifi",
         "panelBackgroundOpacity": 0.77,
         "panelsAttachedToBar": true,
         "settingsPanelMode": "attached",
-        "tooltipsEnabled": true,
-        "wifiDetailsViewMode": "grid"
+        "tooltipsEnabled": true
     },
     "wallpaper": {
         "directory": "/home/joe/.local/share/wallpapers",
