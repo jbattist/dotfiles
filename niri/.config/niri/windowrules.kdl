@@ -2,10 +2,10 @@
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
-// Open Ghostty at 40%
+// Open Ghostty at 33%
 window-rule {
     match title="Ghostty" 
-    default-column-width { proportion 0.20; }
+    default-column-width { proportion 0.333; }
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
