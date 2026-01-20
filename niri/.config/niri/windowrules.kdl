@@ -48,3 +48,9 @@ window-rule {
     match app-id="com.mitchellh.ghostty" title="floating-terminal"
     open-floating true
 }
+
+window-rule {
+    // Only this specific terminal floats
+    match app-id=r#"pavucontrol$"#
+    open-floating true
+}
