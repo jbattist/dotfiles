@@ -26,6 +26,12 @@ PACKAGES=(
     ttf-jetbrains-mono
     ttf-jetbrains-mono-nerd
     # in Extra repo - inter-font
+    lazyjournal-bin
+    nfs-utils
+    pavucontrol
+    openssh
+    btop
+    
 )
 
 # --- Helpers ---
