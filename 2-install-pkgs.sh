@@ -10,7 +10,7 @@ set -euo pipefail
 PACKAGES=(
     btop
     cups
-    ferdium-bin
+    #ferdium-bin
     filen-desktop-bin
     firefox
     fuzzel
@@ -18,9 +18,10 @@ PACKAGES=(
     noctalia-shell
     niri
     obsidian
-    protonplus
-    steam
-    visual-studio-code-bin
+    #protonplus
+    #steam
+    #visual-studio-code-bin
+    antigravity
     resources
     tela-icon-theme
     ttf-jetbrains-mono
@@ -30,7 +31,6 @@ PACKAGES=(
     nfs-utils
     pavucontrol
     openssh
-    btop
     
 )
 
