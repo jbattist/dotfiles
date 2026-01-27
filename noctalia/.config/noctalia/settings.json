@@ -53,14 +53,18 @@
                 {
                     "characterCount": 10,
                     "colorizeIcons": false,
+                    "emptyColor": "secondary",
                     "enableScrollWheel": true,
+                    "focusedColor": "primary",
                     "followFocusedScreen": false,
                     "groupedBorderOpacity": 1,
                     "hideUnoccupied": false,
                     "iconScale": 0.8,
                     "id": "Workspace",
                     "labelMode": "name",
+                    "occupiedColor": "secondary",
                     "showApplications": false,
+                    "showBadge": true,
                     "showLabelsOnlyWhenOccupied": true,
                     "unfocusedIconsOpacity": 1
                 }
@@ -139,16 +143,6 @@
                     "showUnreadBadge": true
                 },
                 {
-                    "deviceNativePath": "",
-                    "displayMode": "onhover",
-                    "hideIfIdle": false,
-                    "hideIfNotDetected": true,
-                    "id": "Battery",
-                    "showNoctaliaPerformance": false,
-                    "showPowerProfiles": false,
-                    "warningThreshold": 30
-                },
-                {
                     "displayMode": "onhover",
                     "id": "Volume",
                     "middleClickCommand": "pwvucontrol || pavucontrol"
@@ -176,6 +170,12 @@
                     "usePrimaryColor": false
                 },
                 {
+                    "defaultSettings": {
+                        "currentIconName": "world-download",
+                        "hideOnZero": false,
+                        "updateIntervalMinutes": 30,
+                        "updateTerminalCommand": "foot -e"
+                    },
                     "id": "plugin:update-count"
                 }
             ]
@@ -302,6 +302,7 @@
         "allowPanelsOnScreenWithoutBar": true,
         "animationDisabled": false,
         "animationSpeed": 1,
+        "autoStartAuth": false,
         "avatarImage": "/home/joe/dotfiles/Bulb.png",
         "boxRadiusRatio": 1,
         "compactLockScreen": false,
