@@ -70,10 +70,10 @@ binds {
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+J     { move-window-down; }
     Mod+Ctrl+K     { move-window-up; }
-    Mod+Ctrl+L     { move-column-right; }
+    Mod+Apostrophe     { move-column-right; }
+    Mod+Semicolon     { move-column-left; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
