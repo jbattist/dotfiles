@@ -1,8 +1,8 @@
 {
   "updateIntervalMinutes": 30,
-  "updateTerminalCommand": "foot -e",
+  "updateTerminalCommand": "ghostty -e",
   "currentIconName": "world-download",
   "hideOnZero": true,
-  "customCmdGetNumUpdates": "",
-  "customCmdDoSystemUpdate": ""
+  "customCmdGetNumUpdates": "yay -Quq 2> /dev/null | wc -l",
+  "customCmdDoSystemUpdate": "yay -Syu"
 }
