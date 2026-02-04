@@ -43,6 +43,3 @@ alias cd="z"
 # filen-cli
 PATH=$PATH:~/.filen-cli/bin
 export PATH="$HOME/.npm-global/bin:$PATH"
-
-# OpenClaw Completion
-source <(openclaw completion --shell zsh)
