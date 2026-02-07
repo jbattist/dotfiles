@@ -29,6 +29,7 @@ format = """
 [](os_section_bg)\
 $os\
 $username\
+$hostname\
 [](bg:dir_section_bg fg:os_section_bg)\
 $directory\
 [](fg:dir_section_bg bg:git_section_bg)\
@@ -157,7 +158,7 @@ Windows = "󰍲 "
 [username]
 show_always = true
 style_user = "bg:os_section_bg fg:text_light"
-format = '[ $user ]($style)'
+format = '[ $user]($style)'
 
 [hostname]
 ssh_only = false
@@ -165,7 +166,7 @@ disabled = false
 style = "bg:os_section_bg fg:text_light"
 format = '[@$hostname $ssh_symbol]($style)'
 ssh_symbol = " "
-detect_env_vars = ["SSH_CONNECTION"]
+# detect_env_vars = ["SSH_CONNECTION"]
 
 
 # ============================================================================
