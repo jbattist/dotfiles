@@ -46,8 +46,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'catppuccin_mocha'
-
+palette = 'noctalia'
 # ============================================================================
 # CATPPUCCIN MOCHA PALETTE
 # ============================================================================
@@ -159,6 +158,15 @@ Windows = "󰍲 "
 show_always = true
 style_user = "bg:os_section_bg fg:text_light"
 format = '[ $user ]($style)'
+
+[hostname]
+ssh_only = false
+disabled = false
+style = "bg:os_section_bg fg:text_light"
+format = '[@$hostname $ssh_symbol]($style)'
+ssh_symbol = " "
+detect_env_vars = ["SSH_CONNECTION"]
+
 
 # ============================================================================
 # DIRECTORY CONFIGURATION
@@ -317,9 +325,6 @@ symbol = " "
 [hg_branch]
 symbol = " "
 
-[hostname]
-ssh_symbol = " "
-
 [julia]
 symbol = " "
 
@@ -343,3 +348,18 @@ symbol = " "
 
 [ocaml]
 symbol = " "
+
+# ============================================================================
+# NOCTALIA (AUTO-GENERATED)
+# ============================================================================
+[palettes.noctalia]
+os_section_bg = "#241d27"
+dir_section_bg = "#acc7ff"
+git_section_bg = "#e0b8f6"
+lang_section_bg = "#acc7ff"
+docker_section_bg = "#4f4256"
+time_section_bg = "#d2c1d8"
+text_light = "#ebdfed"
+text_dark = "#002e68"
+success_fg = "#acc7ff"
+error_fg = "#ffb4ab"

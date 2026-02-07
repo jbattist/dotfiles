@@ -1,3 +1,7 @@
+# Keep Starship palette in sync with Noctalia active colors
+# (fast + idempotent; updates dotfiles starship.toml when Noctalia colors change)
+~/dotfiles/starship/update-noctalia-starship.py >/dev/null 2>&1 || true
+
 eval "$(starship init zsh)"
 
 HISTFILE=~/.history
