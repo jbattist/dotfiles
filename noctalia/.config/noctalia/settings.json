@@ -118,6 +118,13 @@
             ],
             "right": [
                 {
+                    "id": "plugin:privacy-indicator"
+                },
+                {
+                    "id": "Spacer",
+                    "width": 20
+                },
+                {
                     "compactMode": true,
                     "diskPath": "/",
                     "iconColor": "none",
@@ -549,6 +556,18 @@
             {
                 "enabled": true,
                 "id": "zenBrowser"
+            },
+            {
+                "enabled": true,
+                "id": "vicinae"
+            },
+            {
+                "enabled": true,
+                "id": "mango"
+            },
+            {
+                "enabled": true,
+                "id": "wezterm"
             }
         ],
         "enableUserTheming": false
