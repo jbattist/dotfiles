@@ -46,7 +46,7 @@ def build_starship_palette(c: dict) -> dict:
     # Section backgrounds: keep it dark and tasteful.
     # Use primary/tertiary for accent sections; use surface variants for calmer blocks.
     return {
-        "os_section_bg": c["mSurfaceVariant"],
+        "os_section_bg": c["mOutline"],
         "dir_section_bg": c["mPrimary"],
         "git_section_bg": c["mTertiary"],
         "lang_section_bg": c["mSecondary"],
