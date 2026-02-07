@@ -354,7 +354,7 @@ symbol = " "
 # NOCTALIA (AUTO-GENERATED)
 # ============================================================================
 [palettes.noctalia]
-os_section_bg = "#241d27"
+os_section_bg = "#4f4256"
 dir_section_bg = "#acc7ff"
 git_section_bg = "#e0b8f6"
 lang_section_bg = "#acc7ff"
