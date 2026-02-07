@@ -71,6 +71,13 @@ main() {
     backup_and_stow niri ".config/niri"
     backup_and_stow noctalia ".config/noctalia"
     backup_and_stow fuzzel ".config/fuzzel"
+
+    # GTK theming (Noctalia overlays + settings)
+    # We must backup both gtk-3.0 and gtk-4.0 before stowing the gtk package.
+    log "Installing GTK configs (gtk-3.0 + gtk-4.0)..."
+    backup_path "$HOME/.config/gtk-3.0"
+    backup_path "$HOME/.config/gtk-4.0"
+    stow_pkg "gtk"
     
     # Plasma: Special handling to avoid wiping .config
     install_plasma

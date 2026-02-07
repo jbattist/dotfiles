@@ -1,0 +1,190 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "display": {
+        "brightColor": "false",
+        "separator": "",
+        "constants": [
+            "\u001b[77C", // $1: Move cursor forward 77 columns (adjust if needed)
+            "\u001b[77D", // $2: Move cursor back 77 columns (not used, defined anyway)
+            "\u001b[88C", // $3: Move cursor to max width (wide term), or last column (narrow term)
+            "\u001b[20D", // $4: Move back 20 columns for the color block (both lines)
+            "───────────────────────────────────────────────────────────────────────────────────────"
+        ],
+        "key": {
+            "width": 14
+        }
+    },
+    "modules": [
+        {
+            "type": "custom",
+            "format": "┌───────────────────── Hardware ──────────────────────┐",
+            "outputColor": "38;2;61;233;224"
+        },
+        {
+            "type": "host",
+            "key": "  PC",
+            "keyColor": "green"
+        },
+        {
+            "type": "cpu",
+            "key": "│ ├ CPU",
+            "showPeCoreCount": true,
+            "keyColor": "green"
+        },
+        {
+            "type": "gpu",
+            "key": "│ ├󰍛 GPU",
+            "keyColor": "green"
+        },
+        {
+            "type": "gpu",
+            "key": "│ ├󰍛 GPU",
+            "format": "{3}",
+            "keyColor": "green"
+        },
+        {
+            "type": "display",
+            "key": "│ ├󰹑 DISPLAY",
+            "keyColor": "green"
+        },
+        {
+            "type": "sound",
+            "key": "│ ├󰓃 SOUND",
+            "keyColor": "green"
+        },
+        {
+            "type": "memory",
+            "key": "│ ├󰍛 MEMORY",
+            "keyColor": "green"
+        },
+        {
+            "type": "disk",
+            "key": "│ ├ DISK",
+            "keyColor": "green"
+        },
+        {
+            "type": "custom",
+            "format": "└────────────────────────────────────────────────────┘",
+            "outputColor": "38;2;61;233;224"
+        },
+        {
+            "type": "custom",
+            "format": "┌──────────────────────── OS ────────────────────────┐",
+            "outputColor": "38;2;255;63;0"
+        },
+        {
+            "type": "os",
+            "key": " OS",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "title",
+            "key": "│ ├ USER/HOST",
+            "format": "{user-name}@{host-name}",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "kernel",
+            "key": "│ ├ KERNEL",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "packages",
+            "key": "│ ├󰏖 PACKAGES",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminal",
+            "key": "│ ├ TERMINAL",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminalfont",
+            "key": "│ ├󰛖 TERMINAL FONT",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "shell",
+            "key": "└ └ SHELL",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "custom",
+            "format": "└────────────────────────────────────────────────────┘",
+            "outputColor": "38;2;255;63;0"
+        },
+        {
+            "type": "custom",
+            "format": "┌─────────────── Desktop Environment ────────────────┐",
+            "outputColor": "38;2;255;175;0"
+        },
+        {
+            "type": "de",
+            "key": " DE",
+            "keyColor": "blue"
+        },
+        {
+            "type": "lm",
+            "key": "│ ├ DISPLAY MANAGER",
+            "keyColor": "blue"
+        },
+        {
+            "type": "wm",
+            "key": "│ ├ WINDOW MANAGER",
+            "keyColor": "blue"
+        },
+        {
+            "type": "wmtheme",
+            "key": "│ ├ THEME",
+            "keyColor": "blue"
+        },
+        {
+            "type": "icons",
+            "key": "│ ├󰉼 ICONS",
+            "keyColor": "blue"
+        },
+        {
+            "type": "font",
+            "key": "│ ├󰛖 SYSTEM FONT",
+            "format": "{3}",
+            "keyColor": "blue"
+        },
+        {
+            "type": "custom",
+            "format": "└────────────────────────────────────────────────────┘",
+            "outputColor": "38;2;255;175;0"
+        },
+        {
+            "type": "custom",
+            "format": "┌─────────────────── Age / Uptime ───────────────────┐",
+            "outputColor": "38;2;61;174;233"
+        },
+        {
+            "type": "command",
+            "key": "│ OS Age ",
+            "keyColor": "magenta",
+            "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+        },
+        {
+            "type": "uptime",
+            "key": "│ Uptime ",
+            "keyColor": "magenta"
+        },
+        {
+            "type": "custom",
+            "format": "└────────────────────────────────────────────────────┘",
+            "outputColor": "38;2;61;174;233"
+        },
+        {
+            "type": "custom",
+            "format": "╰──{$5}{$4}┬─ {#black} {#red} {#green} {#yellow} {#blue} {#magenta} {#cyan} {#white}{#38;2;61;174;233} ─┤",
+            "outputColor": "38;2;61;174;233"
+        },
+        {
+            "type": "custom",
+            "format": "  {$3}{$4}╰─ {#bright_black} {#bright_red} {#bright_green} {#bright_yellow} {#bright_blue} {#bright_magenta} {#bright_cyan} {#bright_white}{#reset_default}{#38;2;61;174;233} ─╯",
+            "outputColor": "38;2;61;174;233"
+        },
+        "break"
+    ]
+}
