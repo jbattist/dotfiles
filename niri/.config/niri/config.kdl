@@ -300,6 +300,8 @@ environment {
 }
 
 spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-sh-at-startup "vicinae server"
+
 include "./output.kdl"
 include "./noctalia.kdl"
 include "./keybinds.kdl"
