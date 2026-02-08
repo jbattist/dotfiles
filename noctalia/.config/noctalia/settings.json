@@ -241,7 +241,7 @@
         "monitorForColors": "",
         "predefinedScheme": "Gruvbox",
         "schedulingMode": "off",
-        "useWallpaperColors": false
+        "useWallpaperColors": true
     },
     "controlCenter": {
         "cards": [
