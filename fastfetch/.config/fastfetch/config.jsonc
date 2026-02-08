@@ -168,7 +168,7 @@
         },
         {
             "type": "custom",
-            "format": "\u001b{#magenta}╭────────────────s───── Age / Uptime ─────────────────────╮"
+            "format": "\u001b{#magenta}╭───────────────────── Age / Uptime ─────────────────────╮"
         },
         {
             "type": "command",
@@ -183,12 +183,7 @@
         },
         {
             "type": "custom",
-            "format": "╰──{$5}{$4}┬─ {#black} {#red} {#green} {#yellow} {#blue} {#magenta} {#cyan} {#white} {#magenta}─┤",
-            "outputColor": "magenta"
-        },
-        {
-            "type": "custom",
-            "format": "  {$3}{$4}╰─ {#bright_black} {#bright_red} {#bright_green} {#bright_yellow} {#bright_blue} {#bright_magenta} {#bright_cyan} {#bright_white}{#magenta} ─╯",
+            "format": "╰──{$5}{$4}── {#black} {#red} {#green} {#yellow} {#blue} {#magenta} {#cyan} {#white} {#magenta}─╯",
             "outputColor": "magenta"
         }
     ]
