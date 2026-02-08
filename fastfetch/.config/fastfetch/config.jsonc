@@ -36,14 +36,14 @@
             "\u001b[77D", // $2: Move cursor back 77 columns (not used, defined anyway)
             "\u001b[88C", // $3: Move cursor to max width (wide term), or last column (narrow term)
             "\u001b[20D", // $4: Move back 20 columns for the color block (both lines)
-            "───────────────────────────────────────────────────────────────────────────────────────"
+            "──────────────────────────────────────────────────────"
         ]
     },
     "modules": [
         "break",
         {
             "type": "custom",
-            "format": "\u001b{#green}╭───────────────────── Hardware ──────────────────────╮"
+            "format": "\u001b{#green}╭─────────────────────── Hardware ───────────────────────╮"
         },
         {
             "type": "cpu",
