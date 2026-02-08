@@ -1,1 +1,0 @@
-- Fix mouse click and scroll codes in Niri/Ghostty

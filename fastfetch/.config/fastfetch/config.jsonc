@@ -1,64 +1,95 @@
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-
+    // Fastfetch color mapping - Use number for codes
+    // 30 	Black
+    // 31 	Red 
+    // 32 	Green
+    // 33 	Yellow
+    // 34 	Blue
+    // 35 	Magenta
+    // 36 	Cyan
+    // 37 	White
+    // 90 	Bright Black (Gray)
+    // 91 	Bright Red
+    // 92 	Bright Green
+    // 93 	Bright Yellow
+    // 94 	Bright Blue
+    // 95 	Bright Magenta
+    // 96 	Bright Cyan
+    // 97 	Bright White
+    // Lines ┌┐└┘╭╮╰╯│─
+    "logo": {
+        "color": {
+            "1": "blue"
+        },
+        "padding": {
+            "top": 5,
+            "bottom": 0,
+            "left": 3,
+            "right": 3
+        }
+    },
+    "display": {
+        "separator": ": ",
+        "constants": [
+            "\u001b[77C", // $1: Move cursor forward 77 columns (adjust if needed)
+            "\u001b[77D", // $2: Move cursor back 77 columns (not used, defined anyway)
+            "\u001b[88C", // $3: Move cursor to max width (wide term), or last column (narrow term)
+            "\u001b[20D", // $4: Move back 20 columns for the color block (both lines)
+            "───────────────────────────────────────────────────────────────────────────────────────"
+        ]
+    },
     "modules": [
+        "break",
         {
             "type": "custom",
-            "format": "\u001b[90m┌───────────────────── Hardware ──────────────────────┐"
-        },
-        {
-            "type": "host",
-            "key": "  PC",
-            "keyColor": "green"
+            "format": "\u001b{#green}╭───────────────────── Hardware ──────────────────────╮"
         },
         {
             "type": "cpu",
-            "key": "│ ├ CPU",
+            "key": "│ ┌ CPU",
             "showPeCoreCount": true,
             "keyColor": "green"
         },
         {
             "type": "gpu",
-            "key": "│ ├󰍛 GPU",
-            "keyColor": "green"
-        },
-        {
-            "type": "gpu",
-            "key": "│ ├󰍛 GPU",
-            "format": "{3}",
+            "key": "│ ├󰢮 GPU",
             "keyColor": "green"
         },
         {
             "type": "display",
             "key": "│ ├󰹑 DISPLAY",
-            "keyColor": "green"
+            "keyColor": "green",
+            "format": "{1}x{2} @ {3}Hz Scale: {21} {12}\""
         },
         {
             "type": "sound",
             "key": "│ ├󰓃 SOUND",
-            "keyColor": "green"
+            "keyColor": "green",
+            "format": "{name:39}"
         },
         {
             "type": "memory",
-            "key": "│ ├󰍛 MEMORY",
+            "key": "│ ├ MEMORY",
             "keyColor": "green"
         },
         {
             "type": "disk",
-            "key": "│ ├ DISK",
+            "key": "│ └ DISK",
             "keyColor": "green"
         },
         {
             "type": "custom",
-            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+            "format": "\u001b{#green}╰─{$5}─╯"
         },
         {
             "type": "custom",
-            "format": "\u001b[90m┌──────────────────────── OS ────────────────────────┐"
+            "format": "\u001b{#yellow}╭────────────────────────── OS ──────────────────────────╮"
         },
         {
+            // 
             "type": "os",
-            "key": " OS",
+            "key": "│ ┌󰣇 OS",
             "keyColor": "yellow"
         },
         {
@@ -89,16 +120,16 @@
         },
         {
             "type": "shell",
-            "key": "└ └ SHELL",
+            "key": "│ └ SHELL",
             "keyColor": "yellow"
-       },
-        {
-            "type": "custom",
-            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
         },
         {
             "type": "custom",
-            "format": "\u001b[90m┌─────────────── Desktop Environment ────────────────┐"
+            "format": "\u001b{#yellow}╰─{$5}─╯"
+        },
+        {
+            "type": "custom",
+            "format": "\u001b{#blue}╭───────────────── Desktop Environment ──────────────────╮"
         },
         {
             "type": "de",
@@ -107,12 +138,12 @@
         },
         {
             "type": "lm",
-            "key": "│ ├ DISPLAY MANAGER",
+            "key": "│ ┌ DISPLAY MANAGER",
             "keyColor": "blue"
         },
         {
             "type": "wm",
-            "key": "│ ├ WINDOW MANAGER",
+            "key": "│ ├󰹗 WINDOW MANAGER",
             "keyColor": "blue"
         },
         {
@@ -122,39 +153,43 @@
         },
         {
             "type": "icons",
-            "key": "│ ├󰉼 ICONS",
+            "key": "│ ├ ICONS",
             "keyColor": "blue"
         },
         {
             "type": "font",
-            "key": "│ ├󰛖 SYSTEM FONT",
+            "key": "│ └󰛖 SYSTEM FONT",
             "format": "{3}",
             "keyColor": "blue"
         },
         {
             "type": "custom",
-            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+            "format": "\u001b{#blue}╰─{$5}─╯"
         },
-       
         {
             "type": "custom",
-            "format": "\u001b[90m┌─────────────────── Age / Uptime ───────────────────┐"
+            "format": "\u001b{#magenta}╭────────────────s───── Age / Uptime ─────────────────────╮"
         },
         {
             "type": "command",
-            "key": "│ OS Age ",
+            "key": "│ ┌ OS Age ",
             "keyColor": "magenta",
             "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
         },
         {
             "type": "uptime",
-            "key": "│ Uptime ",
+            "key": "│ └ Uptime ",
             "keyColor": "magenta"
         },
         {
             "type": "custom",
-            "format": "\u001b[90m└────────────────────────────────────────────────────┘"
+            "format": "╰──{$5}{$4}┬─ {#black} {#red} {#green} {#yellow} {#blue} {#magenta} {#cyan} {#white} {#magenta}─┤",
+            "outputColor": "magenta"
         },
-        "break",
+        {
+            "type": "custom",
+            "format": "  {$3}{$4}╰─ {#bright_black} {#bright_red} {#bright_green} {#bright_yellow} {#bright_blue} {#bright_magenta} {#bright_cyan} {#bright_white}{#magenta} ─╯",
+            "outputColor": "magenta"
+        }
     ]
 }
