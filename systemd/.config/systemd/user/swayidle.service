@@ -1,0 +1,17 @@
+[Unit]
+Description=Idle manager for Wayland
+Documentation=man:swayidle(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+# Wait for the Wayland compositor
+ExecStartPre=/bin/sleep 2
+ExecStart=/usr/bin/swayidle -w \
+  timeout 3600 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"; swaylock -f' \
+  before-sleep 'swaylock -f'
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target
