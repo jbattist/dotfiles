@@ -31,7 +31,6 @@ PACKAGES=(
     nfs-utils
     pavucontrol
     openssh
-    swaylock
     swayidle
     
 )

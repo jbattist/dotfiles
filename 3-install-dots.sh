@@ -85,19 +85,15 @@ main() {
     # Plasma: Special handling to avoid wiping .config
     install_plasma
 
-    # Swaylock config (single config file)
-    log "Installing swaylock config..."
-    backup_path "$HOME/.config/swaylock"
-    stow_pkg "swaylock"
-
     # Systemd user services
-    log "Installing systemd user services..."
+    log "Installing swayidle user services..."
     backup_path "$HOME/.config/systemd/user/swayidle.service"
-    stow_pkg "systemd"
+    stow_pkg "swayidle"
 
     # Enable and start swayidle service if systemctl is available
     if command -v systemctl >/dev/null 2>&1; then
         log "Enabling swayidle service..."
+        systemctl --user add-wants niri.service swayidle.service
         systemctl --user daemon-reload
         systemctl --user enable swayidle.service
         if systemctl --user is-active --quiet graphical-session.target || [ -n "${WAYLAND_DISPLAY:-}" ]; then
