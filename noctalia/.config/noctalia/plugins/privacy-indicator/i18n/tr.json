@@ -17,5 +17,10 @@
     "cam-on": "Kamera: {apps}",
     "mic-on": "Mikrofon: {apps}",
     "screen-on": "Ekran paylaşımı: {apps}"
+  },
+  "toast": {
+    "cam-on": "Kamera aktif",
+    "mic-on": "Mikrofon aktif",
+    "screen-on": "Ekran paylaşımı aktif"
   }
 }

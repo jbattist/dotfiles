@@ -377,7 +377,7 @@
         "language": "",
         "lockOnSuspend": true,
         "lockScreenAnimations": false,
-        "lockScreenBlur": 0,
+        "lockScreenBlur": 0.15,
         "lockScreenCountdownDuration": 10000,
         "lockScreenMonitors": [
         ],
@@ -607,6 +607,10 @@
             {
                 "enabled": true,
                 "id": "wezterm"
+            },
+            {
+                "enabled": true,
+                "id": "sway"
             }
         ],
         "enableUserTheming": false

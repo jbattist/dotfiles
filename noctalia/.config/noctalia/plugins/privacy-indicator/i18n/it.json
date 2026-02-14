@@ -17,5 +17,10 @@
     "cam-on": "Kamera: {apps}",
     "mic-on": "Mikrofonoa: {apps}",
     "screen-on": "Ekran-partaĝado: {apps}"
+  },
+  "toast": {
+    "cam-on": "La fotocamera è attiva",
+    "mic-on": "Il microfono è attivo",
+    "screen-on": "La condivisione dello schermo è attiva"
   }
 }

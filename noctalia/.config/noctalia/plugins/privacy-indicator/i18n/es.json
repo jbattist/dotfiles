@@ -17,5 +17,10 @@
     "cam-on": "Cámara: {apps}",
     "mic-on": "Micrófono: {apps}",
     "screen-on": "Compartir pantalla: {apps}"
+  },
+  "toast": {
+    "cam-on": "La cámara está activa",
+    "mic-on": "El micrófono está activo",
+    "screen-on": "Compartir pantalla está activo"
   }
 }

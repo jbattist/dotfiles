@@ -17,5 +17,10 @@
     "cam-on": "摄像头: {apps}",
     "mic-on": "麦克风: {apps}",
     "screen-on": "屏幕共享: {apps}"
+  },
+  "toast": {
+    "cam-on": "摄像头已激活",
+    "mic-on": "麦克风已激活",
+    "screen-on": "屏幕共享已激活"
   }
 }

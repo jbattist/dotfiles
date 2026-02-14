@@ -17,5 +17,10 @@
     "cam-on": "Camera: {apps}",
     "mic-on": "Microfoon: {apps}",
     "screen-on": "Schermdeling: {apps}"
+  },
+  "toast": {
+    "cam-on": "Camera is actief",
+    "mic-on": "Microfoon is actief",
+    "screen-on": "Scherm delen is actief"
   }
 }
