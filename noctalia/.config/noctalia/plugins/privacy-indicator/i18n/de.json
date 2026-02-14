@@ -17,5 +17,10 @@
     "cam-on": "Kamera: {apps}",
     "mic-on": "Mikrofon: {apps}",
     "screen-on": "Bildschirmfreigabe: {apps}"
+  },
+  "toast": {
+    "cam-on": "Kamera ist aktiv",
+    "mic-on": "Mikrofon ist aktiv",
+    "screen-on": "Bildschirmfreigabe ist aktiv"
   }
 }

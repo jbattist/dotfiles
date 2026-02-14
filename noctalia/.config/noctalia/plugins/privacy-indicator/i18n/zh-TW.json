@@ -17,5 +17,10 @@
     "cam-on": "攝影機: {apps}",
     "mic-on": "麥克風: {apps}",
     "screen-on": "螢幕分享: {apps}"
+  },
+  "toast": {
+    "cam-on": "攝影機已啟用",
+    "mic-on": "麥克風已啟用",
+    "screen-on": "螢幕分享已啟用"
   }
 }

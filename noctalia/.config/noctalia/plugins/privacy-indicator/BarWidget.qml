@@ -213,6 +213,24 @@ Item {
     updateScreenShareState(nodes, links);
   }
 
+  onMicActiveChanged: {
+    if (micActive) {
+      ToastService.showNotice(pluginApi?.tr("toast.mic-on") || "Microphone is active", "", "microphone");
+    }
+  }
+
+  onCamActiveChanged: {
+    if (camActive) {
+      ToastService.showNotice(pluginApi?.tr("toast.cam-on") || "Camera is active", "", "camera");
+    }
+  }
+
+  onScrActiveChanged: {
+    if (scrActive) {
+      ToastService.showNotice(pluginApi?.tr("toast.screen-on") || "Screen sharing is active", "", "screen-share");
+    }
+  }
+
   function buildTooltip() {
     var parts = [];
 

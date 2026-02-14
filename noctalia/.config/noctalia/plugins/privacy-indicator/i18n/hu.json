@@ -17,5 +17,10 @@
     "cam-on": "Kamera: {apps}",
     "mic-on": "Mikrofon: {apps}",
     "screen-on": "Képernyőmegosztás: {apps}"
+  },
+  "toast": {
+    "cam-on": "A kamera aktív",
+    "mic-on": "A mikrofon aktív",
+    "screen-on": "Képernyőmegosztás aktív"
   }
 }
