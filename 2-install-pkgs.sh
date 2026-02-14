@@ -9,29 +9,29 @@ set -euo pipefail
 # Use package names as they appear in pacman/yay.
 PACKAGES=(
     btop
-    cups
+    #cups
     #ferdium-bin
-    filen-desktop-bin
+    #filen-desktop-bin
     firefox
-    fuzzel
+    #fuzzel
     nemo
-    noctalia-shell
-    niri
+    #noctalia-shell
+    #niri
     obsidian
     #protonplus
     #steam
     #visual-studio-code-bin
     antigravity
-    resources
-    tela-icon-theme
+    #resources
+    #tela-icon-theme
     ttf-jetbrains-mono
     ttf-jetbrains-mono-nerd
     # in Extra repo - inter-font
-    lazyjournal-bin
+    #lazyjournal-bin
     nfs-utils
-    pavucontrol
-    openssh
-    swayidle
+    #pavucontrol
+    #openssh
+    #swayidle
     
 )
 
