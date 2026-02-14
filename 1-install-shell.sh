@@ -51,7 +51,7 @@ install_with_yay() {
 			log "$pkg already installed"
 		else
 			log "Installing $pkg via yay"
-			yay -S --needed "$pkg"
+			yay -S --needed --noconfirm "$pkg"
 		fi
 	done
 }
