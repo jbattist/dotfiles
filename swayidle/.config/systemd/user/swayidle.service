@@ -5,11 +5,13 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/sbin/swayidle -w \
-timeout 300 'qs -c noctalia-shell ipc call lockScreen lock' \
+ExecStart=/usr/bin/swayidle -w timeout 3600 'sh -lc "qs -c noctalia-shell ipc call lockScreen lock"'
+
 #timeout 600 'qs -c noctalia-shell ipc call sessionMenu lockAndSuspend'
+
 # Ensure the process is restarted if it fails
 Restart=on-failure
+
 # Give the agent time to register with the D-Bus session
 TimeoutSec=30
 
