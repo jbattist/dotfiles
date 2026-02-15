@@ -279,4 +279,18 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+    // Keychron Special Keys
+    // F13 = XF86Tools
+    XF86Tools { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-"; }
+    // F14 = XF86Launch5
+    XF86Launch5 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%+"; }
+    // F15 = XF86Calculator
+    XF86Calculator { spawn "calculator";}
+    // F16 = XF86Launch6
+    XF86Launch6 { spawn "";}
+    // F17 = XF86Launch7
+    XF86Launch7 { spawn "";}
+    // F18 = XF86Launch8
+    XF86Launch8 { spawn "";}
 }
