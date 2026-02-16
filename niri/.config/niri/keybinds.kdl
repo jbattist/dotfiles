@@ -286,7 +286,7 @@ binds {
     // F14 = XF86Launch5
     XF86Launch5 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%+"; }
     // F15 = XF86Calculator
-    XF86Calculator { spawn "calculator";}
+    XF86Calculator { spawn "gnome-calculator";}
     // F16 = XF86Launch6
     XF86Launch6 { spawn "";}
     // F17 = XF86Launch7

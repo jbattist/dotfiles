@@ -32,6 +32,7 @@ PACKAGES=(
     #pavucontrol
     #openssh
     #swayidle
+    gnome-calculator
     
 )
 

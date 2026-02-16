@@ -7,8 +7,8 @@ After=graphical-session.target
 Type=simple
 
 ExecStart=/usr/bin/swayidle -w \
-    timeout 3600 'sh -lc "qs -c noctalia-shell ipc call lockScreen lock"' \
-    timeout 14400 'sh -lc "qs -c noctalia-shell ipc call sessionMenu lockAndSuspend"'
+    timeout 3600 'sh -lc "qs -c noctalia-shell ipc call lockScreen lock"' 
+    # timeout 14400 'sh -lc "qs -c noctalia-shell ipc call sessionMenu lockAndSuspend"'
 
 # Ensure the process is restarted if it fails
 Restart=on-failure
