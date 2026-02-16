@@ -59,3 +59,15 @@ window-rule {
     match app-id=r#"pavucontrol$"#
     open-floating true
 }
+
+window-rule {
+    // Only this specific terminal floats
+    match app-id=r#"org.gnome.Calculator$"#
+    open-floating true
+}
+
+window-rule {
+    // Only this specific terminal floats
+    match app-id=r#"org.gnome.Calculator$"#
+    open-floating true
+}
