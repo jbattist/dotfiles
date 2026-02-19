@@ -11,6 +11,14 @@
     "removeMargins": {
       "desc": "Usuń wszystkie zewnętrzne marginesy widżetu.",
       "label": "Usuń marginesy"
+    },
+    "activeColor": {
+      "desc": "Kolor ikon, gdy są aktywne.",
+      "label": "Kolor aktywnej ikony"
+    },
+    "inactiveColor": {
+      "desc": "Kolor ikon, gdy są nieaktywne.",
+      "label": "Kolor nieaktywnej ikony"
     }
   },
   "tooltip": {
@@ -22,5 +30,17 @@
     "cam-on": "Kamera jest aktywna",
     "mic-on": "Mikrofon jest aktywny",
     "screen-on": "Udostępnianie ekranu jest aktywne"
+  },
+  "menu": {
+    "settings": "Ustawienia widżetu"
+  },
+  "history": {
+    "title": "Historia dostępu",
+    "empty": "Brak ostatnich dostępów",
+    "clear": "Wyczyść",
+    "action": {
+      "started": "Rozpoczęto",
+      "stopped": "Zatrzymano"
+    }
   }
 }
