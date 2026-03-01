@@ -86,23 +86,23 @@ main() {
     install_plasma
 
     # Systemd user services
-    log "Installing swayidle user services..."
-    backup_path "$HOME/.config/systemd/user/swayidle.service"
-    stow_pkg "swayidle"
+    # log "Installing swayidle user services..."
+    # backup_path "$HOME/.config/systemd/user/swayidle.service"
+    # stow_pkg "swayidle"
 
-    # Enable and start swayidle service if systemctl is available
-    if command -v systemctl >/dev/null 2>&1; then
-        log "Enabling swayidle service..."
-        systemctl --user add-wants niri.service swayidle.service
-        systemctl --user daemon-reload
-        systemctl --user enable swayidle.service
-        if systemctl --user is-active --quiet graphical-session.target || [ -n "${WAYLAND_DISPLAY:-}" ]; then
-            log "Starting swayidle service..."
-            systemctl --user start swayidle.service
-        else
-            log "Not in graphical session, skipping service start (will auto-start on next login)"
-        fi
-    fi
+    # # Enable and start swayidle service if systemctl is available
+    # if command -v systemctl >/dev/null 2>&1; then
+    #     log "Enabling swayidle service..."
+    #     systemctl --user add-wants niri.service swayidle.service
+    #     systemctl --user daemon-reload
+    #     systemctl --user enable swayidle.service
+    #     if systemctl --user is-active --quiet graphical-session.target || [ -n "${WAYLAND_DISPLAY:-}" ]; then
+    #         log "Starting swayidle service..."
+    #         systemctl --user start swayidle.service
+    #     else
+    #         log "Not in graphical session, skipping service start (will auto-start on next login)"
+    #     fi
+    # fi
 
     log "Dotfiles and configs installed."
 }

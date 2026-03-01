@@ -133,7 +133,7 @@ ForegroundPositive=179,225,163
 ForegroundVisited=173,142,230
 
 [General]
-ColorSchemeHash=9f63c7711a13123582e720791ea0f8c0172977d2
+ColorSchemeHash=b97562e9308a74623cceab30d237ce2d67fb72a8
 XftHintStyle=hintslight
 XftSubPixel=none
 fixed=JetBrainsMono Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
@@ -147,6 +147,8 @@ Theme=Tela-dracula-dark
 
 [KDE]
 LookAndFeelPackage=com.github.Jayy-Dev.Plasma.Tokyo.Night
+contrast=4
+frameContrast=0.2
 
 [KFileDialog Settings]
 Allow Expansion=false
