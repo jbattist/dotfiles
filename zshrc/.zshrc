@@ -48,3 +48,4 @@ alias cd="z"
 PATH=$PATH:~/.filen-cli/bin
 export PATH="$HOME/.npm-global/bin:$PATH"
 
+
