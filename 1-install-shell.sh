@@ -104,6 +104,10 @@ main() {
 	install_with_yay
 	link_dotfiles
 	ensure_default_shell
+
+	# Fix nsswitch.conf to prioritize DNS over LLMNR for name resolution
+	sudo sed -i 's/^hosts:.*/hosts: files dns resolve myhostname mymachines/' /etc/nsswitch.conf
+	
 	log "Setup complete. Open a new terminal session to start zsh."
 	echo
 	read -rp "Would you like to reboot now? [y/N]: " answer
