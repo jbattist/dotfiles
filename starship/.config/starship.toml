@@ -96,6 +96,20 @@ text_dark = "#1a1b27"
 success_fg = "#9ece6a"
 error_fg = "#f7768e"
 
+# ============================================================================
+# ONE DARK PALETTE
+# ============================================================================
+[palettes.onedark]
+os_section_bg = "#61afef"
+dir_section_bg = "#98c379"
+git_section_bg = "#e06c75"
+lang_section_bg = "#e5c07b"
+docker_section_bg = "#56b6c2"
+time_section_bg = "#c678dd"
+text_light = "#494c52"
+text_dark = "#282c34"
+success_fg = "#98c379"
+error_fg = "#e06c75"
 
 # ============================================================================
 # OS CONFIGURATION
