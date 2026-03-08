@@ -1,4 +1,5 @@
 {
+    "clipboard": "terminal",
     "colorscheme": "catppuccin-mocha-transparent",
     "softwrap": true,
     "wordwrap": true

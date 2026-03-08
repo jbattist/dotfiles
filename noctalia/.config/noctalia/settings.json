@@ -135,6 +135,9 @@
             ],
             "right": [
                 {
+                    "id": "plugin:model-usage"
+                },
+                {
                     "id": "Spacer",
                     "width": 20
                 },
