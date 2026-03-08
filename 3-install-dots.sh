@@ -71,6 +71,7 @@ main() {
     backup_and_stow niri ".config/niri"
     backup_and_stow noctalia ".config/noctalia"
     backup_and_stow fuzzel ".config/fuzzel"
+    backup_and_stow hyprland ".config/hypr"
 
     # GTK theming (Noctalia overlays + settings)
     # We must backup both gtk-3.0 and gtk-4.0 before stowing the gtk package.
