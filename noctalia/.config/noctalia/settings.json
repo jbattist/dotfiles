@@ -670,10 +670,6 @@
             },
             {
                 "enabled": true,
-                "id": "zenBrowser"
-            },
-            {
-                "enabled": true,
                 "id": "mango"
             },
             {
@@ -690,15 +686,15 @@
             },
             {
                 "enabled": true,
-                "id": "ghostty"
-            },
-            {
-                "enabled": true,
                 "id": "steam"
             },
             {
                 "enabled": true,
                 "id": "hyprland"
+            },
+            {
+                "enabled": true,
+                "id": "ghostty"
             }
         ],
         "enableUserTheming": false
