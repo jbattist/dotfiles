@@ -84,6 +84,22 @@ kill-jobs() {
     done
 }
 
+# Pick a command from fzf and run it.
+cmds() {
+    # Pick a command from fzf and run it.
+    local cmd
+    cmd=$(
+        (
+            print -l ${(ok)aliases}
+            print -l ${(ok)functions}
+            print -l ${(ok)builtins}
+            print -l ${(ok)commands}
+        ) | sort -u | fzf
+    ) || return
+    print -z "$cmd"
+}
+
+
 # Sources #####################################################################
 
 if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
