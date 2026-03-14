@@ -32,8 +32,29 @@ funcs() {
 
 # ff .pdf    → finds all PDFs anywhere below current dir
 ff() {
-    find . -type f -iname "*$1*" 2>/dev/null
+    # Find files matching the search term and print a compact, readable list.
+    [[ -z "$1" ]] && {
+        echo "Usage: ff <pattern>"
+        return 1
+    }
+
+    local file dir icon found=0
+    while IFS= read -r file; do
+        found=1
+        dir=${file:h}
+        dir=${dir#./}
+        [[ -z "$dir" || "$dir" == "$file" ]] && dir="."
+
+        icon=$(eza --icons=always --no-filesize --no-permissions --no-time --no-user "$file" 2>/dev/null | sed 's/[[:space:]].*$//')
+        print -P "${icon} %F{6}${file:t}%f  %F{8}${dir}%f"
+    done < <(find . -type f -iname "*$1*" 2>/dev/null)
+
+    (( found )) || {
+        echo "No files found for: $1"
+        return 1
+    }
 }
+
 
 # Pretty print PATH with one entry per line
 path() {
