@@ -9,6 +9,12 @@
         "local": "/mnt/paperless",
         "remote": "/paperless",
         "syncMode": "localToCloud"
+    },
+
+    {
+        "local": "/mnt/proxmox-backup",
+        "remote": "/proxmox-backup",
+        "syncMode": "localToCloud"
     }
 
 ]
