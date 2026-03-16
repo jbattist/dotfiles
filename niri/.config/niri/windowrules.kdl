@@ -6,7 +6,11 @@
 window-rule {
     match title="Ghostty" 
     // default-column-width { proportion 0.333; }
+    //Home
     default-column-width { proportion 0.25; }
+    //Work
+    // default-column-width { proportion 0.2; }
+    
 }
 // Open Wezterm at 33%
 window-rule {
