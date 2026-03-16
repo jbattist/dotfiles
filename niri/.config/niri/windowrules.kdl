@@ -10,6 +10,8 @@ window-rule {
     default-column-width { proportion 0.25; }
     //Work
     // default-column-width { proportion 0.2; }
+    //Laptop
+    // default-column-width { proportion 0.5; }
     
 }
 // Open Wezterm at 33%
