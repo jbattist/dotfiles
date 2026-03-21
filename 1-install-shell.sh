@@ -44,7 +44,7 @@ install_with_yay() {
 		rm -rf "$tmpdir"
 	fi
 
-	packages="zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty micro bat"
+	packages="zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty micro bat fd"
 
 	for pkg in $packages; do
 		if yay -Qi "$pkg" >/dev/null 2>&1; then
