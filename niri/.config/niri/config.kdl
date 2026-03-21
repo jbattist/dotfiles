@@ -100,9 +100,9 @@ layout {
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
         //Home
-        proportion 0.25
         proportion 0.3333
         proportion 0.5
+        proportion 0.6
 
         //Work
         // proportion 0.2
@@ -117,7 +117,7 @@ layout {
     }
 
     //Home
-    default-column-width { proportion 0.3333; }
+    default-column-width { proportion 0.5; }
     //Work
     //default-column-width { proportion 0.25; }
     //Laptop
