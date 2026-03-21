@@ -5,7 +5,14 @@
 // Open Ghostty at 33%
 window-rule {
     match title="Ghostty" 
-    default-column-width { proportion 0.333; }
+    // default-column-width { proportion 0.333; }
+    //Home
+    default-column-width { proportion 0.25; }
+    //Work
+    // default-column-width { proportion 0.2; }
+    //Laptop
+    // default-column-width { proportion 0.5; }
+    
 }
 // Open Wezterm at 33%
 window-rule {
@@ -66,8 +73,13 @@ window-rule {
     open-floating true
 }
 
+// WORK MACHINE STUFF
 window-rule {
-    // Only this specific terminal floats
-    match app-id=r#"org.gnome.Calculator$"#
+    match app-id=r#"chrome-faolnafnngnfdaknnbpnkhgohbobgegn-Default"#
     open-floating true
+}
+
+window-rule {
+    match app-id=r#"chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default"#
+    default-column-width { proportion 0.25; }
 }
