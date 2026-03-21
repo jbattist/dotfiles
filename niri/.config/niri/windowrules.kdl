@@ -5,7 +5,6 @@
 // Open Ghostty at 33%
 window-rule {
     match title="Ghostty" 
-    // default-column-width { proportion 0.333; }
     //Home
     default-column-width { proportion 0.3333; }
     //Work
@@ -36,12 +35,6 @@ window-rule {
     clip-to-geometry true
 }
 
-window-rule {
-    // match title="ARC Raiders"
-    //match app-id="steam_app_1808500"
-    //open-fullscreen true
-    // open-on-workspace "Games"
-}
 
 window-rule {
     // Only this specific terminal floats
@@ -61,7 +54,7 @@ window-rule {
     open-floating true
 }
 
-// WORK MACHINE STUFF
+// WORK MACHINE STUFF ######################################################
 window-rule {
     match app-id=r#"chrome-faolnafnngnfdaknnbpnkhgohbobgegn-Default"#
     open-floating true
