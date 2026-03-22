@@ -17,8 +17,7 @@ return {
         size = { height = 15 },
         filter = function(buf)
           local name = vim.api.nvim_buf_get_name(buf)
-          local ft = vim.bo[buf].filetype
-          return not name:match("opencode") and ft ~= "lazygit"
+          return not name:match("opencode") and not name:match("lazygit")
         end,
       },
       {
