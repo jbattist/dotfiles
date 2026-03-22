@@ -22,7 +22,7 @@ return {
         position = "left",
         width = 30,
         mappings = {
-          ["<space>"] = "none", -- Don't conflict with leader
+          ["<space>"] = "none",
         },
       },
       default_component_configs = {
