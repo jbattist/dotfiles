@@ -4,11 +4,6 @@ local map = vim.keymap.set
 map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
 
 -- ── File operations ─────────────────────────────────────
-vim.api.nvim_create_user_command('W', function()
-  vim.cmd('silent! write !sudo tee > /dev/null %')
-  vim.cmd('edit!')
-end, {})
-
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 map("n", "<leader>W", ":W<CR>", { desc = "Sudo Save file" })
 map("n", "<leader>q", ":q<CR>", { desc = "Quit" })
