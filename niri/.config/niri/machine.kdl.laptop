@@ -1,0 +1,18 @@
+// machine.kdl.laptop — copy to machine.kdl on laptop
+// Installed by 3-install-dots.sh when profile=laptop
+
+layout {
+    preset-column-widths {
+        proportion 0.3333
+        proportion 0.5
+        proportion 0.6666
+    }
+    default-column-width { proportion 0.6666; }
+}
+
+// TODO: update output name to match your laptop display (check with `niri msg outputs`)
+output "eDP-1" {
+    scale 1
+    transform "normal"
+    position x=0 y=0
+}

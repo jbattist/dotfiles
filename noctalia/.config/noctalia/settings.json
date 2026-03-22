@@ -402,7 +402,7 @@
         "animationDisabled": false,
         "animationSpeed": 1,
         "autoStartAuth": false,
-        "avatarImage": "/home/joe/dotfiles/Bulb.png",
+        "avatarImage": "~/dotfiles/Bulb.png",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "custom",

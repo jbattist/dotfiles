@@ -54,13 +54,5 @@ window-rule {
     open-floating true
 }
 
-// WORK MACHINE STUFF ######################################################
-window-rule {
-    match app-id=r#"chrome-faolnafnngnfdaknnbpnkhgohbobgegn-Default"#
-    open-floating true
-}
-
-window-rule {
-    match app-id=r#"chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default"#
-    default-column-width { proportion 0.25; }
-}
+// Machine-specific window rules are in machine.kdl (not tracked in git).
+// See machine.kdl.home / machine.kdl.work / machine.kdl.laptop for templates.

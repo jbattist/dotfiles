@@ -1,0 +1,29 @@
+// machine.kdl.work — copy to machine.kdl on work machine
+// Installed by 3-install-dots.sh when profile=work
+
+layout {
+    preset-column-widths {
+        proportion 0.2
+        proportion 0.25
+        proportion 0.3333
+    }
+    default-column-width { proportion 0.25; }
+}
+
+// TODO: update output name/settings to match your work monitor(s)
+output "DP-1" {
+    scale 1
+    transform "normal"
+    position x=0 y=0
+}
+
+// Work-specific window rules
+window-rule {
+    match app-id=r#"chrome-faolnafnngnfdaknnbpnkhgohbobgegn-Default"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default"#
+    default-column-width { proportion 0.25; }
+}
