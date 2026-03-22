@@ -3,8 +3,7 @@ return {
   build = ":TSUpdate",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    ---@diagnostic disable-next-line: missing-fields
-    require("nvim-treesitter").setup({
+    require("nvim-treesitter.configs").setup({
       ensure_installed = {
         "lua", "python", "javascript", "typescript", "bash",
         "json", "yaml", "toml", "html", "css", "markdown",

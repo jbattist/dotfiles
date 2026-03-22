@@ -43,11 +43,6 @@ return {
         vim.cmd.colorscheme("tokyonight-night")
       end
 
-      -- Theme switcher: Space + T to pick a theme with Telescope
-      vim.keymap.set("n", "<leader>T", function()
-        vim.cmd("Telescope colorscheme enable_preview=true")
-      end, { desc = "Switch theme" })
-
       -- Auto-save when theme changes
       vim.api.nvim_create_autocmd("ColorScheme", {
         callback = function(args)

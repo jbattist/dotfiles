@@ -25,7 +25,5 @@ return {
 
       vim.cmd("wincmd k")
     end, { desc = "Open VS Code-like layout" })
-
-    vim.keymap.set("n", "<leader>L", ":Layout<CR>", { desc = "Launch VS Code layout" })
   end,
 }

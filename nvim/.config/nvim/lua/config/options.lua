@@ -37,25 +37,3 @@ opt.timeoutlen = 300           -- Faster key sequence completion
 
 -- Completion
 opt.completeopt = "menuone,noselect"
-
--- Theme persistence
-local theme_file = vim.fn.stdpath("data") .. "/current_theme.txt"
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function(args)
-    vim.fn.writefile({ args.match }, theme_file)
-  end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LazyDone",
-  once = true,
-  callback = function()
-    if vim.fn.filereadable(theme_file) == 1 then
-      local lines = vim.fn.readfile(theme_file)
-      if #lines > 0 and lines[1] ~= "" then
-        pcall(vim.cmd.colorscheme, lines[1])
-      end
-    end
-  end,
-})

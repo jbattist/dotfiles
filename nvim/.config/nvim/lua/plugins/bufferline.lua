@@ -21,9 +21,5 @@ return {
         always_show_bufferline = true,
       },
     })
-
-    -- Pick buffer by letter
-    vim.keymap.set("n", "<leader>bp", ":BufferLinePick<CR>", { desc = "Pick buffer" })
-    vim.keymap.set("n", "<leader>bc", ":BufferLinePickClose<CR>", { desc = "Pick close buffer" })
   end,
 }
