@@ -10,7 +10,7 @@ map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
 -- ── File operations ─────────────────────────────────────
 map("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 map("n", "<leader>q", ":q<CR>", { desc = "Quit" })
-map("n", "<leader>Q", ":qa<CR>", { desc = "Quit ALL panels" })
+map("n", "<leader>Q", ":qa!<CR>", { desc = "Quit ALL panels" })
 map("n", "<leader>x", ":x<CR>", { desc = "Save and quit" })
 
 -- ── Window navigation ───────────────────────────────────
