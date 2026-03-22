@@ -44,7 +44,7 @@ install_with_yay() {
 		rm -rf "$tmpdir"
 	fi
 
-	packages="zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty micro bat fd"
+	packages="fish zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty micro bat fd"
 
 	for pkg in $packages; do
 		if yay -Qi "$pkg" >/dev/null 2>&1; then
@@ -67,6 +67,9 @@ link_dotfiles() {
 	log "Linking .zshrc via stow"
 	stow -d "$repo_root" -R -t "$HOME" zshrc
 
+	log "Linking fish config via stow"
+	stow -d "$repo_root" -R -t "$HOME" fish
+
 	log "Linking starship config via stow"
 	stow -d "$repo_root" -R -t "$HOME" starship
 
@@ -84,20 +87,71 @@ link_dotfiles() {
 	stow -d "$repo_root" -R -t "$HOME" ghostty
 }
 
-ensure_default_shell() {
-	local zsh_path
-	if ! zsh_path=$(command -v zsh); then
-		err "zsh is not installed or not in PATH"
-		exit 1
+choose_default_shell() {
+	if [ -n "${DEFAULT_SHELL:-}" ]; then
+		case "$DEFAULT_SHELL" in
+			fish|zsh|skip)
+				printf '%s' "$DEFAULT_SHELL"
+				return
+				;;
+			*)
+				err "Invalid DEFAULT_SHELL='$DEFAULT_SHELL'. Use: fish, zsh, or skip."
+				exit 1
+				;;
+		esac
 	fi
 
-	if [ "${SHELL:-}" = "$zsh_path" ]; then
-		log "zsh is already the default shell"
+	if [ ! -t 0 ]; then
+		printf '%s' "fish"
 		return
 	fi
 
-	log "Setting default shell to zsh (you may be prompted for your password)"
-	chsh -s "$zsh_path"
+	echo
+	echo "Choose your default shell:"
+	echo "  1) fish (recommended, default)"
+	echo "  2) zsh"
+	echo "  3) keep current shell"
+	read -rp "Selection [1/2/3]: " shell_choice
+
+	case "$shell_choice" in
+		""|1)
+			printf '%s' "fish"
+			;;
+		2)
+			printf '%s' "zsh"
+			;;
+		3)
+			printf '%s' "skip"
+			;;
+		*)
+			err "Invalid shell selection: $shell_choice"
+			exit 1
+			;;
+	esac
+}
+
+ensure_default_shell() {
+	local target_shell shell_path selected_shell
+	selected_shell=$(choose_default_shell)
+
+	if [ "$selected_shell" = "skip" ]; then
+		log "Keeping current default shell unchanged"
+		return
+	fi
+
+	target_shell="$selected_shell"
+	if ! shell_path=$(command -v "$target_shell"); then
+		err "$target_shell is not installed or not in PATH"
+		exit 1
+	fi
+
+	if [ "${SHELL:-}" = "$shell_path" ]; then
+		log "$target_shell is already the default shell"
+		return
+	fi
+
+	log "Setting default shell to $target_shell (you may be prompted for your password)"
+	chsh -s "$shell_path"
 }
 
 main() {
@@ -108,7 +162,7 @@ main() {
 	# Fix nsswitch.conf to prioritize DNS over LLMNR for name resolution
 	sudo sed -i 's/^hosts:.*/hosts: files dns resolve myhostname mymachines/' /etc/nsswitch.conf
 	
-	log "Setup complete. Open a new terminal session to start zsh."
+	log "Setup complete. Open a new terminal session to use your selected shell."
 	echo
 	read -rp "Would you like to reboot now? [y/N]: " answer
 	case "$answer" in

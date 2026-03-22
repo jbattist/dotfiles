@@ -10,6 +10,7 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
+   "activate_on_single_click": true,
    "theme": {
       "dark": {
          "name": "noctalia"
