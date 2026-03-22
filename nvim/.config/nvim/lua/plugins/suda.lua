@@ -1,6 +1,6 @@
 return {
   "lambdalisue/vim-suda",
-  cmd = { "SudaRead", "SudaWrite" },
+  event = "VeryLazy",
   init = function()
     vim.cmd([[cnoreabbrev <expr> W ((getcmdtype() == ':' && getcmdline() == 'W') ? 'SudaWrite' : 'W')]])
   end,
