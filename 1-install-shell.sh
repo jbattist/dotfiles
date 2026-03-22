@@ -82,7 +82,7 @@ install_with_yay() {
 		rm -rf "$tmpdir"
 	fi
 
-	packages="fish zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty micro bat fd"
+	packages="fish zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty micro bat fd neovim"
 
 	for pkg in $packages; do
 		if yay -Qi "$pkg" >/dev/null 2>&1; then
@@ -107,6 +107,7 @@ link_dotfiles() {
 	backup_and_stow "$repo_root" starship ".config/starship.toml"
 	backup_and_stow "$repo_root" fastfetch ".config/fastfetch"
 	backup_and_stow "$repo_root" ghostty ".config/ghostty"
+	backup_and_stow "$repo_root" nvim ".config/nvim"
 }
 
 choose_default_shell() {
