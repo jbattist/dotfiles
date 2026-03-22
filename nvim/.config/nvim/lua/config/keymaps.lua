@@ -66,6 +66,9 @@ end, { desc = "Toggle bottom terminal" })
 map("n", "<leader>to", function()
   require("toggleterm.terminal").Terminal:new({ cmd = "opencode", direction = "vertical", count = 6 }):toggle()
 end, { desc = "Toggle opencode (right)" })
+
+-- Git stuff
+-- ── Git ─────────────────────────────────────────────────
 map("n", "<leader>gg", function()
   require("toggleterm.terminal").Terminal:new({
     cmd = "lazygit",
@@ -76,7 +79,10 @@ map("n", "<leader>gg", function()
       height = function() return math.floor(vim.o.lines * 0.9) end,
     },
   }):toggle()
-end, { desc = "Open Lazygit" })
+end, { desc = "Lazygit (floating)" })
+map("n", "<leader>gs", ":Neogit<CR>", { desc = "Git status (in editor)" })
+map("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Git diff view" })
+map("n", "<leader>gl", ":Neogit log<CR>", { desc = "Git log" })
 
 -- Terminal mode (inside a terminal)
 map("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
