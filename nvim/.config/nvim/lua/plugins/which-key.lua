@@ -29,6 +29,7 @@ return {
 
       -- File operations
       { "<leader>w", desc = "Save file" },
+      { "<leader>W", desc = "Sudo save file" },
       { "<leader>q", desc = "Quit" },
       { "<leader>Q", desc = "Quit ALL panels" },
       { "<leader>e", desc = "Toggle file explorer" },
