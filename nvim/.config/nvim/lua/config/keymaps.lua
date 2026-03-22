@@ -60,11 +60,29 @@ map("n", "<leader>T", function()
 end, { desc = "Switch colorscheme" })
 
 -- ── Terminal ────────────────────────────────────────────
+-- ── Terminal ────────────────────────────────────────────
+local bottom_term = nil
+local opencode_term = nil
+
 map("n", "<leader>tt", function()
-  require("toggleterm.terminal").Terminal:new({ direction = "horizontal", count = 5 }):toggle()
+  if not bottom_term then
+    bottom_term = require("toggleterm.terminal").Terminal:new({
+      direction = "horizontal",
+      count = 5,
+    })
+  end
+  bottom_term:toggle()
 end, { desc = "Toggle bottom terminal" })
+
 map("n", "<leader>to", function()
-  require("toggleterm.terminal").Terminal:new({ cmd = "opencode", direction = "vertical", count = 6 }):toggle()
+  if not opencode_term then
+    opencode_term = require("toggleterm.terminal").Terminal:new({
+      cmd = "opencode",
+      direction = "vertical",
+      count = 6,
+    })
+  end
+  opencode_term:toggle()
 end, { desc = "Toggle opencode (right)" })
 
 -- Git stuff
@@ -79,10 +97,7 @@ map("n", "<leader>gg", function()
       height = function() return math.floor(vim.o.lines * 0.9) end,
     },
   }):toggle()
-end, { desc = "Lazygit (floating)" })
-map("n", "<leader>gs", ":Neogit<CR>", { desc = "Git status (in editor)" })
-map("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Git diff view" })
-map("n", "<leader>gl", ":Neogit log<CR>", { desc = "Git log" })
+end, { desc = "Lazygit" })
 
 -- Terminal mode (inside a terminal)
 map("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })

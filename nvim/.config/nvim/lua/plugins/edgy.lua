@@ -2,54 +2,48 @@ return {
   "folke/edgy.nvim",
   event = "VeryLazy",
   opts = {
-  left = {
-    {
-      title = "Files",
-      ft = "neo-tree",
-      size = { width = 30 },
-      pinned = true,
+    left = {
+      {
+        title = "Files",
+        ft = "neo-tree",
+        size = { width = 30 },
+        pinned = true,
+      },
+    },
+    bottom = {
+      {
+        title = "Terminal",
+        ft = "toggleterm",
+        size = { height = 15 },
+        filter = function(buf)
+          local name = vim.api.nvim_buf_get_name(buf)
+          local ft = vim.bo[buf].filetype
+          return not name:match("opencode") and ft ~= "lazygit"
+        end,
+      },
+      {
+        title = "Trouble",
+        ft = "trouble",
+        size = { height = 15 },
+      },
+    },
+    right = {
+      {
+        title = "Opencode",
+        ft = "toggleterm",
+        size = { width = 0.28 },
+        filter = function(buf)
+          local name = vim.api.nvim_buf_get_name(buf)
+          return name:match("opencode") ~= nil
+        end,
+      },
+    },
+    animate = { enabled = false },
+    exit_when_last = false,
+    close_when_all_hidden = false,
+    wo = {
+      winfixwidth = true,
+      winfixheight = true,
     },
   },
-  bottom = {
-    {
-      title = "Terminal",
-      ft = "toggleterm",
-      size = { height = 15 },
-      filter = function(buf)
-        local name = vim.api.nvim_buf_get_name(buf)
-        return not name:match("opencode")
-      end,
-    },
-    {
-      title = "Trouble",
-      ft = "trouble",
-      size = { height = 15 },
-    },
-  },
-  right = {
-    {
-      title = "Opencode",
-      ft = "toggleterm",
-      size = { width = 0.28 },
-      filter = function(buf)
-        local name = vim.api.nvim_buf_get_name(buf)
-        return name:match("opencode") ~= nil
-      end,
-    },
-  },
-  animate = { enabled = false },
-  -- Don't let edgy touch these filetypes
-  exit_when_last = false,
-  close_when_all_hidden = false,
-  wo = {
-    winfixwidth = true,
-    winfixheight = true,
-  },
-  -- Filetypes that edgy should never manage
-  keys = {
-    ["<leader>gs"] = false,
-    ["<leader>gd"] = false,
-    ["<leader>gl"] = false,
-  },
-},
 }
