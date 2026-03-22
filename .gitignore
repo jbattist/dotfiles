@@ -7,3 +7,6 @@ niri/.config/niri/output.kdl
 
 # Machine identity — set locally, never synced
 .config/dotfiles/machine.env
+# 
+# Neovim plugin lockfile — each machine resolves its own versions
+nvim/.config/nvim/lazy-lock.json
