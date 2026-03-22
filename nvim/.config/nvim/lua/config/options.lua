@@ -41,33 +41,21 @@ opt.completeopt = "menuone,noselect"
 -- Theme persistence
 local theme_file = vim.fn.stdpath("data") .. "/current_theme.txt"
 
-local function load_saved_theme()
-  local f = io.open(theme_file, "r")
-  if f then
-    local theme = f:read("*l")
-    f:close()
-    return theme
-  end
-  return nil
-end
-
-local saved = load_saved_theme()
-if saved then
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "LazyDone",
-    once = true,
-    callback = function()
-      pcall(vim.cmd.colorscheme, saved)
-    end,
-  })
-end
-
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function(args)
-    local f = io.open(theme_file, "w")
-    if f then
-      f:write(args.match)
-      f:close()
+    vim.fn.writefile({ args.match }, theme_file)
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LazyDone",
+  once = true,
+  callback = function()
+    if vim.fn.filereadable(theme_file) == 1 then
+      local lines = vim.fn.readfile(theme_file)
+      if #lines > 0 and lines[1] ~= "" then
+        pcall(vim.cmd.colorscheme, lines[1])
+      end
     end
   end,
 })
