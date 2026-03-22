@@ -27,3 +27,37 @@ autocmd("BufReadPost", {
     end
   end,
 })
+
+-- ── Theme persistence ────────────────────────────────────
+local theme_file = vim.fn.stdpath("data") .. "/current_theme.txt"
+
+-- Save theme whenever it changes
+autocmd("ColorScheme", {
+  callback = function(args)
+    local f = io.open(theme_file, "w")
+    if f then
+      f:write(args.match)
+      f:close()
+    end
+  end,
+})
+
+-- Restore theme after all plugins are loaded (VimEnter fires after lazy setup)
+autocmd("VimEnter", {
+  once = true,
+  callback = function()
+    local f = io.open(theme_file, "r")
+    if f then
+      local theme = f:read("*l")
+      f:close()
+      if theme and theme ~= "" then
+        local ok = pcall(vim.cmd.colorscheme, theme)
+        if not ok then
+          vim.cmd.colorscheme("tokyonight-night")
+        end
+        return
+      end
+    end
+    vim.cmd.colorscheme("tokyonight-night")
+  end,
+})
