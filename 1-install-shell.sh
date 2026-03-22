@@ -104,7 +104,11 @@ link_dotfiles() {
 
 	backup_and_stow "$repo_root" zshrc ".zshrc"
 	backup_and_stow "$repo_root" fish ".config/fish"
-	backup_and_stow "$repo_root" starship ".config/starship.toml"
+	# Stow the whole starship package: installs starship.toml and
+	# update-noctalia-starship.py together into ~/.config/
+	backup_path "$HOME/.config/starship.toml"
+	backup_path "$HOME/.config/update-noctalia-starship.py"
+	stow_pkg "$repo_root" "starship"
 	backup_and_stow "$repo_root" fastfetch ".config/fastfetch"
 	backup_and_stow "$repo_root" ghostty ".config/ghostty"
 	backup_and_stow "$repo_root" nvim ".config/nvim"

@@ -57,11 +57,91 @@ install_plasma() {
     stow_pkg "plasma"
 }
 
+# ---------------------------------------------------------------------------
+# Machine profile selection
+# ---------------------------------------------------------------------------
+
+MACHINE_ENV_DIR="$HOME/.config/dotfiles"
+MACHINE_ENV_FILE="$MACHINE_ENV_DIR/machine.env"
+
+choose_machine_profile() {
+    # If already set in environment, use it (allows non-interactive runs)
+    if [ -n "${MACHINE:-}" ]; then
+        case "$MACHINE" in
+            home|work|laptop) printf '%s' "$MACHINE"; return ;;
+            *)
+                err "Invalid MACHINE='$MACHINE'. Valid values: home, work, laptop"
+                exit 1
+                ;;
+        esac
+    fi
+
+    # If a saved profile exists, offer to reuse it
+    if [ -f "$MACHINE_ENV_FILE" ]; then
+        # shellcheck source=/dev/null
+        . "$MACHINE_ENV_FILE"
+        if [ -n "${MACHINE:-}" ]; then
+            printf '\nCurrent machine profile: %s\n' "$MACHINE" >&2
+            printf 'Keep this profile? [Y/n]: ' >&2
+            read -r keep_ans
+            case "${keep_ans:-Y}" in
+                [Yy]*|"") printf '%s' "$MACHINE"; return ;;
+            esac
+        fi
+    fi
+
+    # Interactive selection
+    printf '\n' >&2
+    printf 'Select machine profile:\n' >&2
+    printf '  1) home    (default)\n' >&2
+    printf '  2) work\n' >&2
+    printf '  3) laptop\n' >&2
+    read -rp "Selection [1/2/3]: " profile_choice
+
+    case "${profile_choice:-1}" in
+        ""|1) printf '%s' "home"   ;;
+        2)    printf '%s' "work"   ;;
+        3)    printf '%s' "laptop" ;;
+        *)
+            err "Invalid selection: $profile_choice"
+            exit 1
+            ;;
+    esac
+}
+
+save_machine_profile() {
+    local machine="$1"
+    mkdir -p "$MACHINE_ENV_DIR"
+    printf 'MACHINE=%s\n' "$machine" > "$MACHINE_ENV_FILE"
+    log "Machine profile '$machine' saved to $MACHINE_ENV_FILE"
+}
+
+install_machine_niri_config() {
+    local machine="$1"
+    local template="$repo_root/niri/.config/niri/machine.kdl.$machine"
+    local dest="$HOME/.config/niri/machine.kdl"
+
+    if [ -f "$template" ]; then
+        mkdir -p "$HOME/.config/niri"
+        cp "$template" "$dest"
+        log "Installed niri machine config for '$machine'"
+    else
+        err "No niri machine template found at $template — skipping"
+    fi
+}
+
+# ---------------------------------------------------------------------------
+
 main() {
     require_cmd stow
 
     script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
     repo_root="$script_dir"
+
+    # Resolve machine profile
+    MACHINE=$(choose_machine_profile)
+    save_machine_profile "$MACHINE"
+    log "Using machine profile: $MACHINE"
 
     # Wallpapers: Target is inside .local/share, NOT ~/wallpapers
     backup_and_stow wallpapers ".local/share/wallpapers"
@@ -72,6 +152,9 @@ main() {
     backup_and_stow noctalia ".config/noctalia"
     backup_and_stow fuzzel ".config/fuzzel"
     backup_and_stow hyprland ".config/hypr"
+
+    # Install machine-specific niri config (layout widths, output, window rules)
+    install_machine_niri_config "$MACHINE"
 
     # GTK theming (Noctalia overlays + settings)
     # We must backup both gtk-3.0 and gtk-4.0 before stowing the gtk package.
