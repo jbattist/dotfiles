@@ -51,17 +51,5 @@ return {
         vim.cmd("startinsert!")
       end,
     })
-
-    -- Keymaps
-    vim.keymap.set("n", "<leader>gg", function() lazygit:toggle() end, { desc = "Lazygit" })
-    vim.keymap.set("n", "<leader>to", function() opencode:toggle() end, { desc = "Toggle opencode (right)" })
-    vim.keymap.set("n", "<leader>tt", function() bottom_term:toggle() end, { desc = "Toggle terminal (bottom)" })
-
-    -- Terminal mode mappings (escape terminal mode)
-    vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
-    vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], { desc = "Move to left split" })
-    vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], { desc = "Move to lower split" })
-    vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], { desc = "Move to upper split" })
-    vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], { desc = "Move to right split" })
   end,
 }

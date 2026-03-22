@@ -1,9 +1,5 @@
 local map = vim.keymap.set
 
--- Set leader key to space (MUST be before any leader mappings)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- ── Escape ──────────────────────────────────────────────
 map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
 
@@ -38,9 +34,6 @@ map("v", ">", ">gv", { desc = "Indent right (stay selected)" })
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- ── Search ──────────────────────────────────────────────
-map("n", "<leader>h", ":nohlsearch<CR>", { desc = "Clear search highlight" })
-
 -- ── File explorer ───────────────────────────────────────
 map("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle file explorer" })
 map("n", "<leader>o", ":Neotree focus<CR>", { desc = "Focus file explorer" })
@@ -60,9 +53,9 @@ map("n", "<leader>T", function()
 end, { desc = "Switch colorscheme" })
 
 -- ── Terminal ────────────────────────────────────────────
--- ── Terminal ────────────────────────────────────────────
 local bottom_term = nil
 local opencode_term = nil
+local lazygit_term = nil
 
 map("n", "<leader>tt", function()
   if not bottom_term then
@@ -85,18 +78,20 @@ map("n", "<leader>to", function()
   opencode_term:toggle()
 end, { desc = "Toggle opencode (right)" })
 
--- Git stuff
 -- ── Git ─────────────────────────────────────────────────
 map("n", "<leader>gg", function()
-  require("toggleterm.terminal").Terminal:new({
-    cmd = "lazygit",
-    direction = "float",
-    float_opts = {
-      border = "curved",
-      width = function() return math.floor(vim.o.columns * 0.9) end,
-      height = function() return math.floor(vim.o.lines * 0.9) end,
-    },
-  }):toggle()
+  if not lazygit_term then
+    lazygit_term = require("toggleterm.terminal").Terminal:new({
+      cmd = "lazygit",
+      direction = "float",
+      float_opts = {
+        border = "curved",
+        width = function() return math.floor(vim.o.columns * 0.9) end,
+        height = function() return math.floor(vim.o.lines * 0.9) end,
+      },
+    })
+  end
+  lazygit_term:toggle()
 end, { desc = "Lazygit" })
 
 -- Terminal mode (inside a terminal)

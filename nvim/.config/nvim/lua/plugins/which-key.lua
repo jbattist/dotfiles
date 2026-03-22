@@ -30,13 +30,11 @@ return {
       -- File operations
       { "<leader>w", desc = "Save file" },
       { "<leader>q", desc = "Quit" },
-      { "<leader>x", desc = "Save and quit" },
       { "<leader>Q", desc = "Quit ALL panels" },
       { "<leader>e", desc = "Toggle file explorer" },
       { "<leader>o", desc = "Focus file explorer" },
       { "<leader>L", desc = "Launch VS Code layout" },
       { "<leader>T", desc = "Switch colorscheme" },
-      { "<leader>h", desc = "Clear search highlight" },
 
       -- Telescope find group
       { "<leader>ff", desc = "Find files" },
