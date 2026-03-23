@@ -112,6 +112,53 @@ success_fg = "#98c379"
 error_fg = "#e06c75"
 
 # ============================================================================
+# DRACULA PALETTE
+# ============================================================================
+[palettes.dracula]
+os_section_bg = "#ff79c6"
+dir_section_bg = "#ffb86c"
+git_section_bg = "#50fa7b"
+lang_section_bg = "#8be9fd"
+docker_section_bg = "#6272a4"
+time_section_bg = "#bd93f9"
+text_light = "#f8f8f2"
+text_dark = "#282a36"
+success_fg = "#50fa7b"
+error_fg = "#ff5555"
+
+
+# ============================================================================
+# GITHUB PALETTE
+# ============================================================================
+[palettes.github]
+os_section_bg = "#218bff"
+dir_section_bg = "#2da44e"
+git_section_bg = "#1f883d"
+lang_section_bg = "#54aeff"
+docker_section_bg = "#57606a"
+time_section_bg = "#8250df"
+text_light = "#c9d1d9"
+text_dark = "#0d1117"
+success_fg = "#2da44e"
+error_fg = "#f85149"
+
+
+# ============================================================================
+# ROSE PINE PALETTE
+# ============================================================================
+[palettes.rose_pine]
+os_section_bg = "#eb6f92"
+dir_section_bg = "#f6c177"
+git_section_bg = "#31748f"
+lang_section_bg = "#9ccfd8"
+docker_section_bg = "#403d52"
+time_section_bg = "#c4a7e7"
+text_light = "#e0def4"
+text_dark = "#191724"
+success_fg = "#31748f"
+error_fg = "#eb6f92"
+
+# ============================================================================
 # OS CONFIGURATION
 # ============================================================================
 [os]
