@@ -7,35 +7,54 @@ set -euo pipefail
 
 # --- Base packages installed on every machine (edit this) ---
 PACKAGES_BASE=(
-    btop
-    firefox
-    nemo
+  # System + terminal tools
+  btop
+  openssh
+  nfs-utils
+
+  # Desktop + shell utilities
+  firefox
+  nemo
+  gnome-calculator
+  udiskie
+  cliphist
+  ferdium-bin
     
+  # Development tooling
+  visual-studio-code-bin
+  opencode
+  claude-code
+  codex-cli
+
+  # Window manager + theming
+  niri
+  noctalia-shell
+
+  # Fonts
     ttf-jetbrains-mono
     ttf-jetbrains-mono-nerd
-    nfs-utils
-    gnome-calculator
+
+  # Notes
+  obsidian
 )
 
 # --- Home desktop packages ---
 PACKAGES_home=(
-    obsidian
+  # Gaming
     steam
     protonplus
-    visual-studio-code-bin
 )
 
 # --- Work machine packages ---
 PACKAGES_work=(
-    visual-studio-code-bin
-    cups
+  # Browser
+  chromium
 )
 
 # --- Laptop packages ---
 PACKAGES_laptop=(
-    #tlp
-    #powertop
-    #brightnessctl
+  # Browser
+  chromium
 )
 
 # --- Helpers ---
