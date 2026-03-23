@@ -16,3 +16,10 @@ output "eDP-1" {
     transform "normal"
     position x=0 y=0
 }
+
+window-rule {
+    match title="Ghostty" 
+    //Laptop
+    default-column-width { proportion 0.5; }
+    
+}
