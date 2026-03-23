@@ -82,9 +82,35 @@ install_with_yay() {
 		rm -rf "$tmpdir"
 	fi
 
-	packages="fish zsh starship fzf zsh-autosuggestions zsh-syntax-highlighting eza zoxide stow fastfetch ghostty micro bat fd neovim"
+	packages=(
+		# Shells
+		fish
+		zsh
+		zsh-autosuggestions
+		zsh-syntax-highlighting
 
-	for pkg in $packages; do
+		# Terminal
+		ghostty
+		
+		# Prompt & utilities
+		starship
+		fastfetch
+		fzf
+		fzf-zsh
+		eza
+		zoxide
+		fd
+		bat
+
+		# Dotfile management & tools
+		stow
+
+		#Editors
+		micro
+		neovim
+	)
+
+	for pkg in "${packages[@]}"; do
 		if yay -Qi "$pkg" >/dev/null 2>&1; then
 			log "$pkg already installed"
 		else
