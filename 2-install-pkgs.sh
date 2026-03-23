@@ -10,8 +10,7 @@ PACKAGES_BASE=(
     btop
     firefox
     nemo
-    obsidian
-    antigravity
+    
     ttf-jetbrains-mono
     ttf-jetbrains-mono-nerd
     nfs-utils
@@ -20,15 +19,16 @@ PACKAGES_BASE=(
 
 # --- Home desktop packages ---
 PACKAGES_home=(
-    #steam
-    #protonplus
-    #resources
+    obsidian
+    steam
+    protonplus
+    visual-studio-code-bin
 )
 
 # --- Work machine packages ---
 PACKAGES_work=(
-    #visual-studio-code-bin
-    #cups
+    visual-studio-code-bin
+    cups
 )
 
 # --- Laptop packages ---

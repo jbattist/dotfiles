@@ -13,6 +13,11 @@ setopt hist_verify
 
 # Environment Variables #######################################################
 export FZF_DEFAULT_OPTS='--height 60% --tmux center,80% --layout reverse --border top'
+export EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='bat --style=header,grid'
+export MANPAGER='bat --language=man --style=header,grid'
+export BAT_STYLE='header,grid'
 
 # Keybinds ####################################################################
 bindkey "^[[F" end-of-line
