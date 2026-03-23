@@ -115,7 +115,7 @@ error_fg = "#e06c75"
 # DRACULA PALETTE
 # ============================================================================
 [palettes.dracula]
-os_section_bg = "#ff79c6"
+os_section_bg = "#532d42"
 dir_section_bg = "#ffb86c"
 git_section_bg = "#50fa7b"
 lang_section_bg = "#8be9fd"
@@ -131,7 +131,7 @@ error_fg = "#ff5555"
 # GITHUB PALETTE
 # ============================================================================
 [palettes.github]
-os_section_bg = "#218bff"
+os_section_bg = "#0f3f71"
 dir_section_bg = "#2da44e"
 git_section_bg = "#1f883d"
 lang_section_bg = "#54aeff"
