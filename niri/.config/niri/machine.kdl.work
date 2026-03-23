@@ -27,3 +27,9 @@ window-rule {
     match app-id=r#"chrome-cifhbcnohmdccbgoicgdjpfamggdegmo-Default"#
     default-column-width { proportion 0.25; }
 }
+
+window-rule {
+    match title="Ghostty" 
+    //Work
+    default-column-width { proportion 0.2; }
+}

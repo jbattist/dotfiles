@@ -3,16 +3,7 @@
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
 // Open Ghostty at 33%
-window-rule {
-    match title="Ghostty" 
-    //Home
-    default-column-width { proportion 0.3333; }
-    //Work
-    // default-column-width { proportion 0.2; }
-    //Laptop
-    // default-column-width { proportion 0.5; }
-    
-}
+
 // Open Wezterm at 33%
 window-rule {
     match app-id=r#"wezterm"# 
