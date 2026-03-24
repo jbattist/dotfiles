@@ -9,7 +9,6 @@ set -euo pipefail
 PACKAGES_BASE=(
   # System + terminal tools
   btop
-  openssh
   nfs-utils
 
   # Desktop + shell utilities
@@ -31,8 +30,8 @@ PACKAGES_BASE=(
   noctalia-shell
 
   # Fonts
-    ttf-jetbrains-mono
-    ttf-jetbrains-mono-nerd
+  ttf-jetbrains-mono
+  ttf-jetbrains-mono-nerd
 
   # Notes
   obsidian
