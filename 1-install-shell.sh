@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
-
-# Ensures the script behaves consistently when run via zsh
-if [ -n "${ZSH_VERSION:-}" ]; then
-	emulate -L sh 2>/dev/null || true
-fi
-
-set -euo pipefail
+# This script has been superseded by 4-install-omarchy.sh, which now handles
+# package installation, shell selection, dotfile staging, and setup in one step.
+printf '[!] Please run 4-install-omarchy.sh instead.\n' >&2
+exit 1
 
 log() {
 	printf '[*] %s\n' "$1"
