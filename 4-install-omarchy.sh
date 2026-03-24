@@ -59,9 +59,9 @@ append_zsh_block_if_missing() {
 
 # >>> dotfiles-omarchy >>>
 # Added by 4-install-omarchy.sh
-if [ -f "$HOME/.config/dotfiles/omarchy/zshrc/.zshrc" ]; then
-    export STARSHIP_CONFIG="$HOME/.config/dotfiles/omarchy/starship/.config/starship.toml"
-    source "$HOME/.config/dotfiles/omarchy/zshrc/.zshrc"
+if [ -f "$HOME/.config/dotfiles/omarchy/.zshrc" ]; then
+    export STARSHIP_CONFIG="$HOME/.config/dotfiles/omarchy/.config/starship.toml"
+    source "$HOME/.config/dotfiles/omarchy/.zshrc"
 fi
 # <<< dotfiles-omarchy <<<
 EOF
@@ -224,12 +224,12 @@ setup_shell_hooks() {
 # Managed by 4-install-omarchy.sh
 set -l omarchy_root "$layer_root"
 
-if test -f "\$omarchy_root/starship/.config/starship.toml"
-    set -gx STARSHIP_CONFIG "\$omarchy_root/starship/.config/starship.toml"
+if test -f "\$omarchy_root/.config/starship.toml"
+    set -gx STARSHIP_CONFIG "\$omarchy_root/.config/starship.toml"
 end
 
-if test -f "\$omarchy_root/fish/.config/fish/config.fish"
-    source "\$omarchy_root/fish/.config/fish/config.fish"
+if test -f "\$omarchy_root/.config/fish/config.fish"
+    source "\$omarchy_root/.config/fish/config.fish"
 end
 EOF
 
@@ -245,15 +245,15 @@ setup_hyprland_hook() {
     cat > "$HOME/.config/hypr/omarchy-user.conf" <<'EOF'
 # Managed by 4-install-omarchy.sh
 # This file is sourced by ~/.config/hypr/hyprland.conf so Omarchy defaults stay intact.
-source = ~/.config/dotfiles/omarchy/hyprland/.config/hypr/hyprland.conf
+source = ~/.config/dotfiles/omarchy/.config/hypr/hyprland.conf
 EOF
 
     ensure_line "$HOME/.config/hypr/hyprland.conf" "source = ~/.config/hypr/omarchy-user.conf"
 
-    if [ -f "$layer_root/hyprland/.config/hypr/hyprland.conf" ]; then
+    if [ -f "$layer_root/.config/hypr/hyprland.conf" ]; then
         log "Installed Hyprland include hook"
     else
-        warn "Staged Hyprland config not found under $layer_root/hyprland"
+        warn "Staged Hyprland config not found under $layer_root/.config/hypr"
     fi
 }
 
