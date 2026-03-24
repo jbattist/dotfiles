@@ -12,8 +12,8 @@ set -g fish_history_max_commands 1000   # analogous to SAVEHIST
 
 # Environment Variables #######################################################
 set -gx FZF_DEFAULT_OPTS '--height 60% --tmux center,80% --layout reverse --border top'
-set -gx EDITOR nvim
-set -gx VISUAL nvim
+set -gx EDITOR micro
+set -gx VISUAL micro
 set -gx PAGER 'bat --style=header,grid'
 set -gx MANPAGER 'bat --language=man --style=header,grid'
 set -gx BAT_STYLE header,grid
