@@ -224,12 +224,12 @@ setup_shell_hooks() {
 # Managed by 4-install-omarchy.sh
 set -l omarchy_root "$layer_root"
 
-if test -f "$omarchy_root/starship/.config/starship.toml"
-    set -gx STARSHIP_CONFIG "$omarchy_root/starship/.config/starship.toml"
+if test -f "\$omarchy_root/starship/.config/starship.toml"
+    set -gx STARSHIP_CONFIG "\$omarchy_root/starship/.config/starship.toml"
 end
 
-if test -f "$omarchy_root/fish/.config/fish/config.fish"
-    source "$omarchy_root/fish/.config/fish/config.fish"
+if test -f "\$omarchy_root/fish/.config/fish/config.fish"
+    source "\$omarchy_root/fish/.config/fish/config.fish"
 end
 EOF
 
