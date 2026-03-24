@@ -47,7 +47,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'fedo'
+palette = 'noctalia'
 # ============================================================================
 # CATPPUCCIN MOCHA PALETTE
 # ============================================================================
