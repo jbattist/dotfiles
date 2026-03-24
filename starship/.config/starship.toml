@@ -47,7 +47,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'noctalia'
+palette = 'fedo'
 # ============================================================================
 # CATPPUCCIN MOCHA PALETTE
 # ============================================================================
@@ -60,6 +60,7 @@ docker_section_bg = "#7aa2f7"
 time_section_bg = "#bb9af7"
 text_light = "#cdd6f4"
 text_dark = "#1e1e2e"
+text_time = "#1e1e2e"
 success_fg = "#9ece6a"
 error_fg = "#f38ba8"
 
@@ -76,6 +77,7 @@ docker_section_bg = "#665c54"
 time_section_bg = "#3c3836"
 text_light = "#fbf1c7"
 text_dark = "#fbf1c7"
+text_time = "#fbf1c7"
 success_fg = "#98971a"
 error_fg = "#cc241d"
 
@@ -93,6 +95,7 @@ time_section_bg = "#bb9af7"
 # text_light = "#cfc9c2"
 text_light = "#45475a"
 text_dark = "#1a1b27"
+text_time = "#1a1b27"
 success_fg = "#9ece6a"
 error_fg = "#f7768e"
 
@@ -108,6 +111,7 @@ docker_section_bg = "#56b6c2"
 time_section_bg = "#c678dd"
 text_light = "#494c52"
 text_dark = "#282c34"
+text_time = "#282c34"
 success_fg = "#98c379"
 error_fg = "#e06c75"
 
@@ -123,6 +127,7 @@ docker_section_bg = "#6272a4"
 time_section_bg = "#bd93f9"
 text_light = "#f8f8f2"
 text_dark = "#282a36"
+text_time = "#282a36"
 success_fg = "#50fa7b"
 error_fg = "#ff5555"
 
@@ -139,6 +144,7 @@ docker_section_bg = "#57606a"
 time_section_bg = "#8250df"
 text_light = "#c9d1d9"
 text_dark = "#0d1117"
+text_time = "#0d1117"
 success_fg = "#2da44e"
 error_fg = "#f85149"
 
@@ -155,8 +161,25 @@ docker_section_bg = "#403d52"
 time_section_bg = "#c4a7e7"
 text_light = "#e0def4"
 text_dark = "#191724"
+text_time = "#191724"
 success_fg = "#31748f"
 error_fg = "#eb6f92"
+
+# ============================================================================
+# FEDO PALETTE
+# ============================================================================
+[palettes.fedo]
+os_section_bg = "#241f31"
+dir_section_bg = "#30223b"
+git_section_bg = "#3a2340"
+lang_section_bg = "#59244b"
+docker_section_bg = "#921f48"
+time_section_bg = "#b82e2a"
+text_light = "#9b91a2"
+text_dark = "#a19aa4"
+text_time = "#241f31"
+success_fg = "#9ece6a"
+error_fg = "#f38ba8"
 
 # ============================================================================
 # OS CONFIGURATION
@@ -323,7 +346,7 @@ format = '[[ $symbol( $name) ](fg:text_light bg:docker_section_bg)]($style)'
 disabled = false
 time_format = "%R"
 style = "bg:time_section_bg"
-format = '[[  $time ](fg:text_dark bg:time_section_bg)]($style)'
+format = '[[  $time ](fg:text_time bg:time_section_bg)]($style)'
 
 # ============================================================================
 # PROMPT CONFIGURATION

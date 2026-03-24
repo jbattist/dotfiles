@@ -54,6 +54,7 @@ def build_starship_palette(c: dict) -> dict:
         "time_section_bg": c["mOnSurfaceVariant"],
         "text_light": c["mOnSurface"],
         "text_dark": c["mOnPrimary"],
+        "text_time": c["mOnPrimary"],
         "success_fg": c["mPrimary"],
         "error_fg": c["mError"],
     }
