@@ -6,6 +6,7 @@ layout {
         proportion 0.2
         proportion 0.25
         proportion 0.3333
+        proportion 0.5
     }
     default-column-width { proportion 0.25; }
 }
