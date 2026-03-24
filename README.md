@@ -103,6 +103,26 @@ The choice is saved to `~/.config/dotfiles/machine.env`. On subsequent runs you'
 
 This also copies `niri/machine.kdl.<profile>` → `~/.config/niri/machine.kdl`, which niri includes for layout widths, monitor output, and any machine-specific window rules.
 
+### Omarchy-safe install (non-destructive)
+
+If you are on Omarchy and want to keep its standard environment intact, use:
+
+```bash
+bash 4-install-omarchy.sh
+```
+
+What it does by default:
+
+- Stages your shell, Hyprland, and app configs into `~/.config/dotfiles/omarchy`
+- Adds source/include hooks for shell and Hyprland instead of replacing Omarchy base files
+- Leaves app config directories untouched (staged only)
+
+If you want to apply app configs too (with automatic backups), run:
+
+```bash
+bash 4-install-omarchy.sh --apply-apps
+```
+
 ---
 
 ## Adding a new machine profile
