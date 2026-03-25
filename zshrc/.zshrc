@@ -123,9 +123,6 @@ source <(fzf --zsh)
 # Use eza instead of ls and get icons
 alias ls="eza --icons=always"
 
-# Partial directory name cd with zoxide
-alias cd="z"
-
 #fix SSH bullshit
 alias ssh-pi='TERM=xterm-256color ssh'
 
@@ -135,5 +132,6 @@ export PATH="$PATH:$HOME/.filen-cli/bin"
 
 # Inits #######################################################################
 eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
+# zoxide replaces cd — uses builtin cd internally, no alias loop
+eval "$(zoxide init zsh --cmd cd)"
 fastfetch
