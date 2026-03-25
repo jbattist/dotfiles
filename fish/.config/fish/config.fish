@@ -1,8 +1,5 @@
 # ~/.config/fish/config.fish
 
-# Keep Starship palette in sync with Noctalia active colors
-~/.config/update-noctalia-starship.py >/dev/null 2>&1; or true
-
 
 # History #####################################################################
 # Fish handles history deduplication and sharing natively.
@@ -11,12 +8,18 @@ set -g fish_history_max_commands 1000   # analogous to SAVEHIST
 
 
 # Environment Variables #######################################################
-set -gx FZF_DEFAULT_OPTS '--height 60% --tmux center,80% --layout reverse --border top'
+set -gx FZF_DEFAULT_OPTS '--height 60% --layout reverse --border top'
 set -gx EDITOR micro
 set -gx VISUAL micro
 set -gx PAGER 'bat --style=header,grid'
 set -gx MANPAGER 'bat --language=man --style=header,grid'
 set -gx BAT_STYLE header,grid
+
+if test "$TERM" = xterm-ghostty
+	if not infocmp xterm-ghostty >/dev/null 2>&1
+		set -gx TERM xterm-256color
+	end
+end
 
 
 # Key Bindings ################################################################
