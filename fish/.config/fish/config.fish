@@ -1,5 +1,6 @@
 # ~/.config/fish/config.fish
 
+~/.config/update-noctalia-starship.py >/dev/null 2>&1; or true
 
 # History #####################################################################
 # Fish handles history deduplication and sharing natively.
@@ -33,13 +34,14 @@ bind \e\[Z accept-autosuggestion # Shift+Tab → accept autosuggestion
 
 
 # Paths #######################################################################
+fish_add_path ~/.local/bin
 fish_add_path ~/.filen-cli/bin
 fish_add_path ~/.npm-global/bin
 
 
 # Aliases #####################################################################
 alias ls  "eza --icons=always"
-alias cd  "z"
+#alias cd  "z"
 alias ssh-pi "env TERM=xterm-256color ssh"
 
 
@@ -52,7 +54,7 @@ fzf --fish | source
 starship init fish | source
 
 # zoxide (replaces cd)
-zoxide init fish | source
+#zoxide init fish | source
 
 # NVM
 # fish-nvm (https://github.com/jorgebucaran/nvm.fish) is the native alternative.
