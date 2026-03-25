@@ -1,7 +1,5 @@
 # Keep Starship palette in sync with Noctalia active colors
 # (fast + idempotent; updates dotfiles starship.toml when Noctalia colors change)
-~/.config/update-noctalia-starship.py >/dev/null 2>&1 || true
-
 
 HISTFILE=~/.history
 HISTSIZE=999
@@ -12,12 +10,16 @@ setopt hist_expire_dups_first
 setopt hist_verify
 
 # Environment Variables #######################################################
-export FZF_DEFAULT_OPTS='--height 60% --tmux center,80% --layout reverse --border top'
+export FZF_DEFAULT_OPTS='--height 60% --layout reverse --border top'
 export EDITOR='micro'
 export VISUAL='micro'
 export PAGER='bat --style=header,grid'
 export MANPAGER='bat --language=man --style=header,grid'
 export BAT_STYLE='header,grid'
+
+if [[ "$TERM" == 'xterm-ghostty' ]] && ! infocmp xterm-ghostty >/dev/null 2>&1; then
+    export TERM='xterm-256color'
+fi
 
 # Keybinds ####################################################################
 bindkey "^[[F" end-of-line

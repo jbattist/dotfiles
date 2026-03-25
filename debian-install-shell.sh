@@ -22,6 +22,41 @@ require_cmd() {
 	fi
 }
 
+ensure_local_bin_in_path() {
+	local local_bin="$HOME/.local/bin"
+	case ":${PATH}:" in
+		*":${local_bin}:"*) ;;
+		*)
+			export PATH="$local_bin:$PATH"
+			;;
+	esac
+}
+
+ensure_symlink() {
+	local source_bin="$1"
+	local target_bin="$2"
+
+	if command -v "$target_bin" >/dev/null 2>&1; then
+		return
+	fi
+
+	if ! command -v "$source_bin" >/dev/null 2>&1; then
+		err "Cannot create $target_bin symlink; $source_bin not found"
+		return 1
+	fi
+
+	ensure_local_bin_in_path
+	mkdir -p "$HOME/.local/bin"
+	ln -sf "$(command -v "$source_bin")" "$HOME/.local/bin/$target_bin"
+	log "Linked $target_bin -> $(command -v "$source_bin")"
+}
+
+ensure_terminfo_fallback() {
+	if [ "${TERM:-}" = "xterm-ghostty" ] && ! infocmp xterm-ghostty >/dev/null 2>&1; then
+		export TERM="xterm-256color"
+	fi
+}
+
 ensure_sudo_access() {
 	if [ "$(id -u)" -eq 0 ]; then
 		return
@@ -114,6 +149,7 @@ install_fastfetch() {
 }
 
 install_zoxide() {
+	ensure_local_bin_in_path
 	if command -v zoxide >/dev/null 2>&1; then
 		log "zoxide already installed"
 		return
@@ -121,6 +157,8 @@ install_zoxide() {
 	log "Installing zoxide via official installer"
 	require_cmd curl
 	curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+	ensure_local_bin_in_path
+	require_cmd zoxide
 }
 
 install_ghostty() {
@@ -188,6 +226,7 @@ install_with_apt() {
 	install_starship
 	install_fastfetch
 	install_zoxide
+	ensure_symlink batcat bat
 	# install_ghostty
 }
 
@@ -284,6 +323,7 @@ ensure_default_shell() {
 
 main() {
 	ensure_sudo_access
+	ensure_terminfo_fallback
 	install_with_apt
 	link_dotfiles
 	ensure_default_shell
