@@ -203,7 +203,6 @@ stage_layer_with_stow() {
         hyprland
         ghostty
         fuzzel
-        noctalia
         fastfetch
         nvim
         mango
@@ -212,7 +211,7 @@ stage_layer_with_stow() {
     )
 
     mkdir -p "$layer_root"
-    stow -d "$repo_root" -R -t "$layer_root" "${stage_packages[@]}"
+    stow --ignore='update-noctalia-starship\.py' -d "$repo_root" -R -t "$layer_root" "${stage_packages[@]}"
     log "Staged configs via stow into $layer_root"
 }
 
@@ -263,7 +262,6 @@ apply_app_symlinks() {
     local app_packages=(
         ghostty
         fuzzel
-        noctalia
         fastfetch
         nvim
         mango
@@ -274,7 +272,6 @@ apply_app_symlinks() {
     local backup_targets=(
         "$HOME/.config/ghostty"
         "$HOME/.config/fuzzel"
-        "$HOME/.config/noctalia"
         "$HOME/.config/fastfetch"
         "$HOME/.config/nvim"
         "$HOME/.config/mango"
