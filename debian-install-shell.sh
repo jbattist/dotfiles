@@ -317,7 +317,7 @@ ensure_default_shell() {
 	if [ "$(id -u)" -eq 0 ]; then
 		chsh -s "$shell_path" "${SUDO_USER:-$USER}"
 	else
-		sudo chsh -s "$shell_path" "$USER"
+		chsh -s "$shell_path"
 	fi
 }
 
