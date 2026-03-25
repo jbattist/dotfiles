@@ -130,9 +130,8 @@ alias cd="z"
 alias ssh-pi='TERM=xterm-256color ssh'
 
 # Paths #######################################################################
-# filen-cli
-PATH=$PATH:~/.filen-cli/bin
-export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
+export PATH="$PATH:$HOME/.filen-cli/bin"
 
 # Inits #######################################################################
 eval "$(starship init zsh)"
