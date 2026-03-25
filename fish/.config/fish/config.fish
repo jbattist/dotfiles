@@ -41,7 +41,6 @@ fish_add_path ~/.npm-global/bin
 
 # Aliases #####################################################################
 alias ls  "eza --icons=always"
-#alias cd  "z"
 alias ssh-pi "env TERM=xterm-256color ssh"
 
 
@@ -53,8 +52,8 @@ fzf --fish | source
 # Starship prompt
 starship init fish | source
 
-# zoxide (replaces cd)
-#zoxide init fish | source
+# zoxide (replaces cd — uses builtin cd internally, no alias loop)
+zoxide init fish --cmd cd | source
 
 # NVM
 # fish-nvm (https://github.com/jorgebucaran/nvm.fish) is the native alternative.
