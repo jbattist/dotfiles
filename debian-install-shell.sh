@@ -188,7 +188,7 @@ install_with_apt() {
 	install_starship
 	install_fastfetch
 	install_zoxide
-	install_ghostty
+	# install_ghostty
 }
 
 link_dotfiles() {
@@ -207,7 +207,7 @@ link_dotfiles() {
 	backup_path "$HOME/.config/update-noctalia-starship.py"
 	stow_pkg "$repo_root" "starship"
 	backup_and_stow "$repo_root" fastfetch ".config/fastfetch"
-	backup_and_stow "$repo_root" ghostty ".config/ghostty"
+	# backup_and_stow "$repo_root" ghostty ".config/ghostty"
 	backup_and_stow "$repo_root" nvim ".config/nvim"
 }
 
