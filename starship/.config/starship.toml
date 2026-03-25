@@ -40,7 +40,7 @@ $c\
 $rust\
 $python\
 [](fg:lang_section_bg bg:docker_section_bg)\
-$dockerstatus\
+$custom\
 $container\
 [](fg:docker_section_bg bg:time_section_bg)\
 $time\
@@ -339,7 +339,7 @@ symbol = " "
 style = "bg:docker_section_bg"
 format = '[[ $symbol( $name) ](fg:text_light bg:docker_section_bg)]($style)'
 
-[dockerstatus]
+[custom]
 command = "ctx=$(docker context show 2>/dev/null || echo no-docker); n=$(docker ps -q 2>/dev/null | wc -l | tr -d ' '); echo \"$ctx:$n\""
 when = "command -v docker >/dev/null 2>&1"
 shell = ["bash", "--noprofile", "--norc"]
