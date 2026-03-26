@@ -6,7 +6,7 @@
 # Fish handles history deduplication and sharing natively.
 # These are the closest equivalents to your zsh history options:
 set -g fish_history_max_commands 1000   # analogous to SAVEHIST
-
+set -g fish_greeting
 
 # Environment Variables #######################################################
 set -gx FZF_DEFAULT_OPTS '--height 60% --layout reverse --border top'
