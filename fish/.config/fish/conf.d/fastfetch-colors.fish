@@ -31,7 +31,7 @@ function load_palette
     if set -q SSH_CLIENT
         # SSH session: use host-specific palette
         switch (hostname)
-            case "*prod*" "*production*"
+            case "docker" "*production*"
                 palette_red
             case "*dev*" "*development*"
                 palette_cyan
