@@ -212,16 +212,34 @@ ensure_default_shell() {
 }
 
 configure_systemd_resolved() {
-	log "Configuring systemd-resolved for DNS"
-	sudo mkdir -p /etc/NetworkManager/conf.d
-	sudo bash -c 'cat > /etc/NetworkManager/conf.d/dns.conf << '"'"'EOF'"'"'
+    log "Configuring systemd-resolved for DNS"
+
+    # Fallback DNS and stub listener
+    sudo mkdir -p /etc/systemd/resolved.conf.d
+    sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << 'EOF'
+[Resolve]
+DNSStubListener=yes
+FallbackDNS=9.9.9.9 1.1.1.1 8.8.8.8
+EOF
+
+    # If NetworkManager is running, tell it to use resolved
+    if systemctl is-active --quiet NetworkManager; then
+        log "NetworkManager detected, configuring dns=systemd-resolved"
+        sudo mkdir -p /etc/NetworkManager/conf.d
+        sudo tee /etc/NetworkManager/conf.d/dns.conf > /dev/null << 'EOF'
 [main]
 dns=systemd-resolved
-EOF'
-	sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-	sudo systemctl enable --now systemd-resolved
-	sudo systemctl restart NetworkManager
-	log "systemd-resolved configured successfully"
+EOF
+        sudo systemctl restart NetworkManager
+    else
+        log "No NetworkManager, using systemd-networkd with resolved"
+    fi
+
+    sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+    sudo systemctl enable --now systemd-resolved
+    sudo systemctl restart systemd-resolved
+
+    log "systemd-resolved configured successfully"
 }
 
 main() {
