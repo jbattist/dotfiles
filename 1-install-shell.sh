@@ -219,6 +219,7 @@ configure_systemd_resolved() {
     sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << 'EOF'
 [Resolve]
 DNSStubListener=yes
+Domains=~home
 FallbackDNS=9.9.9.9 1.1.1.1 8.8.8.8
 EOF
 
