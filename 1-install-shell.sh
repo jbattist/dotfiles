@@ -211,8 +211,22 @@ ensure_default_shell() {
 	fi
 }
 
+configure_systemd_resolved() {
+	log "Configuring systemd-resolved for DNS"
+	sudo mkdir -p /etc/NetworkManager/conf.d
+	sudo bash -c 'cat > /etc/NetworkManager/conf.d/dns.conf << '"'"'EOF'"'"'
+[main]
+dns=systemd-resolved
+EOF'
+	sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+	sudo systemctl enable --now systemd-resolved
+	sudo systemctl restart NetworkManager
+	log "systemd-resolved configured successfully"
+}
+
 main() {
 	install_with_yay
+	configure_systemd_resolved
 	link_dotfiles
 	ensure_sudo_access
 	ensure_default_shell
