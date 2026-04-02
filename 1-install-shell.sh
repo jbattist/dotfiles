@@ -212,6 +212,9 @@ ensure_default_shell() {
 }
 
 configure_systemd_resolved() {
+
+	local PIHOLE_PRIMARY="192.168.1.100"
+    local PIHOLE_SECONDARY="192.168.1.101"
     log "Configuring systemd-resolved for DNS"
 
     # Fallback DNS and stub listener
