@@ -272,6 +272,9 @@
                         "updateTerminalCommand": "foot -e"
                     },
                     "id": "plugin:update-count"
+                },
+                {
+                    "id": "plugin:assistant-panel"
                 }
             ]
         }
@@ -506,10 +509,11 @@
     },
     "location": {
         "analogClockInCalendar": false,
+        "autoLocate": true,
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
-        "name": "Hooksett, NH",
+        "name": "Manchester",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
@@ -707,10 +711,6 @@
             {
                 "enabled": true,
                 "id": "ghostty"
-            },
-            {
-                "enabled": true,
-                "id": "fuzzel"
             }
         ],
         "enableUserTheming": false
