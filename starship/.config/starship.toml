@@ -182,6 +182,22 @@ success_fg = "#9ece6a"
 error_fg = "#f38ba8"
 
 # ============================================================================
+# EVERFOREST PALETTE
+# ============================================================================
+[palettes.everforest]
+os_section_bg = "#475258"
+dir_section_bg = "#dbbc7f"
+git_section_bg = "#a7c080"
+lang_section_bg = "#7fbbb3"
+docker_section_bg = "#83c092"
+time_section_bg = "#d699b6"
+text_light = "#d3c6aa"
+text_dark = "#2d353b"
+text_time = "#2d353b"
+success_fg = "#a7c080"
+error_fg = "#e67e80"
+
+# ============================================================================
 # OS CONFIGURATION
 # ============================================================================
 [os]
