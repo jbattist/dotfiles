@@ -47,7 +47,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'noctalia'
+palette = 'ristretto'
 # ============================================================================
 # CATPPUCCIN MOCHA PALETTE
 # ============================================================================
@@ -64,7 +64,6 @@ text_time = "#1e1e2e"
 success_fg = "#9ece6a"
 error_fg = "#f38ba8"
 
-
 # ============================================================================
 # GRUVBOX DARK PALETTE
 # ============================================================================
@@ -80,7 +79,6 @@ text_dark = "#fbf1c7"
 text_time = "#fbf1c7"
 success_fg = "#98971a"
 error_fg = "#cc241d"
-
 
 # ============================================================================
 # TOKYO NIGHT PALETTE
@@ -148,7 +146,6 @@ text_time = "#0d1117"
 success_fg = "#2da44e"
 error_fg = "#f85149"
 
-
 # ============================================================================
 # ROSE PINE PALETTE
 # ============================================================================
@@ -190,12 +187,76 @@ dir_section_bg = "#dbbc7f"
 git_section_bg = "#a7c080"
 lang_section_bg = "#7fbbb3"
 docker_section_bg = "#83c092"
-time_section_bg = "#d699b6"
+time_section_bg = "#dae1dc"
 text_light = "#d3c6aa"
 text_dark = "#2d353b"
 text_time = "#2d353b"
 success_fg = "#a7c080"
 error_fg = "#e67e80"
+
+# ============================================================================
+# KANAGAWA PALETTE
+# ============================================================================
+[palettes.kanagawa]
+os_section_bg = "#727169"
+dir_section_bg = "#c0a36e"
+git_section_bg = "#76946a"
+lang_section_bg = "#7e9cd8"
+docker_section_bg = "#6a9589"
+time_section_bg = "#957fb8"
+text_light = "#dcd7ba"
+text_dark = "#1f1f28"
+text_time = "#1f1f28"
+success_fg = "#76946a"
+error_fg = "#c34043"
+
+# ============================================================================
+# MIDNIGHT PALETTE
+# ============================================================================
+[palettes.midnight]
+os_section_bg = "#6d7db6"
+dir_section_bg = "#E9BB4F"
+git_section_bg = "#92a593"
+lang_section_bg = "#a3bfd1"
+docker_section_bg = "#7d82d9"
+time_section_bg = "#c89dc1"
+text_light = "#ffcead"
+text_dark = "#060B1E"
+text_time = "#060B1E"
+success_fg = "#92a593"
+error_fg = "#ED5B5A"
+
+# ============================================================================
+# MATTE BLACK PALETTE
+# ============================================================================
+[palettes.matte_black]
+os_section_bg = "#333333"
+dir_section_bg = "#FFC107"
+git_section_bg = "#e68e0d"
+lang_section_bg = "#f59e0b"
+docker_section_bg = "#8a8a8d"
+time_section_bg = "#D35F5F"
+text_light = "#eaeaea"
+text_dark = "#121212"
+text_time = "#121212"
+success_fg = "#FFC107"
+error_fg = "#B91C1C"
+
+# ============================================================================
+# RISTRETTO PALETTE
+# ============================================================================
+[palettes.ristretto]
+os_section_bg = "#72696a"
+dir_section_bg = "#f9cc6c"
+git_section_bg = "#adda78"
+lang_section_bg = "#85dacc"
+docker_section_bg = "#a8a9eb"
+time_section_bg = "#f38d70"
+text_light = "#e6d9db"
+text_dark = "#2c2525"
+text_time = "#2c2525"
+success_fg = "#adda78"
+error_fg = "#fd6883"
 
 # ============================================================================
 # OS CONFIGURATION
