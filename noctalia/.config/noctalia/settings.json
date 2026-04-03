@@ -272,6 +272,9 @@
                         "updateTerminalCommand": "foot -e"
                     },
                     "id": "plugin:update-count"
+                },
+                {
+                    "id": "plugin:assistant-panel"
                 }
             ]
         }
@@ -526,7 +529,7 @@
         "bluetoothRssiPollIntervalMs": 10000,
         "bluetoothRssiPollingEnabled": false,
         "disableDiscoverability": false,
-        "networkPanelView": "wifi",
+        "networkPanelView": "ethernet",
         "wifiDetailsViewMode": "grid"
     },
     "nightLight": {
@@ -708,10 +711,6 @@
             {
                 "enabled": true,
                 "id": "ghostty"
-            },
-            {
-                "enabled": true,
-                "id": "fuzzel"
             }
         ],
         "enableUserTheming": false

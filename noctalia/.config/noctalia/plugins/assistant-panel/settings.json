@@ -1,0 +1,31 @@
+{
+  "maxHistoryLength": 100,
+  "panelDetached": true,
+  "panelPosition": "right",
+  "panelHeightRatio": 0.85,
+  "panelWidth": 520,
+  "scale": 1,
+  "ai": {
+    "provider": "openai_compatible",
+    "model": "qwen2.5:7b",
+    "apiKeys": {
+      "openai_compatible": ""
+    },
+    "temperature": 0.7,
+    "systemPrompt": "You are a helpful assistant integrated into a Linux desktop shell. Be concise and helpful.",
+    "maxHistoryLength": 100,
+    "openaiLocal": true,
+    "openaiBaseUrl": "https://ollama-vm11434/v1/chat/completions",
+    "models": {
+      "openai_compatible": "qwen2.5:7b"
+    }
+  },
+  "translator": {
+    "backend": "google",
+    "sourceLanguage": "auto",
+    "targetLanguage": "en",
+    "realTimeTranslation": true,
+    "deeplApiKey": ""
+  },
+  "attachmentStyle": "connected"
+}

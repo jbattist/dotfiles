@@ -212,6 +212,9 @@ ensure_default_shell() {
 }
 
 configure_systemd_resolved() {
+
+	local PIHOLE_PRIMARY="192.168.1.100"
+    local PIHOLE_SECONDARY="192.168.1.101"
     log "Configuring systemd-resolved for DNS"
 
     # Fallback DNS and stub listener
@@ -223,7 +226,7 @@ Domains=home
 FallbackDNS=9.9.9.9 1.1.1.1 8.8.8.8
 EOF
 
-    # If NetworkManager is running, tell it to use resolved
+    # If NetworkManager is running, push search domain and DNS to the active connection
     if systemctl is-active --quiet NetworkManager; then
         log "NetworkManager detected, configuring dns=systemd-resolved"
         sudo mkdir -p /etc/NetworkManager/conf.d
@@ -231,6 +234,18 @@ EOF
 [main]
 dns=systemd-resolved
 EOF
+
+        # Apply search domain and Pi-hole DNS to each active connection
+        while IFS=: read -r name device; do
+            if [[ -n "$device" ]]; then
+                log "Setting dns-search and DNS servers on connection: $name ($device)"
+                nmcli con modify "$name" ipv4.dns-search "home"
+                nmcli con modify "$name" ipv6.dns-search "home"
+                nmcli con modify "$name" ipv4.dns "$PIHOLE_PRIMARY $PIHOLE_SECONDARY"
+                nmcli con modify "$name" ipv4.ignore-auto-dns yes
+            fi
+        done < <(nmcli -t -f NAME,DEVICE con show --active)
+
         sudo systemctl restart NetworkManager
     else
         log "No NetworkManager, using systemd-networkd with resolved"
