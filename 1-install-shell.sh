@@ -219,10 +219,11 @@ configure_systemd_resolved() {
 
     # Fallback DNS and stub listener
     sudo mkdir -p /etc/systemd/resolved.conf.d
-    sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << 'EOF'
+sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << EOF
 [Resolve]
+DNS=${PIHOLE_PRIMARY} ${PIHOLE_SECONDARY}
+Domains=home ~home
 DNSStubListener=yes
-Domains=home
 FallbackDNS=9.9.9.9 1.1.1.1 8.8.8.8
 EOF
 
