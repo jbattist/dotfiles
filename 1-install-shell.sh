@@ -212,22 +212,15 @@ ensure_default_shell() {
 }
 
 configure_systemd_resolved() {
+    log "Configuring systemd-resolved to use DHCP-provided DNS"
 
-	local PIHOLE_PRIMARY="192.168.1.100"
-    local PIHOLE_SECONDARY="192.168.1.101"
-    log "Configuring systemd-resolved for DNS"
-
-    # Fallback DNS and stub listener
     sudo mkdir -p /etc/systemd/resolved.conf.d
-sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << EOF
+    sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << EOF
 [Resolve]
-DNS=${PIHOLE_PRIMARY} ${PIHOLE_SECONDARY}
 Domains=home ~home
 DNSStubListener=yes
-FallbackDNS=9.9.9.9 1.1.1.1 8.8.8.8
 EOF
 
-    # If NetworkManager is running, push search domain and DNS to the active connection
     if systemctl is-active --quiet NetworkManager; then
         log "NetworkManager detected, configuring dns=systemd-resolved"
         sudo mkdir -p /etc/NetworkManager/conf.d
@@ -236,14 +229,17 @@ EOF
 dns=systemd-resolved
 EOF
 
-        # Apply search domain and Pi-hole DNS to each active connection
         while IFS=: read -r name device; do
             if [[ -n "$device" ]]; then
-                log "Setting dns-search and DNS servers on connection: $name ($device)"
+                log "Setting dns-search on connection: $name ($device)"
                 nmcli con modify "$name" ipv4.dns-search "home"
                 nmcli con modify "$name" ipv6.dns-search "home"
-                nmcli con modify "$name" ipv4.dns "$PIHOLE_PRIMARY $PIHOLE_SECONDARY"
-                nmcli con modify "$name" ipv4.ignore-auto-dns yes
+
+                # Remove manual DNS overrides and allow DHCP to provide DNS
+                nmcli con modify "$name" ipv4.dns ""
+                nmcli con modify "$name" ipv6.dns ""
+                nmcli con modify "$name" ipv4.ignore-auto-dns no
+                nmcli con modify "$name" ipv6.ignore-auto-dns no
             fi
         done < <(nmcli -t -f NAME,DEVICE con show --active)
 
