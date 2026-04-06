@@ -217,8 +217,9 @@ configure_systemd_resolved() {
     sudo mkdir -p /etc/systemd/resolved.conf.d
     sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << EOF
 [Resolve]
-Domains=home ~home
+Domains=home
 DNSStubListener=yes
+FallbackDNS=
 EOF
 
     if systemctl is-active --quiet NetworkManager; then
