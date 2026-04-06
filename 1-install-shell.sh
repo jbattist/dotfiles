@@ -215,7 +215,7 @@ configure_systemd_resolved() {
     log "Configuring systemd-resolved to use DHCP-provided DNS"
 
     sudo mkdir -p /etc/systemd/resolved.conf.d
-    sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << EOF
+    sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << 'EOF'
 [Resolve]
 Domains=home
 DNSStubListener=yes
@@ -233,18 +233,16 @@ EOF
         while IFS=: read -r name device; do
             if [[ -n "$device" ]]; then
                 log "Setting dns-search on connection: $name ($device)"
-                nmcli con modify "$name" ipv4.dns-search "home"
-                nmcli con modify "$name" ipv6.dns-search "home"
+                sudo nmcli con modify "$name" ipv4.dns-search "home"
+                sudo nmcli con modify "$name" ipv6.dns-search "home"
 
                 # Remove manual DNS overrides and allow DHCP to provide DNS
-                nmcli con modify "$name" ipv4.dns ""
-                nmcli con modify "$name" ipv6.dns ""
-                nmcli con modify "$name" ipv4.ignore-auto-dns no
-                nmcli con modify "$name" ipv6.ignore-auto-dns no
+                sudo nmcli con modify "$name" ipv4.dns ""
+                sudo nmcli con modify "$name" ipv6.dns ""
+                sudo nmcli con modify "$name" ipv4.ignore-auto-dns no
+                sudo nmcli con modify "$name" ipv6.ignore-auto-dns no
             fi
         done < <(nmcli -t -f NAME,DEVICE con show --active)
-
-        sudo systemctl restart NetworkManager
     else
         log "No NetworkManager, using systemd-networkd with resolved"
     fi
@@ -252,6 +250,12 @@ EOF
     sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
     sudo systemctl enable --now systemd-resolved
     sudo systemctl restart systemd-resolved
+
+    if systemctl is-active --quiet NetworkManager; then
+        sudo systemctl restart NetworkManager
+    fi
+
+    sudo resolvectl flush-caches
 
     log "systemd-resolved configured successfully"
 }
