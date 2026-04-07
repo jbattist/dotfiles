@@ -15,7 +15,7 @@
     "systemPrompt": "You are a helpful assistant integrated into a Linux desktop shell. Be concise and helpful.",
     "maxHistoryLength": 100,
     "openaiLocal": true,
-    "openaiBaseUrl": "https://ollama-vm11434/v1/chat/completions",
+    "openaiBaseUrl": "http://ollama-vm:11434/",
     "models": {
       "openai_compatible": "qwen2.5:7b"
     }
