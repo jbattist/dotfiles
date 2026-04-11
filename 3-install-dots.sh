@@ -162,9 +162,6 @@ main() {
     backup_path "$HOME/.config/gtk-3.0"
     backup_path "$HOME/.config/gtk-4.0"
     stow_pkg "gtk"
-
-    # WezTerm (single file in $HOME)
-    backup_and_stow wezterm ".wezterm.lua"
     
     # Plasma: Special handling to avoid wiping .config
     install_plasma
