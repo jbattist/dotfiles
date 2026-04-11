@@ -91,6 +91,7 @@ install_with_yay() {
 
 		# Terminal
 		ghostty
+		wezterm
 		
 		# Prompt & utilities
 		starship
@@ -138,6 +139,7 @@ link_dotfiles() {
 	backup_and_stow "$repo_root" fastfetch ".config/fastfetch"
 	backup_and_stow "$repo_root" ghostty ".config/ghostty"
 	backup_and_stow "$repo_root" nvim ".config/nvim"
+    backup_and_stow "$repo_root" wezterm ".wezterm.lua"
 }
 
 choose_default_shell() {
@@ -161,19 +163,19 @@ choose_default_shell() {
 
 	printf '\n' >&2
 	printf 'Choose your default shell:\n' >&2
-	printf '  1) fish (recommended, default)\n' >&2
+	printf '  1) fish\n' >&2
 	printf '  2) zsh\n' >&2
-	printf '  3) keep current shell\n' >&2
+	printf '  3) keep current shell (default)\n' >&2
 	read -rp "Selection [1/2/3]: " shell_choice
 
 	case "$shell_choice" in
-		""|1)
+		1)
 			printf '%s' "fish"
 			;;
 		2)
 			printf '%s' "zsh"
 			;;
-		3)
+		""|3)
 			printf '%s' "skip"
 			;;
 		*)
