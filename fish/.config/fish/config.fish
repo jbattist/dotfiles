@@ -60,5 +60,3 @@ zoxide init fish --cmd cd | source
 # If you still want the bash nvm, install `bass` (https://github.com/edc/bass) and uncomment:
 # bass source ~/.nvm/nvm.sh
 
-# Fastfetch on new shell
-fastfetch
