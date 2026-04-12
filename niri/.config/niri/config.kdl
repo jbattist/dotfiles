@@ -284,6 +284,7 @@ debug {
 environment {
     QT_QPA_PLATFORMTHEME "kde"
     QT_QPA_PLATFORMTHEME_QT6 "kde"
+    TERMINAL "ghostty"
 }
 
 spawn-at-startup "qs" "-c" "noctalia-shell"

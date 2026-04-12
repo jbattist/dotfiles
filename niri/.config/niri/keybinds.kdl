@@ -293,4 +293,7 @@ binds {
     XF86Launch7 { spawn "";}
     // F18 = XF86Launch8
     XF86Launch8 { spawn "";}
+
+    // Fuzzy find using the fe function in fish
+    Mod+S { spawn "bash" "-c" "$TERMINAL -e fish -c fe"; }
 }
