@@ -31,6 +31,8 @@ window-rule {
     // Only this specific terminal floats
     match app-id="com.mitchellh.ghostty" title="floating-terminal"
     open-floating true
+        default-column-width { fixed 840; }
+    default-window-height { fixed 800; }
 }
 
 window-rule {

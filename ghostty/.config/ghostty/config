@@ -59,4 +59,6 @@
 # Terminal cancel ctrl+x
 # keybind = ctrl+x=text:\x03
 
+background-opacity = 0.9
+
 theme = noctalia
