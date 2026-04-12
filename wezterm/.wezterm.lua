@@ -44,5 +44,6 @@ config.keys = {
   { key = 's', mods = 'LEADER', action = wezterm.action.ShowTabNavigator },
 }
 
+
 -- Finally, return the configuration to wezterm:
 return config
