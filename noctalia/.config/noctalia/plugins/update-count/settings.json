@@ -1,6 +1,6 @@
 {
   "updateIntervalMinutes": 30,
-  "updateTerminalCommand": "ghostty -e",
+  "updateTerminalCommand": "wezterm -e",
   "currentIconName": "world-download",
   "hideOnZero": true,
   "customCmdGetNumUpdates": "yay -Quq 2> /dev/null | wc -l",
