@@ -1,6 +1,6 @@
 # ~/.config/fish/config.fish
 
-~/.config/update-noctalia-starship.py >/dev/null 2>&1; or true
+#~/.config/update-noctalia-starship.py >/dev/null 2>&1; or true
 
 # History #####################################################################
 # Fish handles history deduplication and sharing natively.
