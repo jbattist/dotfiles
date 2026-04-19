@@ -62,7 +62,6 @@ ff() {
     }
 }
 
-
 # Pretty print PATH with one entry per line
 path() {
     echo "$PATH" | tr ":" "\n"
@@ -105,7 +104,6 @@ cmds() {
     ) || return
     print -z "$cmd"
 }
-
 
 # Sources #####################################################################
 
