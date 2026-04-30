@@ -257,10 +257,10 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    # Print { screenshot; }
-    # Ctrl+Print { screenshot-screen; }
-    # Alt+Print { screenshot-window; }
-    # Shift+Print {spawn "sh" "-c" "wl-paste | swappy -f -";}
+    // # Print { screenshot; }
+    // # Ctrl+Print { screenshot-screen; }
+    // # Alt+Print { screenshot-window; }
+    // # Shift+Print {spawn "sh" "-c" "wl-paste | swappy -f -";}
 
 	Print { spawn "flameshot" "gui" "--path" "~/Pictures/Screenshots"; }
 	Ctrl+Print { spawn "flameshot" "screen" "--path" "~/Pictures/Screenshots"; }
