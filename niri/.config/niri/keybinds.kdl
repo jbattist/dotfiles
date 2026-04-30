@@ -262,7 +262,7 @@ binds {
     // # Alt+Print { screenshot-window; }
     // # Shift+Print {spawn "sh" "-c" "wl-paste | swappy -f -";}
 
-	Print { spawn "flameshot" "gui" "--path" "~/Pictures/Screenshots"; }
+	Print { spawn "flameshot" "gui" "--clipboard"; }
 	Ctrl+Print { spawn "flameshot" "screen" "--path" "~/Pictures/Screenshots"; }
 	Shift+Print { spawn "flameshot" "gui" "--clipboard"; }
 
