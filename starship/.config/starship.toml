@@ -456,8 +456,10 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = '[](bold fg:success_fg)'
-error_symbol = '[](bold fg:error_fg)'
+#success_symbol = '[](bold fg:success_fg)'
+#error_symbol = '[](bold fg:error_fg)'
+success_symbol = "[   ](bold fg:success_fg)"
+error_symbol = "[   ](bold fg:error_fg)"
 
 # ============================================================================
 # ADDITIONAL LANGUAGE SYMBOLS (REFERENCE)
