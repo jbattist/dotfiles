@@ -334,13 +334,14 @@ Windows = "󰍲 "
 # ============================================================================
 [username]
 show_always = true
-style_user = "bg:os_section_bg fg:text_light"
+style_user = "bold bg:os_section_bg fg:text_light"
+style_root = "bg:os_section_bg fg:red bold"
 format = '[ $user]($style)'
 
 [hostname]
 ssh_only = false
 disabled = false
-style = "bg:os_section_bg fg:text_light"
+style = "bold bg:os_section_bg fg:text_light"
 format = '[@$hostname $ssh_symbol]($style)'
 ssh_symbol = " "
 # detect_env_vars = ["SSH_CONNECTION"]
@@ -350,6 +351,8 @@ ssh_symbol = " "
 # DIRECTORY CONFIGURATION
 # ============================================================================
 [directory]
+home_symbol = "  "
+read_only = "  "
 style = "fg:text_dark bg:dir_section_bg"
 format = "[ $path ]($style)"
 truncation_length = 3
