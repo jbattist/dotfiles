@@ -141,19 +141,11 @@
             ],
             "right": [
                 {
-                    "id": "Spacer",
-                    "width": 20
+                    "id": "plugin:privacy-indicator"
                 },
                 {
-                    "defaultSettings": {
-                        "activeColor": "primary",
-                        "enableToast": true,
-                        "hideInactive": false,
-                        "iconSpacing": 4,
-                        "inactiveColor": "none",
-                        "removeMargins": false
-                    },
-                    "id": "plugin:privacy-indicator"
+                    "id": "Spacer",
+                    "width": 20
                 },
                 {
                     "id": "Spacer",
@@ -240,12 +232,6 @@
                     "useCustomFont": false
                 },
                 {
-                    "defaultSettings": {
-                        "currentIconName": "world-download",
-                        "hideOnZero": false,
-                        "updateIntervalMinutes": 30,
-                        "updateTerminalCommand": "foot -e"
-                    },
                     "id": "plugin:update-count"
                 }
             ]
@@ -276,11 +262,11 @@
     },
     "colorSchemes": {
         "darkMode": true,
-        "generationMethod": "fruit-salad",
+        "generationMethod": "tonal-spot",
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Catppuccin Lavender",
+        "predefinedScheme": "Tokyo Night Moon",
         "schedulingMode": "off",
         "syncGsettings": true,
         "useWallpaperColors": false
@@ -695,11 +681,11 @@
             },
             {
                 "enabled": true,
-                "id": "starship"
+                "id": "kcolorscheme"
             },
             {
                 "enabled": true,
-                "id": "kcolorscheme"
+                "id": "starship"
             }
         ],
         "enableUserTheming": false

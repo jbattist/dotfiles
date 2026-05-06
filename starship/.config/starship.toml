@@ -1,12 +1,5 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Merged starship configuration with all three themes
-# Colors are named by their usage position in the prompt
-# Theme selection: change 'palette' value to desired theme:
-#   - catppuccin_mocha (default)
-#   - gruvbox_dark
-#   - tokyo_night
-
 # Color naming convention:
 # - os_section_bg: background for OS/username section
 # - dir_section_bg: background for directory section
@@ -47,7 +40,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'catppuccin_mocha'
+palette = 'noctalia'
 # ============================================================================
 # CATPPUCCIN MOCHA PALETTE
 # ============================================================================
@@ -128,7 +121,6 @@ text_dark = "#282a36"
 text_time = "#282a36"
 success_fg = "#50fa7b"
 error_fg = "#ff5555"
-
 
 # ============================================================================
 # GITHUB PALETTE
@@ -258,21 +250,21 @@ text_time = "#2c2525"
 success_fg = "#adda78"
 error_fg = "#fd6883"
 
-  # ============================================================================
-  # HERMES PALETTE
-  # ============================================================================
-  [palettes.hermes]
-  os_section_bg   = "#2d2b55"
-  dir_section_bg  = "#d4a017"
-  git_section_bg  = "#e07b39"
-  lang_section_bg = "#5b9bd5"
-  docker_section_bg = "#3a6fa8"
-  time_section_bg = "#9b7ecf"
-  text_light      = "#f0e6d3"
-  text_dark       = "#1a1a2e"
-  text_time       = "#1a1a2e"
-  success_fg      = "#7ec87e"
-  error_fg        = "#e05c5c"
+# ============================================================================
+# HERMES PALETTE
+# ============================================================================
+[palettes.hermes]
+os_section_bg   = "#2d2b55"
+dir_section_bg  = "#d4a017"
+git_section_bg  = "#e07b39"
+lang_section_bg = "#5b9bd5"
+docker_section_bg = "#3a6fa8"
+time_section_bg = "#9b7ecf"
+text_light      = "#f0e6d3"
+text_dark       = "#1a1a2e"
+text_time       = "#1a1a2e"
+success_fg      = "#7ec87e"
+error_fg        = "#e05c5c"
 
 # ============================================================================
 # OS CONFIGURATION
