@@ -40,13 +40,9 @@ fish_add_path ~/.npm-global/bin
 
 
 # Aliases #####################################################################
-alias ls  "eza --icons=always"
 alias ssh-pi "env TERM=xterm-256color ssh"
-alias ping "grc ping -c 5"
-alias du "grc du"
-alias df "grc df"
 alias serve "python -m http.server"
-alias psaux "grc ps auxw -e -H"
+alias psaux "ps auxw -e -H"
 
 # Sources / Inits #############################################################
 
@@ -58,6 +54,22 @@ starship init fish | source
 
 # zoxide (replaces cd — uses builtin cd internally, no alias loop)
 zoxide init fish --cmd cd | source
+
+# Colorify everything with grc
+source /etc/grc.fish
+# Overrides — must come AFTER source /etc/grc.fish so these functions win
+function ping --wraps=ping --description "ping with -c 5 + grc colors"
+    if isatty 1
+        grc ping -c 5 $argv
+    else
+        command ping -c 5 $argv
+    end
+end
+
+function ls --wraps=ls --description "eza with icons instead of grc ls"
+    eza --icons=always $argv
+end
+
 
 # NVM
 # fish-nvm (https://github.com/jorgebucaran/nvm.fish) is the native alternative.
