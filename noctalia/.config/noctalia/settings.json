@@ -141,9 +141,6 @@
             ],
             "right": [
                 {
-                    "id": "plugin:privacy-indicator"
-                },
-                {
                     "id": "Spacer",
                     "width": 20
                 },
@@ -230,6 +227,9 @@
                     "id": "Clock",
                     "tooltipFormat": "HH:mm ddd, MMM dd",
                     "useCustomFont": false
+                },
+                {
+                    "id": "plugin:privacy-indicator"
                 },
                 {
                     "id": "plugin:update-count"
