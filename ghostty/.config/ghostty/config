@@ -51,6 +51,7 @@
 
 # font-family = Open Sans
  font-family = JetBrainsMono Nerd Font
+ font-size = 12
 # font-family = CaskaydiaCove Nerd Font
 
 # keybind = ctrl+c=copy_to_clipboard

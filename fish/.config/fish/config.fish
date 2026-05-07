@@ -42,7 +42,11 @@ fish_add_path ~/.npm-global/bin
 # Aliases #####################################################################
 alias ls  "eza --icons=always"
 alias ssh-pi "env TERM=xterm-256color ssh"
-
+alias ping "grc ping -c 5"
+alias du "grc du"
+alias df "grc df"
+alias serve "python -m http.server"
+alias psaux "grc ps auxw -e -H"
 
 # Sources / Inits #############################################################
 
