@@ -40,7 +40,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'tokyo_night'
+palette = 'purple_grey'
 # ============================================================================
 # CATPPUCCIN MOCHA PALETTE
 # ============================================================================
@@ -265,6 +265,20 @@ text_dark       = "#1a1a2e"
 text_time       = "#1a1a2e"
 success_fg      = "#7ec87e"
 error_fg        = "#e05c5c"
+
+
+[palettes.purple_grey]
+os_section_bg = "#4c4f69"
+dir_section_bg = "#b4befe"
+git_section_bg = "#c6a0f6"
+lang_section_bg = "#f5bde6"
+docker_section_bg = "#4c4f69"
+time_section_bg = "#a3b4eb"
+text_light = "#cdd6f4"
+text_dark = "#11111b"
+text_time = "#11111b"
+success_fg = "#b4befe"
+error_fg = "#f38ba8"
 
 # ============================================================================
 # OS CONFIGURATION
