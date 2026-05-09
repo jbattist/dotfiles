@@ -43,21 +43,21 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'noctalia_shim'
+palette = 'purple'
 
 # ============================================================================
-# NOCTALIA_SHIM PALETTE
+# PURPLE PALETTE
 # ============================================================================
-[palettes.noctalia_shim]
-os_section_bg = "#a967e4"
-dir_section_bg = "#5c6bd6"
+[palettes.purple]
+os_section_bg = "#693399"
+dir_section_bg = "#a967e4"
 git_section_bg = "#cc6696"
 lang_section_bg = "#96a0e9"
 docker_section_bg = "#c293ec"
-time_section_bg = "#693399"
-text_light = "#eadbf6"
-text_dark = "#332e37"
-text_time ="#eadbf6"
+time_section_bg = "#5c6bd6"
+text_light = "#c69ce8"
+text_dark = "#4e1e73"
+text_time ="#3b2d96"
 success_fg = "#9ece6a"
 error_fg = "#f38ba8"
 
