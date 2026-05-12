@@ -49,7 +49,7 @@ palette = 'purple'
 # BLUE PALETTE
 # ============================================================================
 [palettes.blue]
-os_section_bg = "#202fb6"
+os_section_bg = "#303b9d"
 dir_section_bg = "#a967e4"
 git_section_bg = "#67b2e4"
 lang_section_bg = "#96a0e9"
