@@ -46,6 +46,22 @@ $line_break$character"""
 palette = 'purple'
 
 # ============================================================================
+# BLUE PALETTE
+# ============================================================================
+[palettes.blue]
+os_section_bg = "#202fb6"
+dir_section_bg = "#a967e4"
+git_section_bg = "#67b2e4"
+lang_section_bg = "#96a0e9"
+docker_section_bg = "#b796e9"
+time_section_bg = "#5c6bd6"
+text_light = "#afb3b6"
+text_dark = "#1f166b"
+text_time ="#afb3b6"
+success_fg = "#9ece6a"
+error_fg = "#f38ba8"
+
+# ============================================================================
 # PURPLE PALETTE
 # ============================================================================
 [palettes.purple]
