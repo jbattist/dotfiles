@@ -99,7 +99,7 @@ local function hypr_dispatch(cmd)
     return function() hl.exec_cmd("hyprctl dispatch " .. cmd) end
 end
 
-local layoutCycleScript = "~/.config/hypr/scripts/cycle-layout.sh"
+local layoutCycleScript = "/home/joe/.config/hypr/scripts/cycle-layout.sh"
 
 -- Launchers and session controls, mirrored from niri where practical.
 hl.bind(mainMod .. " + T", sh(terminal), { description = "Open a Terminal: ghostty" })
