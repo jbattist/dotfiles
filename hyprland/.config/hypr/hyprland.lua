@@ -99,24 +99,7 @@ local function hypr_dispatch(cmd)
     return function() hl.exec_cmd("hyprctl dispatch " .. cmd) end
 end
 
-local layout_cycle = { "scrolling", "dwindle", "master", "monocle" }
-local function cycle_layout()
-    local handle = io.popen("hyprctl getoption general:layout -j 2>/dev/null")
-    local output = handle and handle:read("*a") or ""
-    if handle then handle:close() end
-
-    local current = output:match('"str"%s*:%s*"([^"]+)"') or output:match('"set"%s*:%s*"([^"]+)"') or "scrolling"
-    local next_layout = layout_cycle[1]
-    for i, layout in ipairs(layout_cycle) do
-        if layout == current then
-            next_layout = layout_cycle[(i % #layout_cycle) + 1]
-            break
-        end
-    end
-
-    hl.exec_cmd("hyprctl keyword general:layout " .. next_layout)
-    hl.exec_cmd("notify-send 'Hyprland layout' 'Switched to " .. next_layout .. "'")
-end
+local layoutCycleScript = "~/.config/hypr/scripts/cycle-layout.sh"
 
 -- Launchers and session controls, mirrored from niri where practical.
 hl.bind(mainMod .. " + T", sh(terminal), { description = "Open a Terminal: ghostty" })
@@ -184,7 +167,7 @@ hl.bind(mainMod .. " + Minus", hl.dsp.layout("colresize -0.1"))
 hl.bind(mainMod .. " + Equal", hl.dsp.layout("colresize +0.1"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + V", hypr_dispatch("cyclenext floating"))
-hl.bind(mainMod .. " + W", cycle_layout, { description = "Cycle layout: scrolling/dwindle/master/monocle" })
+hl.bind(mainMod .. " + W", sh(layoutCycleScript), { repeating = false, description = "Cycle layout: scrolling/dwindle/master/monocle" })
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + BracketLeft", hl.dsp.layout("colresize -conf"))
 hl.bind(mainMod .. " + BracketRight", hl.dsp.layout("colresize +conf"))
