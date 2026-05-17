@@ -20,5 +20,5 @@ for i in "${!layouts[@]}"; do
     fi
 done
 
-hyprctl keyword general:layout "${next}"
+hyprctl eval "hl.config({ general = { layout = \"${next}\" } })"
 notify-send 'Hyprland layout' "Switched to ${next}" 2>/dev/null || true
