@@ -100,6 +100,8 @@ local function hypr_dispatch(cmd)
 end
 
 local layoutCycleScript = "/home/joe/.config/hypr/scripts/cycle-layout.sh"
+local columnSizeScript  = "/home/joe/.config/hypr/scripts/cycle-column-size.sh"
+local fullscreenScript  = "/home/joe/.config/hypr/scripts/maximize-or-fullscreen.sh"
 
 -- Launchers and session controls, mirrored from niri where practical.
 hl.bind(mainMod .. " + T", sh(terminal), { description = "Open a Terminal: ghostty" })
@@ -158,8 +160,8 @@ hl.bind(mainMod .. " + CTRL + Page_Up", hypr_dispatch("movetoworkspace e-1"))
 hl.bind(mainMod .. " + CTRL + U", hypr_dispatch("movetoworkspace e+1"))
 hl.bind(mainMod .. " + CTRL + I", hypr_dispatch("movetoworkspace e-1"))
 
-hl.bind(mainMod .. " + G", hl.dsp.layout("colresize +conf"))
-hl.bind(mainMod .. " + F", hl.dsp.layout("colresize 1"))
+hl.bind(mainMod .. " + G", sh(columnSizeScript), { repeating = false, description = "Cycle niri preset column/window width" })
+hl.bind(mainMod .. " + F", sh(fullscreenScript), { repeating = false, description = "Maximize scrolling column or fullscreen active window" })
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + CTRL + F", hl.dsp.layout("colresize 1"))
 hl.bind(mainMod .. " + C", hypr_dispatch("centerwindow"))
@@ -174,10 +176,10 @@ hl.bind(mainMod .. " + BracketRight", hl.dsp.layout("colresize +conf"))
 
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-hl.bind(mainMod .. " + mouse_down", hl.dsp.layout("move -col"))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.layout("move +col"))
-hl.bind(mainMod .. " + mouse_right", hl.dsp.layout("move +col"))
-hl.bind(mainMod .. " + mouse_left", hl.dsp.layout("move -col"))
+hl.bind(mainMod .. " + mouse_down", hl.dsp.layout("move +col"))
+hl.bind(mainMod .. " + mouse_up", hl.dsp.layout("move -col"))
+hl.bind(mainMod .. " + mouse_right", hl.dsp.layout("move -col"))
+hl.bind(mainMod .. " + mouse_left", hl.dsp.layout("move +col"))
 
 hl.bind("Print", sh("flameshot gui --clipboard"))
 hl.bind("CTRL + Print", sh("flameshot screen --path ~/Pictures/Screenshots"))
