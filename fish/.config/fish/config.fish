@@ -43,6 +43,7 @@ fish_add_path ~/.npm-global/bin
 alias ssh-pi "env TERM=xterm-256color ssh"
 alias serve "python -m http.server"
 alias psaux "ps auxw -e -H"
+alias hermes-tui "ssh -t hermes.home 'hermes --tui'"
 
 # Sources / Inits #############################################################
 
