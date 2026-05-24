@@ -102,13 +102,15 @@ install_with_yay() {
 		zoxide
 		fd
 		bat
+		sysz
+		grc
 
 		# Dotfile management & tools
 		stow
 
 		#Editors
 		micro
-		neovim
+		#neovim
 	)
 
 	for pkg in "${packages[@]}"; do
