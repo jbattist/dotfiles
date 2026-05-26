@@ -104,6 +104,7 @@ install_with_yay() {
 		bat
 		sysz
 		grc
+		ripgrep
 
 		# Dotfile management & tools
 		stow
