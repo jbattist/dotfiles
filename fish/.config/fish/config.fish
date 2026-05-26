@@ -56,11 +56,14 @@ starship init fish | source
 # zoxide (replaces cd — uses builtin cd internally, no alias loop)
 zoxide init fish --cmd cd | source
 
-# Colorify everything with grc
-source /etc/grc.fish
+# Colorify everything with grc when installed
+# Arch's grc package provides /etc/grc.fish; machines without grc should not error.
+if test -f /etc/grc.fish
+    source /etc/grc.fish
+end
 # Overrides — must come AFTER source /etc/grc.fish so these functions win
-function ping --wraps=ping --description "ping with -c 5 + grc colors"
-    if isatty 1
+function ping --wraps=ping --description "ping with -c 5 + optional grc colors"
+    if isatty 1; and command -q grc
         grc ping -c 5 $argv
     else
         command ping -c 5 $argv
