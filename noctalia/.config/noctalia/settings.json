@@ -705,10 +705,6 @@
             {
                 "enabled": true,
                 "id": "kcolorscheme"
-            },
-            {
-                "enabled": true,
-                "id": "starship"
             }
         ],
         "enableUserTheming": false
