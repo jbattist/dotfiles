@@ -1,0 +1,17 @@
+{
+  "refreshIntervalSec": 30,
+  "barCycleIntervalSec": 5,
+  "barMetric": "tokens",
+  "providers": {
+    "openrouter": {
+      "enabled": true,
+      "apiKey": "REDACTED"
+    },
+    "claude": {
+      "enabled": true
+    },
+    "codex": {
+      "enabled": true
+    }
+  }
+}
