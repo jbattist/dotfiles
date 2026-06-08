@@ -105,6 +105,7 @@ install_with_yay() {
 		sysz
 		grc
 		ripgrep
+		isd
 
 		# Dotfile management & tools
 		stow
