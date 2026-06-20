@@ -266,8 +266,17 @@ EOF
     log "systemd-resolved configured successfully"
 }
 
+configure_pacman_colors() {
+	log "Enabling Color and ILoveCandy in /etc/pacman.conf"
+	sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
+	if ! grep -q '^ILoveCandy' /etc/pacman.conf; then
+		sudo sed -i '/^Color/a ILoveCandy' /etc/pacman.conf
+	fi
+}
+
 main() {
 	install_with_yay
+	configure_pacman_colors
 	configure_systemd_resolved
 	link_dotfiles
 	ensure_sudo_access
