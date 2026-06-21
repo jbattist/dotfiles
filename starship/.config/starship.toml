@@ -32,8 +32,11 @@ $directory\
 $git_branch\
 $git_status\
 [](fg:git_section_bg bg:lang_section_bg)\
+$c\
+$rust\
+$python\
+[](fg:lang_section_bg bg:docker_section_bg)\
 $custom\
-[](fg:lang_section_bg bg:docker_section_bg)\
 $container\
 [](fg:docker_section_bg bg:time_section_bg)\
 $time\
@@ -465,42 +468,21 @@ format = '[[ $symbol( $version) ](fg:text_dark bg:lang_section_bg)]($style)'
 # ============================================================================
 [docker_context]
 symbol = " "
-style = "bg:lang_section_bg"
-format = '[[ $symbol( $context) ](fg:text_light bg:lang_section_bg)]($style)'
+style = "bg:docker_section_bg"
+format = '[[ $symbol( $context) ](fg:text_light bg:docker_section_bg)]($style)'
 
 [container]
 symbol = " "
 # symbol = "󰏗 "
-style = "bg:lang_section_bg"
-format = '[[ $symbol( $name) ](fg:text_light bg:lang_section_bg)]($style)'
+style = "bg:docker_section_bg"
+format = '[[ $symbol( $name) ](fg:text_light bg:docker_section_bg)]($style)'
 
 [custom.dockerstatus]
 command = "ctx=$(docker context show 2>/dev/null || echo no-docker); n=$(docker ps -q 2>/dev/null | wc -l | tr -d ' '); echo \"$ctx:$n\""
 when = "command -v docker >/dev/null 2>&1"
 shell = ["bash", "--noprofile", "--norc"]
-style = "bg:lang_section_bg"
-format = '[[  $output ](fg:text_light bg:lang_section_bg)]($style)'
-
-# ============================================================================
-# AI AGENT CONFIGURATION
-# Shows an indicator when an AI coding agent (opencode, claude, codex, aider)
-# is active in the current directory. Replaces the per-language version
-# segments (C/Rust/Python) in the prompt format above.
-# ============================================================================
-[custom.ai_agent]
-symbol = "󰚩 "
-detect_folders = [".opencode", ".claude", ".codex"]
-detect_files = ["opencode.json", "CLAUDE.md", ".aider.conf.yml", ".aider.conf.toml"]
-command = """
-if [ -d .opencode ] || [ -f opencode.json ]; then printf "opencode"
-elif [ -d .claude ] || [ -f CLAUDE.md ]; then printf "claude"
-elif [ -d .codex ]; then printf "codex"
-elif [ -f .aider.conf.yml ] || [ -f .aider.conf.toml ]; then printf "aider"
-fi
-"""
-shell = ["bash", "--noprofile", "--norc"]
-style = "bg:lang_section_bg"
-format = '[[ $symbol$output ](fg:text_dark bg:lang_section_bg)]($style)'
+style = "bg:docker_section_bg"
+format = '[[  $output ](fg:text_light bg:docker_section_bg)]($style)'
 
 # ============================================================================
 # TIME CONFIGURATION
