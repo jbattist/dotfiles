@@ -11,8 +11,9 @@ layout {
     default-column-width { proportion 0.25; }
 }
 
-// TODO: update output name/settings to match your work monitor(s)
-output "DP-1" {
+// Output name is filled in by 3-install-dots.sh from `niri msg outputs`.
+// If auto-detection fails, edit this to your real output name (run `niri msg outputs`).
+output "__NIRI_OUTPUT__" {
     scale 1
     transform "normal"
     position x=0 y=0

@@ -121,12 +121,30 @@ install_machine_niri_config() {
     local template="$repo_root/niri/.config/niri/machine.kdl.$machine"
     local dest="$HOME/.config/niri/machine.kdl"
 
-    if [ -f "$template" ]; then
-        mkdir -p "$HOME/.config/niri"
-        cp "$template" "$dest"
-        log "Installed niri machine config for '$machine'"
-    else
+    if [ ! -f "$template" ]; then
         err "No niri machine template found at $template — skipping"
+        return
+    fi
+
+    mkdir -p "$HOME/.config/niri"
+
+    # Detect the first connected output name from the running niri instance.
+    # On a fresh install before first login niri may not be running; in that
+    # case the __NIRI_OUTPUT__ placeholder is left in the written file for the
+    # user to fill in after logging in and running `niri msg outputs`.
+    local detected=""
+    if command -v niri >/dev/null 2>&1; then
+        detected="$(niri msg outputs 2>/dev/null | awk '/^Output /{sub(/:$/,"",$2); print $2; exit}')"
+    fi
+
+    if [ -n "$detected" ]; then
+        sed "s/__NIRI_OUTPUT__/$detected/g" "$template" > "$dest"
+        log "Installed niri machine config for '$machine' (output: $detected)"
+    else
+        cp "$template" "$dest"
+        warn "Could not auto-detect display output (niri not running)."
+        warn "Edit $dest and replace __NIRI_OUTPUT__ with your output name."
+        warn "Run 'niri msg outputs' after logging in to list outputs."
     fi
 }
 

@@ -5,7 +5,7 @@
   "providers": {
     "openrouter": {
       "enabled": true,
-      "apiKey": "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"
+      "apiKey": ""
     },
     "claude": {
       "enabled": true
