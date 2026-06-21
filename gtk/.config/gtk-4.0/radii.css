@@ -1,0 +1,20 @@
+/*
+ * Consistent corner radius for Noctalia-themed GTK surfaces.
+ * Imported by gtk.css after noctalia.css so Noctalia's template
+ * processor regenerating noctalia.css will not clobber these rules.
+ * Radius matches niri geometry-corner-radius and noctalia frameRadius.
+ */
+
+popover,
+popover contents,
+menu,
+tooltip,
+dialog,
+messagedialog,
+card,
+headerbar,
+notebook,
+frame,
+infobar {
+    border-radius: 14px;
+}

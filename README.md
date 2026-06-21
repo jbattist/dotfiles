@@ -101,7 +101,7 @@ Selection [1/2/3]:
 
 The choice is saved to `~/.config/dotfiles/machine.env`. On subsequent runs you'll be asked to confirm or change it.
 
-This also copies `niri/machine.kdl.<profile>` → `~/.config/niri/machine.kdl`, which niri includes for layout widths, monitor output, and any machine-specific window rules.
+This also copies `niri/machine.kdl.<profile>` → `~/.config/niri/machine.kdl` and, if niri is running, auto-detects your connected output via `niri msg outputs` and substitutes it for the `__NIRI_OUTPUT__` placeholder in the template. If niri isn't running (fresh install before first login), the placeholder is left in place — run `niri msg outputs` after logging in and edit `~/.config/niri/machine.kdl`. Niri includes this file for layout widths, monitor output, and machine-specific window rules.
 
 ### Omarchy-safe install (non-destructive)
 
@@ -131,7 +131,7 @@ bash 4-install-omarchy.sh --apply-apps
    ```bash
    cp niri/.config/niri/machine.kdl.home niri/.config/niri/machine.kdl.newprofile
    ```
-2. Edit it — update `output`, `preset-column-widths`, `default-column-width`, and any window rules.
+2. Edit it — update `output "__NIRI_OUTPUT__"` (auto-filled at install time), `preset-column-widths`, `default-column-width`, and any window rules.
 3. Add a `PACKAGES_newprofile=(...)` array to `2-install-pkgs.sh`.
 4. Add `newprofile` as a valid option in both `3-install-dots.sh` and `2-install-pkgs.sh`.
 5. Run `3-install-dots.sh` on the machine and select the new profile.

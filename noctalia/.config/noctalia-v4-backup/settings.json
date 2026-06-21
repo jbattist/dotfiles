@@ -42,7 +42,7 @@
     "bar": {
         "autoHideDelay": 500,
         "autoShowDelay": 150,
-        "backgroundOpacity": 0.93,
+        "backgroundOpacity": 0.85,
         "barType": "simple",
         "capsuleColorKey": "none",
         "capsuleOpacity": 1,
@@ -51,7 +51,7 @@
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
         "fontScale": 1,
-        "frameRadius": 12,
+        "frameRadius": 14,
         "frameThickness": 8,
         "hideOnOverview": false,
         "marginHorizontal": 5,
@@ -366,7 +366,7 @@
     },
     "dock": {
         "animationSpeed": 1,
-        "backgroundOpacity": 1,
+        "backgroundOpacity": 0.85,
         "colorizeIcons": false,
         "deadOpacity": 0.6,
         "displayMode": "always_visible",
@@ -528,7 +528,7 @@
         "disableWallpaper": true
     },
     "notifications": {
-        "backgroundOpacity": 1,
+        "backgroundOpacity": 0.85,
         "clearDismissed": true,
         "criticalUrgencyDuration": 15,
         "density": "default",
@@ -561,7 +561,7 @@
     },
     "osd": {
         "autoHideMs": 2000,
-        "backgroundOpacity": 1,
+        "backgroundOpacity": 0.85,
         "enabled": true,
         "enabledTypes": [
             0,
@@ -715,13 +715,13 @@
         "fontDefaultScale": 1,
         "fontFixed": "JetBrainsMono Nerd Font",
         "fontFixedScale": 1,
-        "panelBackgroundOpacity": 0.77,
+        "panelBackgroundOpacity": 0.85,
         "panelsAttachedToBar": true,
         "scrollbarAlwaysVisible": true,
         "settingsPanelMode": "attached",
         "settingsPanelSideBarCardStyle": false,
         "tooltipsEnabled": true,
-        "translucentWidgets": false
+        "translucentWidgets": true
     },
     "wallpaper": {
         "automationEnabled": false,
