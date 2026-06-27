@@ -31,6 +31,7 @@
     },
     "display": {
         "separator": ": ",
+        "disableLinewrap": true,
         "constants": [
             "\u001b[100C", // $1: Move cursor forward 77 columns (adjust if needed)
             "\u001b[100D", // $2: Move cursor back 77 columns (not used, defined anyway)
@@ -43,7 +44,7 @@
         "break",
         {
             "type": "custom",
-            "format": "\u001b{#green}╭─────────────────────── Hardware ───────────────────────╮"
+            "format": "{#green}╭─ Hardware ─────────────────────────────────────────────╮"
         },
         {
             "type": "cpu",
@@ -85,11 +86,11 @@
         },
         {
             "type": "custom",
-            "format": "\u001b{#green}╰─{$5}─╯"
+            "format": "{#green}╰─{$5}─╯"
         },
         {
             "type": "custom",
-            "format": "\u001b{#yellow}╭────────────────────────── OS ──────────────────────────╮"
+            "format": "{#yellow}╭─ OS ─────────────────────────────────────────────╮"
         },
         {
             // 
@@ -136,11 +137,11 @@
         },
         {
             "type": "custom",
-            "format": "\u001b{#yellow}╰─{$5}─╯"
+            "format": "{#yellow}╰─{$5}─╯"
         },
         {
             "type": "custom",
-            "format": "\u001b{#blue}╭───────────────── Desktop Environment ──────────────────╮"
+            "format": "{#blue}╭─ Desktop Environment ──────────────────────────────────╮"
         },
         {
             "type": "lm",
@@ -174,11 +175,11 @@
         },
         {
             "type": "custom",
-            "format": "\u001b{#blue}╰─{$5}─╯"
+            "format": "{#blue}╰─{$5}─╯"
         },
         {
             "type": "custom",
-            "format": "\u001b{#magenta}╭───────────────────── Age / Uptime ─────────────────────╮"
+            "format": "{#magenta}╭─ Age / Uptime ──────────────────────────────────────────╮"
         },
         {
             "type": "command",
