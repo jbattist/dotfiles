@@ -43,7 +43,18 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'github'
+palette = 'catppuccin_macchiato'
+
+[palettes.catppuccin_macchiato]
+os_section_bg = "#ed8796"
+dir_section_bg = "#f5a97f"
+git_section_bg = "#eed49f"
+lang_section_bg = "#a6da95"
+docker_section_bg = "#7dc4e4"
+time_section_bg = "#b7bdf8"
+text_time = "#24273a"
+text_dark = "#24273a"
+text_light = "#24273a"
 
 # ============================================================================
 # BLUE PALETTE
