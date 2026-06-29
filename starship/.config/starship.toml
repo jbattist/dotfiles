@@ -45,6 +45,9 @@ $line_break$character"""
 
 palette = 'catppuccin_macchiato'
 
+# ============================================================================
+# CATPPUCCIN_MACCHIATO PALETTE
+# ============================================================================
 [palettes.catppuccin_macchiato]
 os_section_bg = "#ed8796"
 dir_section_bg = "#f5a97f"
