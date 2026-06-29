@@ -56,8 +56,8 @@ lang_section_bg = "#a6da95"
 docker_section_bg = "#7dc4e4"
 time_section_bg = "#b7bdf8"
 text_time = "#24273a"
-text_dark = "#24273a"
-text_light = "#24273a"
+text_dark = "#3d3a34"
+text_light = "#3d3a34"
 
 # ============================================================================
 # BLUE PALETTE
