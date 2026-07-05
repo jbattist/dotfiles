@@ -69,6 +69,24 @@ require_arch() {
   fi
 }
 
+enable_multilib() {
+  # Uncomments the [multilib] section in /etc/pacman.conf so 32-bit
+  # packages (e.g. steam) can be installed.
+  local conf="/etc/pacman.conf"
+  if grep -q '^\[multilib\]' "$conf"; then
+    log "multilib already enabled"
+    return 0
+  fi
+
+  if ! grep -q '^#\s*\[multilib\]' "$conf"; then
+    err "Could not find a [multilib] section (even commented) in $conf"
+    return 1
+  fi
+
+  log "Enabling [multilib] in $conf"
+  sudo sed -i '/^#\s*\[multilib\]/,/Include/s/^#\s*//' "$conf"
+}
+
 has_cmd() { command -v "$1" >/dev/null 2>&1; }
 
 pkg_installed() {
@@ -176,8 +194,24 @@ install_packages() {
     return 0
   fi
 
-  log "Installing: ${to_install[*]}"
-  yay -S --needed --noconfirm "${to_install[@]}"
+  # Install packages one at a time so a single missing/broken package
+  # doesn't abort the entire run.
+  local failed=()
+  for pkg in "${to_install[@]}"; do
+    log "Installing: $pkg"
+    if ! yay -S --needed --noconfirm "$pkg"; then
+      warn "Failed to install '$pkg' (skipping)"
+      failed+=("$pkg")
+    fi
+  done
+
+  if (( ${#failed[@]} > 0 )); then
+    warn "These packages failed to install (check above for details):"
+    for pkg in "${failed[@]}"; do
+      warn "  - $pkg"
+    done
+    return 1
+  fi
 }
 
 main() {
@@ -193,6 +227,9 @@ main() {
   # Ensure package DB is available (and keys initialized as needed)
   log "Ensuring pacman keyring is ready..."
   sudo pacman -Sy --noconfirm archlinux-keyring || true
+
+  # Enable multilib before installing packages (needed for steam)
+  enable_multilib
 
   update_all
   install_packages "$MACHINE"
