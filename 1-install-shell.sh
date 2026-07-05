@@ -97,7 +97,7 @@ install_with_yay() {
 		starship
 		fastfetch
 		fzf
-		fzf-zsh
+		#fzf-zsh
 		eza
 		zoxide
 		fd

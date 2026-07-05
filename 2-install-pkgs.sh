@@ -17,17 +17,18 @@ PACKAGES_BASE=(
   gnome-calculator
   udiskie
   cliphist
-  ferdium-bin
+  #ferdium-bin
     
   # Development tooling
   visual-studio-code-bin
   opencode
-  claude-code
-  codex-cli
+  #claude-code
+  #codex-cli
+  zed
 
   # Window manager + theming
   niri
-  noctalia-shell
+  noctalia
 
   # Fonts
   ttf-jetbrains-mono
