@@ -1,0 +1,23 @@
+# grc config for `lsof -iTCP -sTCP:LISTEN -P -n`
+# Colorizes the COMMAND column, port numbers, and the (LISTEN) keyword.
+# Used by the `ports` fish function.
+
+# Command name (first column) - bold cyan
+regexp=^(\S+)
+colours=bold cyan
+count=more
+-
+# Port number after colon - yellow
+regexp=:(\d+)\s
+colours=yellow
+count=more
+-
+# IPv4 address (e.g. 127.0.0.1, 0.0.0.0) - green
+regexp=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):
+colours=green
+count=more
+-
+# (LISTEN) keyword - bold green
+regexp=\(LISTEN\)
+colours=bold green
+count=more
