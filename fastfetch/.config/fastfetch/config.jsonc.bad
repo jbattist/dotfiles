@@ -33,170 +33,171 @@
         "separator": ": ",
         "disableLinewrap": true,
         "constants": [
-            "\u001b[100C", // $1: Move cursor forward 77 columns (adjust if needed)
-            "\u001b[100D", // $2: Move cursor back 77 columns (not used, defined anyway)
+            "\u001b[103G", // $1: Move to visible fixed right border column with side logo
+            "\u001b[999D", // $2: Move far left before absolute border placement
             "\u001b[88C", // $3: Move cursor to max width (wide term), or last column (narrow term)
             "\u001b[20D", // $4: Move back 20 columns for the color block (both lines)
-            "──────────────────────────────────────────────────────"
+            "──────────────────────────────────────────────────────",
+            "\u001b[K" // $6: Clear to end of line after fixed right border
         ]
     },
     "modules": [
         "break",
         {
             "type": "custom",
-            "format": "{#green}╭─ Hardware ─────────────────────────────────────────────╮"
+            "format": "{#green}╭─ Hardware ──────────────────────────────╮"
         },
         {
             "type": "cpu",
             "key": "│ ┌ CPU",
             "showPeCoreCount": true,
             "keyColor": "green",
-            "format": "{name} {#green} {$2}{$1}│"
+            "format": "{name} {#green} {$2}{$1}│{$6}"
         },
         {
             "type": "gpu",
             "key": "│ ├󰢮 GPU",
             "keyColor": "green",
-            "format": "{name} {#green} {$2}{$1}│"
+            "format": "{name} {#green} {$2}{$1}│{$6}"
         },
         {
             "type": "display",
             "key": "│ ├󰹑DISPLAY",
             "keyColor": "green",
-            "format": "{1}x{2} @ {3}Hz Scale: {21} {12}\" {#green}{$2}{$1}│"
+            "format": "{1}x{2} @ {3}Hz Scale: {21} {12}\" {#green}{$2}{$1}│{$6}"
         },
         {
             "type": "sound",
             "key": "│ ├󰓃 SOUND",
             "keyColor": "green",
-            "format": "{name:39} {#green} {$2}{$1}│"
+            "format": "{name:39} {#green} {$2}{$1}│{$6}"
         },
         {
             "type": "memory",
             "key": "│ ├ MEMORY",
             "keyColor": "green",
-            "format": "{used} / {total} ({percentage}) {#green} {$2}{$1}│"
+            "format": "{used} / {total} ({percentage}) {#green} {$2}{$1}│{$6}"
         },
         {
             "type": "disk",
             // 
             "key": "│ └󰋊 DISK",
             "keyColor": "green",
-            "format": "{size-total} / {size-used} ({size-percentage}) - {filesystem} {#green} {$2}{$1}│"
+            "format": "{size-total} / {size-used} ({size-percentage}) - {filesystem} {#green} {$2}{$1}│{$6}"
         },
         {
             "type": "custom",
-            "format": "{#green}╰─{$5}─╯"
+            "format": "{#green}╰─────────────────────────────────────────╯"
         },
         {
             "type": "custom",
-            "format": "{#yellow}╭─ OS ─────────────────────────────────────────────╮"
+            "format": "{#yellow}╭─ OS ────────────────────────────────────╮"
         },
         {
             // 
             "type": "os",
             "key": "│ ┌󰣇 OS",
             "keyColor": "yellow",
-            "format": "{pretty-name} {#yellow} {$2}{$1}│"
+            "format": "{pretty-name} {#yellow} {$2}{$1}│{$6}"
         },
         {
             "type": "title",
             "key": "│ ├ USER/HOST",
-            "format": "{user-name}@{host-name} {#yellow} {$2}{$1}│",
+            "format": "{user-name}@{host-name} {#yellow} {$2}{$1}│{$6}",
             "keyColor": "yellow"
         },
         {
             "type": "kernel",
             "key": "│ ├ KERNEL",
             "keyColor": "yellow",
-            "format": "{sysname} {release} {#yellow} {$2}{$1}│"
+            "format": "{sysname} {release} {#yellow} {$2}{$1}│{$6}"
         },
         {
             "type": "packages",
             "key": "│ ├󰏖 PACKAGES",
             "keyColor": "yellow",
-            "format": "{pacman} (pacman), {flatpak-system} (flatpak){#yellow} {$2}{$1}│"
+            "format": "{pacman} (pacman), {flatpak-system} (flatpak){#yellow} {$2}{$1}│{$6}"
         },
         {
             "type": "terminal",
             "key": "│ ├ TERMINAL",
             "keyColor": "yellow",
-            "format": "{pretty-name} {#yellow} {$2}{$1}│"
+            "format": "{pretty-name} {#yellow} {$2}{$1}│{$6}"
         },
         {
             "type": "terminalfont",
             "key": "│ ├󰛖 TERMINAL FONT",
             "keyColor": "yellow",
-            "format": "{name} {#yellow} {$2}{$1}│"
+            "format": "{name} {#yellow} {$2}{$1}│{$6}"
         },
         {
             "type": "shell",
             "key": "│ └ SHELL",
             "keyColor": "yellow",
-            "format": "{pretty-name} {#yellow} {$2}{$1}│"
+            "format": "{pretty-name} {#yellow} {$2}{$1}│{$6}"
         },
         {
             "type": "custom",
-            "format": "{#yellow}╰─{$5}─╯"
+            "format": "{#yellow}╰─────────────────────────────────────────╯"
         },
         {
             "type": "custom",
-            "format": "{#blue}╭─ Desktop Environment ──────────────────────────────────╮"
+            "format": "{#blue}╭─ Desktop Environment ───────────────────╮"
         },
         {
             "type": "lm",
             "key": "│ ┌ DISPLAY MANAGER",
             "keyColor": "blue",
-            "format": "{service} ({type}) {#blue} {$2}{$1}│"
+            "format": "{service} ({type}) {#blue} {$2}{$1}│{$6}"
         },
         {
             "type": "wm",
             "key": "│ ├󰹗 WINDOW MANAGER",
             "keyColor": "blue",
-            "format": "{pretty-name} {#blue} {$2}{$1}│"
+            "format": "{pretty-name} {#blue} {$2}{$1}│{$6}"
         },
         {
             "type": "theme",
             "key": "│ ├ THEME",
             "keyColor": "blue",
-            "format": "{theme2} {#blue} {$2}{$1}│"
+            "format": "{theme2} {#blue} {$2}{$1}│{$6}"
         },
         {
             "type": "icons",
             "key": "│ ├ ICONS",
             "keyColor": "blue",
-            "format": "{icons2} {#blue} {$2}{$1}│"
+            "format": "{icons2} {#blue} {$2}{$1}│{$6}"
         },
         {
             "type": "font",
             "key": "│ └󰛖 SYSTEM FONT",
-            "format": "{3}{#blue} {$2}{$1}│",
+            "format": "{3}{#blue} {$2}{$1}│{$6}",
             "keyColor": "blue"
         },
         {
             "type": "custom",
-            "format": "{#blue}╰─{$5}─╯"
+            "format": "{#blue}╰─────────────────────────────────────────╯"
         },
         {
             "type": "custom",
-            "format": "{#magenta}╭─ Age / Uptime ──────────────────────────────────────────╮"
+            "format": "{#magenta}╭─ Age / Uptime ──────────────────────────╮"
         },
         {
             "type": "command",
             "key": "│ ┌ OS Age ",
             "keyColor": "magenta",
             "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
-            "format": "{result} {#magenta} {$2}{$1}│"
+            "format": "{result} {#magenta} {$2}{$1}│{$6}"
         },
         {
             "type": "uptime",
             "key": "│ └ Uptime ",
             "keyColor": "magenta",
-            "format": "{formatted} {#magenta} {$2}{$1}│"
+            "format": "{formatted} {#magenta} {$2}{$1}│{$6}"
         },
         {
             "type": "custom",
-            "format": "╰──{$5}{$4}── {#black} {#red} {#green} {#yellow} {#blue} {#magenta} {#cyan} {#white} {#magenta}─╯",
+            "format": "╰──────────────────────── {#black} {#red} {#green} {#yellow} {#blue} {#magenta} {#cyan} {#white} {#magenta}╯",
             "outputColor": "magenta"
         }
     ]
