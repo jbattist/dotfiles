@@ -26,3 +26,6 @@ fish/.config/fish/fish_variables
 *.secrets
 *credentials*
 *token*
+
+micro/.config/micro/buffers
+.gitignore
