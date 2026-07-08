@@ -46,6 +46,20 @@ $line_break$character"""
 palette = 'catppuccin_macchiato'
 
 # ============================================================================
+# UBUNTU PALETTE
+# ============================================================================
+[palettes.ubuntu]
+os_section_bg = "#E95420"
+dir_section_bg = "#2C001E"
+git_section_bg = "#5E2750"
+lang_section_bg = "#77216F"
+docker_section_bg = "#BB90B7"
+time_section_bg = "#AEA79F"
+text_time = "#333333"
+text_dark = "#AEA79F"
+text_light = "#333333"
+
+# ============================================================================
 # CATPPUCCIN_MACCHIATO PALETTE
 # ============================================================================
 [palettes.catppuccin_macchiato]
