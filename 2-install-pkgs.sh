@@ -33,6 +33,7 @@ PACKAGES_BASE=(
   # Fonts
   ttf-jetbrains-mono
   ttf-jetbrains-mono-nerd
+  noto-fonts-emoji
 
   # Notes
   obsidian
