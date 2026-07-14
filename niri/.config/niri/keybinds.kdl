@@ -23,6 +23,7 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: nemo" { spawn "nemo"; }
     Mod+B hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+L hotkey-overlay-title="Lock the screen: noctalia-lock" { spawn "noctalia" "msg" "session" "lock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
