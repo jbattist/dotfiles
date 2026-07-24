@@ -1,0 +1,7 @@
+brew "ghostty"
+brew "starfish"
+brew "zoxide"
+brew "stow"
+brew "micro"
+brew "fzf"
+brew ""
