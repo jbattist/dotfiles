@@ -47,6 +47,8 @@ alias hermes-tui "ssh -t hermes.home 'hermes --tui'"
 
 # Sources / Inits #############################################################
 
+#eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # fzf key bindings + completions
 fzf --fish | source
 
