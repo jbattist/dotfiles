@@ -146,6 +146,7 @@ link_dotfiles() {
 	backup_and_stow "$repo_root" nvim ".config/nvim"
     backup_and_stow "$repo_root" wezterm ".wezterm.lua"
     backup_and_stow "$repo_root" micro ".config/micro"
+	backup_and_stow "$repo_root" thefuck ".config/thefuck"
 }
 
 choose_default_shell() {
