@@ -106,6 +106,7 @@ install_with_yay() {
 		grc
 		ripgrep
 		isd
+		thefuck
 
 		# Dotfile management & tools
 		stow
