@@ -29,3 +29,4 @@ fish/.config/fish/fish_variables
 
 micro/.config/micro/buffers
 .gitignore
+__pycache__

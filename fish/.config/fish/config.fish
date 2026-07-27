@@ -58,6 +58,8 @@ starship init fish | source
 # zoxide (replaces cd — uses builtin cd internally, no alias loop)
 zoxide init fish --cmd cd | source
 
+thefuck --alias | source
+
 # Colorify everything with grc when installed
 # Arch's grc package provides /etc/grc.fish; machines without grc should not error.
 if test -f /etc/grc.fish
@@ -75,10 +77,4 @@ end
 function ls --wraps=ls --description "eza with icons instead of grc ls"
     eza --icons=always $argv
 end
-
-
-# NVM
-# fish-nvm (https://github.com/jorgebucaran/nvm.fish) is the native alternative.
-# If you still want the bash nvm, install `bass` (https://github.com/edc/bass) and uncomment:
-# bass source ~/.nvm/nvm.sh
 
