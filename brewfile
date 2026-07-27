@@ -1,5 +1,5 @@
 brew "ghostty"
-brew "starfish"
+brew "starship"
 brew "zoxide"
 brew "stow"
 brew "micro"
