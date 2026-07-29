@@ -49,16 +49,29 @@ alias hermes-tui "ssh -t hermes.home 'hermes --tui'"
 
 #eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# fzf key bindings + completions
-fzf --fish | source
+# fzf key bindings + completions. Newer fzf provides `--fish`; Ubuntu's
+# older package ships a Fish key-bindings file instead.
+if command -q fzf
+    if fzf --fish >/dev/null 2>&1
+        fzf --fish | source
+    else if test -r /usr/share/doc/fzf/examples/key-bindings.fish
+        source /usr/share/doc/fzf/examples/key-bindings.fish
+    end
+end
 
 # Starship prompt
-starship init fish | source
+if command -q starship
+    starship init fish | source
+end
 
 # zoxide (replaces cd — uses builtin cd internally, no alias loop)
-zoxide init fish --cmd cd | source
+if command -q zoxide
+    zoxide init fish --cmd cd | source
+end
 
-thefuck --alias | source
+if command -q thefuck
+    thefuck --alias | source
+end
 
 # Colorify everything with grc when installed
 # Arch's grc package provides /etc/grc.fish; machines without grc should not error.
