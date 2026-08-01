@@ -91,7 +91,7 @@
         },
         {
             "type": "custom",
-            "format": "{#yellow}╭─ OS ─────────────────────────────────────╮"
+            "format": "{#yellow}╭─ OS ────────────────────────────────────╮"
         },
         {
             // 
@@ -180,7 +180,7 @@
         },
         {
             "type": "custom",
-            "format": "{#magenta}╭─ Age / Uptime ─────────────────────────╮"
+            "format": "{#magenta}╭─ Age / Uptime ──────────────────────────╮"
         },
         {
             "type": "command",
