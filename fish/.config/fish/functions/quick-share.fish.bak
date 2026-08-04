@@ -1,0 +1,51 @@
+function quick-share --description "Serve a directory over HTTP for quick downloads"
+    set -l port 8000
+    set -l directory $PWD
+
+    if test (count $argv) -ge 1
+        set port $argv[1]
+    end
+
+    if test (count $argv) -ge 2
+        set directory $argv[2]
+    end
+
+    if test (count $argv) -gt 2
+        echo "Usage: quick-share [port] [directory]" >&2
+        return 2
+    end
+
+    if not string match -qr '^[0-9]+$' -- $port
+        echo "quick-share: port must be numeric" >&2
+        return 2
+    end
+
+    if not test -d $directory
+        echo "quick-share: directory does not exist: $directory" >&2
+        return 2
+    end
+
+    set directory (realpath $directory)
+    set -l share_url "http://axis.home:$port/"
+
+    echo
+    echo "============================================================"
+    echo " QUICK SHARE"
+    echo "============================================================"
+    echo " Directory: $directory"
+    echo " URL:       $share_url"
+    echo
+    echo " Download/list with:"
+    echo "   curl $share_url"
+    echo
+    echo " Download a file:"
+    echo "   curl -O '$share_url<filename>'"
+    echo
+    echo " Directory contents:"
+    command ls -lah -- $directory
+    echo "============================================================"
+    echo " Stop sharing with Ctrl+C"
+    echo
+
+    command python3 -m http.server $port --bind 0.0.0.0 --directory $directory
+end
