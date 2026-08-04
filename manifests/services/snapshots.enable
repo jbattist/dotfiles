@@ -1,0 +1,3 @@
+# Timer-driven Snapper maintenance; do not enable the underlying services directly
+snapper-timeline.timer
+snapper-cleanup.timer

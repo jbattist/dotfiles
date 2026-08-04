@@ -71,6 +71,12 @@ resolve_script_dir() {
 }
 
 install_with_yay() {
+	local script_dir repo_root
+	script_dir=$(cd "$(dirname "$(resolve_script_dir)")" && pwd)
+	repo_root=$(cd "$script_dir" && pwd)
+	# Package ownership lives in the shell manifest; this script retains yay bootstrap.
+	# shellcheck source=/dev/null
+	. "$repo_root/scripts/package-lib.sh"
 	if ! command -v yay >/dev/null 2>&1; then
 		log "'yay' not found. Installing yay..."
 		require_cmd git || { err "git is required to install yay."; exit 1; }
@@ -82,40 +88,7 @@ install_with_yay() {
 		rm -rf "$tmpdir"
 	fi
 
-	packages=(
-		# Shells
-		fish
-		zsh
-		zsh-autosuggestions
-		zsh-syntax-highlighting
-
-		# Terminal
-		ghostty
-		wezterm
-		
-		# Prompt & utilities
-		starship
-		fastfetch
-		fzf
-		#fzf-zsh
-		eza
-		zoxide
-		fd
-		bat
-		sysz
-		grc
-		ripgrep
-		isd
-		thefuck
-
-		# Dotfile management & tools
-		stow
-
-		#Editors
-		micro
-		#neovim
-	)
-
+	mapfile -t packages < <(parse_manifest "$repo_root/manifests/packages/shell" | dedupe_lines)
 	for pkg in "${packages[@]}"; do
 		if yay -Qi "$pkg" >/dev/null 2>&1; then
 			log "$pkg already installed"
@@ -222,6 +195,7 @@ ensure_default_shell() {
 
 configure_systemd_resolved() {
     log "Configuring systemd-resolved to use DHCP-provided DNS"
+    log "Service enablement is owned by manifests/services/common.enable"
 
     sudo mkdir -p /etc/systemd/resolved.conf.d
     sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << 'EOF'
@@ -257,16 +231,8 @@ EOF
     fi
 
     sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-    sudo systemctl enable --now systemd-resolved
-    sudo systemctl restart systemd-resolved
 
-    if systemctl is-active --quiet NetworkManager; then
-        sudo systemctl restart NetworkManager
-    fi
-
-    sudo resolvectl flush-caches
-
-    log "systemd-resolved configured successfully"
+    log "systemd-resolved configuration written; service state is reconciled separately"
 }
 
 configure_pacman_colors() {
