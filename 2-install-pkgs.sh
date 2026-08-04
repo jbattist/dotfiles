@@ -1,241 +1,54 @@
 #!/usr/bin/env bash
 set -euo pipefail
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=scripts/package-lib.sh
+. "$SCRIPT_DIR/scripts/package-lib.sh"
 
-# =========================
-# Arch bootstrap via yay
-# =========================
-
-# --- Base packages installed on every machine (edit this) ---
-PACKAGES_BASE=(
-  # System + terminal tools
-  btop
-  nfs-utils
-
-  # Desktop + shell utilities
-  firefox
-  nemo
-  gnome-calculator
-  udiskie
-  cliphist
-  #ferdium-bin
-    
-  # Development tooling
-  visual-studio-code-bin
-  opencode
-  #claude-code
-  #codex-cli
-  zed
-
-  # Window manager + theming
-  niri
-  noctalia
-
-  # Fonts
-  ttf-jetbrains-mono
-  ttf-jetbrains-mono-nerd
-  noto-fonts-emoji
-
-  # Notes
-  obsidian
-)
-
-# --- Home desktop packages ---
-PACKAGES_home=(
-  # Gaming
-    steam
-    protonplus
-)
-
-# --- Work machine packages ---
-PACKAGES_work=(
-  # Browser
-  chromium
-)
-
-# --- Laptop packages ---
-PACKAGES_laptop=(
-  # Browser
-  chromium
-)
-
-# --- Helpers ---
-log()  { printf "\n\033[1;32m==>\033[0m %s\n" "$*"; }
-warn() { printf "\n\033[1;33m==>\033[0m %s\n" "$*"; }
-err()  { printf "\n\033[1;31m==>\033[0m %s\n" "$*"; }
-
-require_arch() {
-  if [[ ! -f /etc/arch-release ]]; then
-    err "This script is intended for Arch Linux (or Arch-based) systems."
-    exit 1
-  fi
+command -v fzf >/dev/null 2>&1 || {
+  pkg_err 'fzf is required. Run 1-install-shell.sh first.'
+  exit 1
+}
+command -v yay >/dev/null 2>&1 || {
+  pkg_err 'yay is required. Run 1-install-shell.sh first.'
+  exit 1
 }
 
-enable_multilib() {
-  # Uncomments the [multilib] section in /etc/pacman.conf so 32-bit
-  # packages (e.g. steam) can be installed.
-  local conf="/etc/pacman.conf"
-  if grep -q '^\[multilib\]' "$conf"; then
-    log "multilib already enabled"
-    return 0
-  fi
+mapfile -t AVAILABLE_MANIFESTS < <(list_package_manifests)
+((${#AVAILABLE_MANIFESTS[@]})) || { pkg_err 'No package manifests found'; exit 1; }
 
-  if ! grep -q '^#\s*\[multilib\]' "$conf"; then
-    err "Could not find a [multilib] section (even commented) in $conf"
-    return 1
-  fi
-
-  log "Enabling [multilib] in $conf"
-  sudo sed -i '/^#\s*\[multilib\]/,/Include/s/^#\s*//' "$conf"
+printf 'Select package manifests with TAB, then press ENTER. ESC installs nothing.\n' >&2
+selection=$(printf '%s\n' "${AVAILABLE_MANIFESTS[@]}" | fzf --multi --prompt='Package manifests> ' --header='TAB: toggle  ENTER: install  ESC: cancel') || {
+  printf '[*] No manifests selected; nothing changed.\n'
+  exit 0
 }
+[[ -n "$selection" ]] || { printf '[*] No manifests selected; nothing changed.\n'; exit 0; }
+mapfile -t SELECTED_MANIFESTS <<<"$selection"
+mapfile -t PACKAGES < <(resolve_manifests "${SELECTED_MANIFESTS[@]}")
 
-has_cmd() { command -v "$1" >/dev/null 2>&1; }
+printf 'Selected manifests: %s\n' "${SELECTED_MANIFESTS[*]}"
+installed=()
+missing=()
+for pkg in "${PACKAGES[@]}"; do
+  if pacman -Qi "$pkg" >/dev/null 2>&1; then installed+=("$pkg"); else missing+=("$pkg"); fi
+done
+printf 'Already installed (%d): %s\n' "${#installed[@]}" "${installed[*]:-none}"
+printf 'Installing (%d): %s\n' "${#missing[@]}" "${missing[*]:-none}"
 
-pkg_installed() {
-  # Returns 0 if installed, 1 if not
-  pacman -Qi "$1" >/dev/null 2>&1
-}
+if contains gaming "${SELECTED_MANIFESTS[@]}"; then
+  sudo sed -i '/^#\s*\[multilib\]/,/Include/s/^#\s*//' /etc/pacman.conf
+fi
+sudo pacman -Syu --noconfirm || { pkg_err 'System update failed'; exit 1; }
 
-# ---------------------------------------------------------------------------
-# Machine profile resolution — reads the same machine.env written by
-# 3-install-dots.sh, or falls back to an interactive prompt.
-# ---------------------------------------------------------------------------
+failed=()
+for pkg in "${missing[@]}"; do
+  printf '[*] Installing %s\n' "$pkg"
+  yay -S --needed --noconfirm "$pkg" || failed+=("$pkg")
+done
+if ((${#failed[@]})); then
+  printf '[!] Failed: %s\n' "${failed[*]}" >&2
+  exit 1
+fi
 
-MACHINE_ENV_FILE="$HOME/.config/dotfiles/machine.env"
-
-resolve_machine_profile() {
-    # 1. Honour env var if already set
-    if [ -n "${MACHINE:-}" ]; then
-        case "$MACHINE" in
-            home|work|laptop) return ;;
-            *)
-                err "Invalid MACHINE='$MACHINE'. Valid values: home, work, laptop"
-                exit 1
-                ;;
-        esac
-    fi
-
-    # 2. Read saved profile
-    if [ -f "$MACHINE_ENV_FILE" ]; then
-        # shellcheck source=/dev/null
-        . "$MACHINE_ENV_FILE"
-        if [ -n "${MACHINE:-}" ]; then
-            log "Using saved machine profile: $MACHINE"
-            return
-        fi
-    fi
-
-    # 3. Interactive fallback
-    warn "No machine profile found at $MACHINE_ENV_FILE"
-    printf 'Select machine profile:\n' >&2
-    printf '  1) home    (default)\n' >&2
-    printf '  2) work\n' >&2
-    printf '  3) laptop\n' >&2
-    read -rp "Selection [1/2/3]: " profile_choice
-
-    case "${profile_choice:-1}" in
-        ""|1) MACHINE="home"   ;;
-        2)    MACHINE="work"   ;;
-        3)    MACHINE="laptop" ;;
-        *)
-            err "Invalid selection: $profile_choice"
-            exit 1
-            ;;
-    esac
-}
-
-install_yay() {
-  warn "yay is not installed."
-  read -r -p "Install yay now? [y/N] " ans
-  case "${ans,,}" in
-    y|yes)
-      log "Installing prerequisites (git, base-devel)..."
-      sudo pacman -S --needed --noconfirm git base-devel
-
-      tmpdir="$(mktemp -d)"
-      trap 'rm -rf "$tmpdir"' EXIT
-
-      log "Cloning yay..."
-      git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
-
-      log "Building & installing yay..."
-      (cd "$tmpdir/yay" && makepkg -si --noconfirm)
-      ;;
-    *)
-      err "Cannot continue without yay."
-      exit 1
-      ;;
-  esac
-}
-
-update_all() {
-  log "Updating system packages and AUR packages..."
-  # -Syu updates everything; --needed prevents reinstalls where possible
-  yay -Syu --noconfirm
-}
-
-install_packages() {
-  local machine="$1"
-  log "Installing packages for profile '$machine' (skipping anything already installed)..."
-
-  # Merge base + machine-specific arrays
-  local extra_var="PACKAGES_${machine}[@]"
-  local all_packages=("${PACKAGES_BASE[@]}" "${!extra_var}")
-
-  local to_install=()
-  for pkg in "${all_packages[@]}"; do
-    if pkg_installed "$pkg"; then
-      log "Already installed: $pkg"
-    else
-      to_install+=("$pkg")
-    fi
-  done
-
-  if (( ${#to_install[@]} == 0 )); then
-    log "All packages already installed."
-    return 0
-  fi
-
-  # Install packages one at a time so a single missing/broken package
-  # doesn't abort the entire run.
-  local failed=()
-  for pkg in "${to_install[@]}"; do
-    log "Installing: $pkg"
-    if ! yay -S --needed --noconfirm "$pkg"; then
-      warn "Failed to install '$pkg' (skipping)"
-      failed+=("$pkg")
-    fi
-  done
-
-  if (( ${#failed[@]} > 0 )); then
-    warn "These packages failed to install (check above for details):"
-    for pkg in "${failed[@]}"; do
-      warn "  - $pkg"
-    done
-    return 1
-  fi
-}
-
-main() {
-  require_arch
-
-  resolve_machine_profile
-  log "Machine profile: $MACHINE"
-
-  if ! has_cmd yay; then
-    install_yay
-  fi
-
-  # Ensure package DB is available (and keys initialized as needed)
-  log "Ensuring pacman keyring is ready..."
-  sudo pacman -Sy --noconfirm archlinux-keyring || true
-
-  # Enable multilib before installing packages (needed for steam)
-  enable_multilib
-
-  update_all
-  install_packages "$MACHINE"
-
-  log "Done."
-}
-
-main "$@"
+printf '[*] Reconciling services for selected manifests.\n'
+"$SCRIPT_DIR/scripts/service-reconcile.sh" "${SELECTED_MANIFESTS[@]}"
+printf '[*] Package installation complete.\n'
