@@ -1,0 +1,7 @@
+# Baseline packages required on every managed host
+openssh
+
+# yay bootstrap prerequisites are installed explicitly before yay exists:
+# git
+# base-devel
+# yay
