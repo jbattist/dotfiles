@@ -66,19 +66,18 @@ bash 1-install-shell.sh
 
 ### Step 3 — GUI and system packages
 
-Installs base packages plus extras for your machine profile. Reads `~/.config/dotfiles/machine.env` if it exists, otherwise prompts you to pick a profile.
+Shows an interactive multi-select list of package manifests, then installs the selected groups immediately. Machine profiles are reserved for dotfile customizations such as Niri KDL files.
 
 ```bash
 bash 2-install-pkgs.sh
 ```
 
-To add packages, edit the relevant array at the top of the script:
+Use Tab to toggle manifests and Enter to install. Escape cancels without making changes. To add packages, edit the newline manifests under `manifests/packages/`:
 
 ```bash
-PACKAGES_BASE=(...)   # every machine
-PACKAGES_home=(...)   # home desktop only
-PACKAGES_work=(...)   # work machine only
-PACKAGES_laptop=(...) # laptop only
+manifests/packages/interactive
+manifests/packages/work-apps
+manifests/packages/gaming
 ```
 
 ### Step 4 — Dotfiles, niri, noctalia, and machine profile
@@ -132,9 +131,10 @@ bash 4-install-omarchy.sh --apply-apps
    cp niri/.config/niri/machine.kdl.home niri/.config/niri/machine.kdl.newprofile
    ```
 2. Edit it — update `output "__NIRI_OUTPUT__"` (auto-filled at install time), `preset-column-widths`, `default-column-width`, and any window rules.
-3. Add a `PACKAGES_newprofile=(...)` array to `2-install-pkgs.sh`.
-4. Add `newprofile` as a valid option in both `3-install-dots.sh` and `2-install-pkgs.sh`.
-5. Run `3-install-dots.sh` on the machine and select the new profile.
+3. Add `newprofile` as a valid option in `3-install-dots.sh`.
+4. Run `3-install-dots.sh` on the machine and select the new profile.
+
+Dotfile profiles do not select packages. Choose the desired package manifests interactively when running `2-install-pkgs.sh`.
 
 ---
 

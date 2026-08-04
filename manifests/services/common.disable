@@ -1,0 +1,2 @@
+# Desktop boot should not block on NetworkManager reporting online
+NetworkManager-wait-online.service

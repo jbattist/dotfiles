@@ -1,0 +1,3 @@
+# Core services enabled and started on every managed interactive host
+sshd.service
+systemd-resolved.service
