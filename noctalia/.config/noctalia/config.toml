@@ -91,3 +91,9 @@ type = "noctalia/wallhaven:wallhaven"
 [widget.widget]
 hide_on_empty = true
 type = "yuuto/arch-updater:widget"
+
+[widget.control-center]
+color = "primary"
+
+[widget.tray]
+drawer = true
