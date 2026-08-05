@@ -26,6 +26,8 @@ end = [
     "clock",
     "widget"
 ]
+font_family = "Inter"
+margin_ends = 0
 start = [ "launcher", "wallhaven" ]
 
 [desktop_widgets]
