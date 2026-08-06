@@ -19,7 +19,7 @@ git config --global push.default simple
 
 # ID
 git config --global user.name "Joe Battistello"
-git config --global user.email "joebattist@hotmail.com"
+git config --global user.email "17577908+jbattist@users.noreply.github.com"
 
 # Show off
 git config --global --list --show-origin
