@@ -3,7 +3,7 @@ function herd --description "Attach to the persistent Herdr command center on he
     set -l session (set -q HERDR_SESSION; and echo $HERDR_SESSION; or echo command-center)
 
     # On the host itself, attach directly to the named local session.
-    if test (hostname -s 2>/dev/null) = heimdallama
+    if test (string split -m1 . (uname -n 2>/dev/null))[1] = heimdallama
         command herdr session attach $session
         return $status
     end
