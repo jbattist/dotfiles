@@ -6,6 +6,10 @@ log() {
     printf '[*] %s\n' "$1"
 }
 
+warn() {
+    printf '[!] %s\n' "$1" >&2
+}
+
 err() {
     printf '[!] %s\n' "$1" >&2
 }
@@ -55,6 +59,30 @@ install_plasma() {
     done
     
     stow_pkg "plasma"
+}
+
+install_user_systemd_config() {
+    local source_file="$repo_root/systemd/.config/systemd/user/xdg-desktop-portal-gnome.service.d/restart.conf"
+    local target_file="$HOME/.config/systemd/user/xdg-desktop-portal-gnome.service.d/restart.conf"
+
+    log "Installing user systemd overrides..."
+    mkdir -p "$(dirname "$target_file")"
+
+    # Adopt an identical locally installed override without creating a backup.
+    # Preserve any differing local override before stow takes ownership.
+    if [ -e "$target_file" ] && [ ! -L "$target_file" ]; then
+        if cmp -s "$source_file" "$target_file"; then
+            rm "$target_file"
+        else
+            backup_path "$target_file"
+        fi
+    fi
+
+    stow_pkg "systemd"
+    systemctl --user daemon-reload
+    if systemctl --user show xdg-desktop-portal-gnome.service -p LoadState --value 2>/dev/null | grep -qv '^not-found$'; then
+        systemctl --user try-restart xdg-desktop-portal-gnome.service
+    fi
 }
 
 # ---------------------------------------------------------------------------
@@ -173,6 +201,10 @@ main() {
     backup_and_stow fuzzel ".config/fuzzel"
     backup_and_stow hyprland ".config/hypr"
 
+    # User service policy: keep the GNOME portal backend alive after a
+    # compositor restart so Flameshot does not hang waiting for screenshots.
+    install_user_systemd_config
+
     # Install machine-specific niri config (layout widths, output, window rules)
     install_machine_niri_config "$MACHINE"
 
@@ -186,8 +218,8 @@ main() {
     # Plasma: Special handling to avoid wiping .config
     install_plasma
 
-    # Systemd service state is managed by manifests/services and applied
-    # from 2-install-pkgs.sh, not by dotfile stowing.
+    # System service state is managed by manifests/services and applied from
+    # 2-install-pkgs.sh. User-unit overrides are stowed above with dotfiles.
 
     log "Dotfiles and configs installed."
 }
