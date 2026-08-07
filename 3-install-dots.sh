@@ -83,7 +83,10 @@ install_user_systemd_config() {
     local load_state
     load_state=$(systemctl --user show xdg-desktop-portal-gnome.service -p LoadState --value 2>/dev/null || true)
     if [ -n "$load_state" ] && [ "$load_state" != "not-found" ]; then
-        systemctl --user try-restart xdg-desktop-portal-gnome.service
+        # Portal backends are demand-activated D-Bus services. Stopping the
+        # current process applies the drop-in without forcing an immediate
+        # GUI restart; the next portal request starts it with the new policy.
+        systemctl --user stop xdg-desktop-portal-gnome.service
     fi
 }
 
