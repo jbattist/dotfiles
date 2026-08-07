@@ -167,7 +167,7 @@ install_machine_niri_config() {
     # user to fill in after logging in and running `niri msg outputs`.
     local detected=""
     if command -v niri >/dev/null 2>&1; then
-        detected="$(niri msg outputs 2>/dev/null | awk '/^Output /{sub(/:$/,"",$2); print $2; exit}')"
+        detected="$(niri msg outputs 2>/dev/null | awk '/^Output /{sub(/:$/,"",$2); print $2; exit}' || true)"
     fi
 
     if [ -n "$detected" ]; then
