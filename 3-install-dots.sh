@@ -161,23 +161,29 @@ install_machine_niri_config() {
 
     mkdir -p "$HOME/.config/niri"
 
-    # Detect the first connected output name from the running niri instance.
+    # Detect the first connected output connector name from the running niri
+    # instance. Use JSON rather than parsing the human-readable output, where a
+    # monitor description such as "Sharp Corporation ..." can be mistaken for
+    # the connector name and introduce unbalanced quotes into KDL.
     # On a fresh install before first login niri may not be running; in that
     # case the __NIRI_OUTPUT__ placeholder is left in the written file for the
     # user to fill in after logging in and running `niri msg outputs`.
     local detected=""
     if command -v niri >/dev/null 2>&1; then
-        detected="$(niri msg outputs 2>/dev/null | awk '/^Output /{sub(/:$/,"",$2); print $2; exit}' || true)"
+        detected="$(niri msg --json outputs 2>/dev/null | jq -r 'keys_unsorted[0] // empty' || true)"
     fi
 
     if [ -n "$detected" ]; then
         sed "s/__NIRI_OUTPUT__/$detected/g" "$template" > "$dest"
         log "Installed niri machine config for '$machine' (output: $detected)"
     else
-        cp "$template" "$dest"
+        # Keep the generated KDL valid when installing outside a running niri
+        # session. Comment out the placeholder block until the connector can be
+        # detected on a later run or filled in manually.
+        sed '/output "__NIRI_OUTPUT__" {/,/^}/s/^/\/\//' "$template" > "$dest"
         warn "Could not auto-detect display output (niri not running)."
-        warn "Edit $dest and replace __NIRI_OUTPUT__ with your output name."
-        warn "Run 'niri msg outputs' after logging in to list outputs."
+        warn "The output block in $dest was disabled."
+        warn "Re-run this installer from niri, or fill in the connector from 'niri msg outputs'."
     fi
 }
 
@@ -185,6 +191,7 @@ install_machine_niri_config() {
 
 main() {
     require_cmd stow
+    require_cmd jq
 
     script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
     repo_root="$script_dir"
