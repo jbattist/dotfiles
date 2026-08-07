@@ -202,7 +202,7 @@
         },
         {
             "type": "custom",
-            "format": "╰──────────────────────── {#black} {#red} {#green} {#yellow} {#blue} {#magenta} {#cyan} {#white} {#magenta}╯",
+            "format": "╰──────────────────────── {#black}● {#red}● {#green}● {#yellow}● {#blue}● {#magenta}● {#cyan}● {#white}● {#magenta}╯",
             "outputColor": "magenta"
         }
     ]
