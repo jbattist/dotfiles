@@ -19,8 +19,11 @@
     // 97 	Bright White
     // Lines ┌┐└┘╭╮╰╯│─
     "logo": {
+        "type": "auto",
+        "width": 40,
         "color": {
-            "1": "blue"
+            "1": "blue",
+            "2": "green"
         },
         "padding": {
             "top": 3,
@@ -33,12 +36,14 @@
         "separator": ": ",
         "disableLinewrap": true,
         "constants": [
-            "\u001b[103G", // $1: Move to visible fixed right border column with side logo
+            // ALIGNMENT CONSTRAINT: $1 must equal logo_width + border_width.
+            // logo_width = logo.padding.left + max(logo.width, actual_logo_area) + logo.padding.right
+            //            = 3 + max(40, 40) + 3 = 43 (see issue #1905 for logo.width semantics)
+            // border_width = visible char count of each ╭...╮ / ╰...╯ string (currently 43).
+            // 43 + 43 = 86. If either changes, update $1 accordingly.
+            "\u001b[86G", // $1: Move to absolute right border column (logo_width + border_width)
             "\u001b[999D", // $2: Move far left before absolute border placement
-            "\u001b[88C", // $3: Move cursor to max width (wide term), or last column (narrow term)
-            "\u001b[20D", // $4: Move back 20 columns for the color block (both lines)
-            "──────────────────────────────────────────────────────",
-            "\u001b[K" // $6: Clear to end of line after fixed right border
+            "\u001b[K" // $3: Clear to end of line after fixed right border
         ]
     },
     "modules": [
@@ -52,38 +57,38 @@
             "key": "│ ┌ CPU",
             "showPeCoreCount": true,
             "keyColor": "green",
-            "format": "{name} {#green} {$2}{$1}│{$6}"
+            "format": "{name} {#green} {$2}{$1}│{$3}"
         },
         {
             "type": "gpu",
             "key": "│ ├󰢮 GPU",
             "keyColor": "green",
-            "format": "{name} {#green} {$2}{$1}│{$6}"
+            "format": "{name} {#green} {$2}{$1}│{$3}"
         },
         {
             "type": "display",
             "key": "│ ├󰹑DISPLAY",
             "keyColor": "green",
-            "format": "{1}x{2} @ {3}Hz Scale: {21} {12}\" {#green}{$2}{$1}│{$6}"
+            "format": "{1}x{2} @ {3}Hz Scale: {21} {12}\" {#green}{$2}{$1}│{$3}"
         },
         {
             "type": "sound",
             "key": "│ ├󰓃 SOUND",
             "keyColor": "green",
-            "format": "{name:39} {#green} {$2}{$1}│{$6}"
+            "format": "{name:39} {#green} {$2}{$1}│{$3}"
         },
         {
             "type": "memory",
             "key": "│ ├ MEMORY",
             "keyColor": "green",
-            "format": "{used} / {total} ({percentage}) {#green} {$2}{$1}│{$6}"
+            "format": "{used} / {total} ({percentage}) {#green} {$2}{$1}│{$3}"
         },
         {
             "type": "disk",
             // 
             "key": "│ └󰋊 DISK",
             "keyColor": "green",
-            "format": "{size-total} / {size-used} ({size-percentage}) - {filesystem} {#green} {$2}{$1}│{$6}"
+            "format": "{size-total} / {size-used} ({size-percentage}) - {filesystem} {#green} {$2}{$1}│{$3}"
         },
         {
             "type": "custom",
@@ -98,43 +103,43 @@
             "type": "os",
             "key": "│ ┌󰣇 OS",
             "keyColor": "yellow",
-            "format": "{pretty-name} {#yellow} {$2}{$1}│{$6}"
+            "format": "{pretty-name} {#yellow} {$2}{$1}│{$3}"
         },
         {
             "type": "title",
             "key": "│ ├ USER/HOST",
-            "format": "{user-name}@{host-name} {#yellow} {$2}{$1}│{$6}",
+            "format": "{user-name}@{host-name} {#yellow} {$2}{$1}│{$3}",
             "keyColor": "yellow"
         },
         {
             "type": "kernel",
             "key": "│ ├ KERNEL",
             "keyColor": "yellow",
-            "format": "{sysname} {release} {#yellow} {$2}{$1}│{$6}"
+            "format": "{sysname} {release} {#yellow} {$2}{$1}│{$3}"
         },
         {
             "type": "packages",
             "key": "│ ├󰏖 PACKAGES",
             "keyColor": "yellow",
-            "format": "{pacman} (pacman), {flatpak-system} (flatpak){#yellow} {$2}{$1}│{$6}"
+            "format": "{pacman} (pacman), {flatpak-system} (flatpak){#yellow} {$2}{$1}│{$3}"
         },
         {
             "type": "terminal",
             "key": "│ ├ TERMINAL",
             "keyColor": "yellow",
-            "format": "{pretty-name} {#yellow} {$2}{$1}│{$6}"
+            "format": "{pretty-name} {#yellow} {$2}{$1}│{$3}"
         },
         {
             "type": "terminalfont",
             "key": "│ ├󰛖 TERMINAL FONT",
             "keyColor": "yellow",
-            "format": "{name} {#yellow} {$2}{$1}│{$6}"
+            "format": "{name} {#yellow} {$2}{$1}│{$3}"
         },
         {
             "type": "shell",
             "key": "│ └ SHELL",
             "keyColor": "yellow",
-            "format": "{pretty-name} {#yellow} {$2}{$1}│{$6}"
+            "format": "{pretty-name} {#yellow} {$2}{$1}│{$3}"
         },
         {
             "type": "custom",
@@ -148,30 +153,30 @@
             "type": "lm",
             "key": "│ ┌ DISPLAY MANAGER",
             "keyColor": "blue",
-            "format": "{service} ({type}) {#blue} {$2}{$1}│{$6}"
+            "format": "{service} ({type}) {#blue} {$2}{$1}│{$3}"
         },
         {
             "type": "wm",
             "key": "│ ├󰹗 WINDOW MANAGER",
             "keyColor": "blue",
-            "format": "{pretty-name} {#blue} {$2}{$1}│{$6}"
+            "format": "{pretty-name} {#blue} {$2}{$1}│{$3}"
         },
         {
             "type": "theme",
             "key": "│ ├ THEME",
             "keyColor": "blue",
-            "format": "{theme2} {#blue} {$2}{$1}│{$6}"
+            "format": "{theme2} {#blue} {$2}{$1}│{$3}"
         },
         {
             "type": "icons",
             "key": "│ ├ ICONS",
             "keyColor": "blue",
-            "format": "{icons2} {#blue} {$2}{$1}│{$6}"
+            "format": "{icons2} {#blue} {$2}{$1}│{$3}"
         },
         {
             "type": "font",
             "key": "│ └󰛖 SYSTEM FONT",
-            "format": "{3}{#blue} {$2}{$1}│{$6}",
+            "format": "{3}{#blue} {$2}{$1}│{$3}",
             "keyColor": "blue"
         },
         {
@@ -187,13 +192,13 @@
             "key": "│ ┌ OS Age ",
             "keyColor": "magenta",
             "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days",
-            "format": "{result} {#magenta} {$2}{$1}│{$6}"
+            "format": "{result} {#magenta} {$2}{$1}│{$3}"
         },
         {
             "type": "uptime",
             "key": "│ └ Uptime ",
             "keyColor": "magenta",
-            "format": "{formatted} {#magenta} {$2}{$1}│{$6}"
+            "format": "{formatted} {#magenta} {$2}{$1}│{$3}"
         },
         {
             "type": "custom",
