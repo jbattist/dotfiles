@@ -194,6 +194,9 @@ main() {
     save_machine_profile "$MACHINE"
     log "Using machine profile: $MACHINE"
 
+    # Runtime directories referenced by shared desktop configs must exist.
+    mkdir -p "$HOME/Pictures/Screenshots"
+
     # Wallpapers: Target is inside .local/share, NOT ~/wallpapers
     # No backup — wallpapers are large (~400MB) and nothing there needs preserving.
     mkdir -p "$HOME/.local/share/wallpapers"
