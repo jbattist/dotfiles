@@ -80,7 +80,9 @@ install_user_systemd_config() {
 
     stow_pkg "systemd"
     systemctl --user daemon-reload
-    if systemctl --user show xdg-desktop-portal-gnome.service -p LoadState --value 2>/dev/null | grep -qv '^not-found$'; then
+    local load_state
+    load_state=$(systemctl --user show xdg-desktop-portal-gnome.service -p LoadState --value 2>/dev/null || true)
+    if [ -n "$load_state" ] && [ "$load_state" != "not-found" ]; then
         systemctl --user try-restart xdg-desktop-portal-gnome.service
     fi
 }
