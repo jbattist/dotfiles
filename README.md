@@ -20,6 +20,7 @@ Personal Linux dotfiles for Arch-based systems running [niri](https://github.com
 | `wezterm` | `~/.wezterm.lua` | |
 | `wallpapers` | `~/.local/share/wallpapers` | |
 | `plasma` | `~/.config/` (merged) | `kdeglobals`, `powerdevilrc` |
+| `systemd` | `~/.config/systemd/user` | User-unit overrides, including portal auto-restart |
 
 ## Machine profiles
 
@@ -101,6 +102,8 @@ Selection [1/2/3]:
 The choice is saved to `~/.config/dotfiles/machine.env`. On subsequent runs you'll be asked to confirm or change it.
 
 This also copies `niri/machine.kdl.<profile>` → `~/.config/niri/machine.kdl` and, if niri is running, auto-detects your connected output via `niri msg outputs` and substitutes it for the `__NIRI_OUTPUT__` placeholder in the template. If niri isn't running (fresh install before first login), the placeholder is left in place — run `niri msg outputs` after logging in and edit `~/.config/niri/machine.kdl`. Niri includes this file for layout widths, monitor output, and machine-specific window rules.
+
+Step 3 also installs user-systemd overrides and reloads the user manager. The `xdg-desktop-portal-gnome` override restarts that backend after a lost Wayland compositor connection, preventing Flameshot screenshot requests from hanging.
 
 ### Omarchy-safe install (non-destructive)
 
