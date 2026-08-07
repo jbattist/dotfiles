@@ -162,7 +162,9 @@ main() {
     log "Using machine profile: $MACHINE"
 
     # Wallpapers: Target is inside .local/share, NOT ~/wallpapers
-    backup_and_stow wallpapers ".local/share/wallpapers"
+    # No backup — wallpapers are large (~400MB) and nothing there needs preserving.
+    mkdir -p "$HOME/.local/share/wallpapers"
+    stow_pkg "wallpapers"
 
     # Applications: These are self-contained in their own folders inside .config,
     # so it is safe to backup/replace the folder.
