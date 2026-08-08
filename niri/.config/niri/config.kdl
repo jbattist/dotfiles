@@ -282,7 +282,11 @@ debug {
 
 // Environment vars to set
 environment {
-    DISPLAY ":0"
+    // Do NOT set DISPLAY here. Niri >=25.08 auto-launches xwayland-satellite
+    // and sets DISPLAY for child processes. Hardcoding DISPLAY (e.g. ":0")
+    // suppresses the auto-integration and points X11 apps at the wrong socket
+    // (e.g. the display manager's), causing Steam and other X11 apps to fail
+    // with "XOpenDisplay failed" / SIGSEGV. Just install xwayland-satellite.
     QT_QPA_PLATFORMTHEME "kde"
     QT_QPA_PLATFORMTHEME_QT6 "kde"
     TERMINAL "ghostty"
