@@ -41,6 +41,24 @@ widget_order = []
 
     [desktop_widgets.widget]
 
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 3600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 14400.0
+    
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
@@ -72,6 +90,16 @@ widget_order = [ "lockscreen-login-box@DP-1" ]
         show_keyboard_layout = true
         show_login_button = true
         show_session_buttons = true
+
+[widget.network]
+show_label = false
+
+    [widget.network.actions]
+    right = "none"
+
+[wallpaper]
+directory = "/home/joe/.local/share/wallpapers"
+    
 
 [plugin_settings."yuuto/arch-updater"]
 aur_helper = "yay"
