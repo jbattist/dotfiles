@@ -10,6 +10,7 @@ settings_show_advanced = true
 font_family = "Inter"
 
 [bar.default]
+background_opacity = 0.6
 end = [
     "sysmon",
     "spacer_2",
@@ -28,6 +29,8 @@ end = [
 ]
 font_family = "Inter"
 margin_ends = 0
+radius_top_left = 0
+radius_top_right = 0
 start = [ "launcher", "wallhaven" ]
 
 [desktop_widgets]
