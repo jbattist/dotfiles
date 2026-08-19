@@ -1,0 +1,115 @@
+# Paneru keybindings — converted from niri keybinds
+#   source: dotfiles/niri/.config/niri/keybinds.kdl
+#
+# Paneru is a macOS tiling WM with a niri-like scrollable strip. niri's "Mod"
+# (Super on TTY) maps to macOS Command = "cmd".
+#
+# Binding syntax: "[mod[ + mod ...]] - key", e.g.  "cmd + ctrl - h"
+# A binding value may be a single string or an array of strings (multiple keys
+# for the same action).
+#
+# ===== What deliberately did NOT carry over =====
+# Paneru bindings can ONLY trigger paneru window-management actions: there is
+# no spawn/launch and no media-key action. So these niri binds have no paneru
+# equivalent and are omitted here (not an oversight):
+#   Mod+T / Mod+Shift+T   ghostty / floating ghostty
+#   Mod+R / Mod+D / Mod+B vicinae toggle / nemo / firefox launchers
+#   Super+Alt+L / Super+L swaylock / noctalia session lock
+#   XF86*                 all audio / media / brightness keys
+#   XF86Tools/Launch5-8   Keychron F13-F18 specials
+#   Mod+Shift+Slash       hotkey overlay
+#   Mod+S                 fzf find (spawns via fish)
+# Plus niri-only actions with no paneru binding:
+#   show-hotkey-overlay, close-window (Mod+Q), power-off-monitors (Mod+Shift+P),
+#   fullscreen-window (Mod+Shift+F), toggle-column-tabbed-display (Mod+W),
+#   set-window-height / reset-window-height, move-workspace-* (whole-workspace),
+#   focus-monitor-* east/west, consume-window-into-column (Mod+Comma),
+#   consume-or-expel-window-right (Mod+BracketRight),
+#   toggle-keyboard-shortcuts-inhibit (Mod+Escape).
+
+[bindings]
+
+# ---- Focus movement (niri focus-column-left/right, focus-window-up/down) ----
+# niri Mod+H/J/K/L and arrow keys
+window_focus_west  = ["cmd - h",      "cmd - leftarrow"]
+window_focus_east  = ["cmd - l",      "cmd - rightarrow"]
+window_focus_north = ["cmd - k",      "cmd - uparrow"]
+window_focus_south = ["cmd - j",      "cmd - downarrow"]
+
+# ---- Move / swap windows (niri move-column-left/right, move-window-up/down) ----
+# niri Mod+Ctrl+H/J/K/L + arrows, plus Mod+Apostrophe / Mod+Semicolon right/left
+window_swap_west  = ["cmd + ctrl - h", "cmd + ctrl - leftarrow", "cmd - semicolon"]
+window_swap_east  = ["cmd + ctrl - l", "cmd + ctrl - rightarrow", "cmd - quote"]
+window_swap_north = ["cmd + ctrl - k", "cmd + ctrl - uparrow"]
+window_swap_south = ["cmd + ctrl - j", "cmd + ctrl - downarrow"]
+
+# ---- Jump to first / last column (niri focus-column-first/last) ----
+window_focus_first = "cmd - home"
+window_focus_last  = "cmd - end"
+
+# ---- Move window to first / last column (niri move-column-to-first/last) ----
+window_swap_first = "cmd + ctrl - home"
+window_swap_last  = "cmd + ctrl - end"
+
+# ---- Virtual workspaces (niri workspaces; Mod+Page_Down/Up, Mod+U/I) ----
+window_virtual_south = ["cmd - u", "cmd - pagedown"]
+window_virtual_north = ["cmd - i", "cmd - pageup"]
+
+# ---- Move focused window to a virtual workspace & follow (niri move-column-to-workspace) ----
+window_virtualmove_south = ["cmd + ctrl - u", "cmd + ctrl - pagedown"]
+window_virtualmove_north = ["cmd + ctrl - i", "cmd + ctrl - pageup"]
+
+# ---- Numbered workspaces (niri Mod+1..9 focus-workspace) ----
+window_virtualnum_1 = "cmd - 1"
+window_virtualnum_2 = "cmd - 2"
+window_virtualnum_3 = "cmd - 3"
+window_virtualnum_4 = "cmd - 4"
+window_virtualnum_5 = "cmd - 5"
+window_virtualnum_6 = "cmd - 6"
+window_virtualnum_7 = "cmd - 7"
+window_virtualnum_8 = "cmd - 8"
+window_virtualnum_9 = "cmd - 9"
+
+# ---- Move focused window to numbered workspace & follow (niri Mod+Ctrl+1..9) ----
+window_virtualmovenum_1 = "cmd + ctrl - 1"
+window_virtualmovenum_2 = "cmd + ctrl - 2"
+window_virtualmovenum_3 = "cmd + ctrl - 3"
+window_virtualmovenum_4 = "cmd + ctrl - 4"
+window_virtualmovenum_5 = "cmd + ctrl - 5"
+window_virtualmovenum_6 = "cmd + ctrl - 6"
+window_virtualmovenum_7 = "cmd + ctrl - 7"
+window_virtualmovenum_8 = "cmd + ctrl - 8"
+window_virtualmovenum_9 = "cmd + ctrl - 9"
+
+# ---- Column width / layout ----
+# niri Mod+G  switch-preset-column-width
+window_resize = "cmd - g"
+# niri Mod+Equal set-column-width +10%  → grow to next preset (approx: paneru cycles presets)
+window_grow   = "cmd - equal"
+# niri Mod+Minus set-column-width -10%  → shrink to previous preset (approx)
+window_shrink = "cmd - minus"
+# niri Mod+F maximize-column → paneru full-width mode (approx: not full screen, still scrollable)
+window_fullwidth = "cmd - f"
+# niri Mod+C center-column
+window_center = "cmd - c"
+
+# ---- Stacking (niri consume/expel) ----
+# niri Mod+BracketLeft consume-or-expel-window-left → stack onto left neighbor
+window_stack   = "cmd - leftbracket"
+# niri Mod+Period expel-window-from-column → pull out of a stack
+window_unstack = "cmd - period"
+
+# ---- Floating / managed (niri Mod+V toggle-window-floating) ----
+window_manage = "cmd - v"
+# niri Mod+Shift+V switch-focus-between-floating-and-tiling → focus unmanaged/floating (approx)
+window_focus_unmanaged = "cmd + shift - v"
+
+# ---- App switching (niri Mod+Tab toggle-overview) ----
+# paneru has no overview; nearest equivalent is switching to previously focused
+# window on this workspace. DIFFERS from niri's overview.
+window_focus_managed = "cmd - tab"
+
+# ---- Quit ----
+# niri Mod+Shift+E && Ctrl+Alt+Delete { quit }
+# NOTE: paneru "quit" exits immediately — no niri-style confirmation dialog.
+quit = ["cmd + shift - e", "ctrl + alt - delete"]
