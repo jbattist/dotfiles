@@ -40,10 +40,10 @@ fish_add_path ~/.npm-global/bin
 
 
 # Aliases #####################################################################
-alias ssh-pi "env TERM=xterm-256color ssh"
 alias serve "python -m http.server"
 alias psaux "ps auxw -e -H"
 alias hermes-tui "ssh -t hermes.home 'hermes --tui'"
+alias tree "eza --tree --icons"
 
 # Sources / Inits #############################################################
 
@@ -88,6 +88,6 @@ function ping --wraps=ping --description "ping with -c 5 + optional grc colors"
 end
 
 function ls --wraps=ls --description "eza with icons instead of grc ls"
-    eza --icons=always $argv
+    eza --icons=always --group-directories-first --mounts $argv
 end
 
