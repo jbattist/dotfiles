@@ -91,3 +91,5 @@ function ls --wraps=ls --description "eza with icons instead of grc ls"
     eza --icons=always --group-directories-first --mounts $argv
 end
 
+
+fish_add_path -gm /home/joe/go/bin
