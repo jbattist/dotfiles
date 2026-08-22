@@ -142,7 +142,7 @@ complete -c copilot -l max-autopilot-continues -r -d 'Maximum number of continua
 complete -c copilot -l mode -r -f -a 'interactive plan autopilot'
 complete -c copilot -l mode -r -f -d 'Set the initial agent mode'
 complete -c copilot -l autopilot -f -d 'Start in autopilot mode'
-complete -c copilot -l plan -f -d 'Start in plan mode (combine with --mode autopilot to auto-approve the plan and implement it autonomously)'
+complete -c copilot -l plan -f -d 'Start in plan mode'
 complete -c copilot -l experimental -f -d 'Enable experimental features'
 complete -c copilot -l no-experimental -f -d 'Disable experimental features'
 complete -c copilot -l bash-env -r -d 'Enable BASH_ENV support for bash shells (on|off)'

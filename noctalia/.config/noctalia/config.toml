@@ -111,6 +111,7 @@ directory = "/home/joe/.local/share/wallpapers"
 aur_helper = "yay"
 auto_check_hours = 4
 terminal = "ghostty"
+show_activity_graph = true
 
 [plugins]
 enabled = [ "noctalia/wallhaven", "yuuto/arch-updater" ]
