@@ -153,9 +153,6 @@ bind=SUPER,r,spawn,vicinae toggle
 bind=SUPER,d,spawn,nemo
 bind=SUPER,b,spawn,firefox
 bind=SUPER+ALT,l,spawn,swaylock
-# niri also binds Super+L { noctalia msg session lock } but that chord (Super+Shift+L)
-# is SUPER+SHIFT,l here and already taken by focus-monitor-right; mango keysyms are
-# case-insensitive so lock cannot coexist. Skipped.
 bind=SUPER+ALT,s,spawn,pkill orca || exec orca
 bind=SUPER,q,killclient
 bind=SUPER+SHIFT,e,quit
@@ -187,10 +184,8 @@ bind=SUPER+CTRL,l,exchange_client,right
 bind=SUPER+CTRL,k,exchange_client,up
 bind=SUPER+CTRL,j,exchange_client,down
 # Size-focused shortcuts Joe asked for while testing scroller.
-# niri: Mod+Apostrophe { move-column-right; }  Mod+Semicolon { move-column-left; }
-# Mango scroller closest: move focused window's column right/left.
-bind=SUPER,apostrophe,scroller_stack,right
-bind=SUPER,semicolon,scroller_stack,left
+bind=SUPER,apostrophe,set_proportion,+0.1
+bind=SUPER,semicolon,set_proportion,-0.1
 
 # Monitor focus / move-to-monitor binds
 bind=SUPER+SHIFT,Left,focusmon,left
@@ -242,8 +237,7 @@ bind=SUPER+CTRL,i,tagtoleft,0
 
 # Scroller sizing and window states
 bind=SUPER,g,switch_proportion_preset,
-# niri: Mod+Ctrl+R { reset-window-height; } -> reset scroller proportion to default 0.5.
-# niri: Mod+Shift+R { switch-preset-window-height; } -> no direct mango analog; skipped.
+# Mango has no direct equivalent for niri Mod+Shift+R window-height preset.
 bind=SUPER+CTRL,r,set_proportion,0.5
 bind=SUPER,f,togglemaximizescreen
 bind=SUPER+SHIFT,f,togglefullscreen
@@ -252,20 +246,15 @@ bind=SUPER,c,togglemaximizescreen
 bind=SUPER+CTRL,c,toggleoverview
 bind=SUPER,minus,set_proportion,-0.1
 bind=SUPER,equal,set_proportion,+0.1
-# niri: Mod+Shift+Minus { set-window-height "-10%"; } Mod+Shift+Equal { set-window-height "+10%"; }
-bind=SUPER+SHIFT,minus,set_proportion,-0.1
-bind=SUPER+SHIFT,equal,set_proportion,+0.1
 bind=SUPER,v,togglefloating,
 bind=SUPER+SHIFT,v,toggleoverlay,
 bind=SUPER,w,switch_layout
 # Keep the upstream/default mnemonic too while testing.
 bind=SUPER,n,switch_layout
-# niri: Mod+BracketLeft { consume-or-expel-window-left; } Mod+BracketRight { consume-or-expel-window-right; }
-bind=SUPER,bracketleft,scroller_stack,left
-bind=SUPER,bracketright,scroller_stack,right
-# niri: Mod+Comma { consume-window-into-column; } Mod+Period { expel-window-from-column; }
-bind=SUPER,comma,scroller_stack,right
-bind=SUPER,period,scroller_stack,left
+bind=SUPER,bracketleft,set_proportion,-0.1
+bind=SUPER,bracketright,set_proportion,+0.1
+bind=SUPER,comma,focusdir,left
+bind=SUPER,period,focusdir,right
 
 # Screenshots from niri
 bind=NONE,Print,spawn,flameshot gui --clipboard
@@ -273,16 +262,16 @@ bind=CTRL,Print,spawn,flameshot screen --path ~/Pictures/Screenshots
 bind=SHIFT,Print,spawn,flameshot gui --clipboard
 
 # Audio/media/brightness from niri
-bindl=NONE,XF86AudioRaiseVolume,spawn,wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0
-bindl=NONE,XF86AudioLowerVolume,spawn,wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-
-bindl=NONE,XF86AudioMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindl=NONE,XF86AudioMicMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-bindl=NONE,XF86AudioPlay,spawn,playerctl play-pause
-bindl=NONE,XF86AudioStop,spawn,playerctl stop
-bindl=NONE,XF86AudioPrev,spawn,playerctl previous
-bindl=NONE,XF86AudioNext,spawn,playerctl next
-bindl=NONE,XF86MonBrightnessUp,spawn,brightnessctl --class=backlight set +10%
-bindl=NONE,XF86MonBrightnessDown,spawn,brightnessctl --class=backlight set 10%-
+bind=NONE,XF86AudioRaiseVolume,spawn,wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0
+bind=NONE,XF86AudioLowerVolume,spawn,wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-
+bind=NONE,XF86AudioMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bind=NONE,XF86AudioMicMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bind=NONE,XF86AudioPlay,spawn,playerctl play-pause
+bind=NONE,XF86AudioStop,spawn,playerctl stop
+bind=NONE,XF86AudioPrev,spawn,playerctl previous
+bind=NONE,XF86AudioNext,spawn,playerctl next
+bind=NONE,XF86MonBrightnessUp,spawn,brightnessctl --class=backlight set +10%
+bind=NONE,XF86MonBrightnessDown,spawn,brightnessctl --class=backlight set 10%-
 
 # Keychron special keys and fuzzy finder
 bind=NONE,XF86Tools,spawn,wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-
@@ -304,9 +293,6 @@ axisbind=SUPER,LEFT,focusdir,left
 axisbind=SUPER,RIGHT,focusdir,right
 axisbind=SUPER+CTRL,DOWN,tagtoleft
 axisbind=SUPER+CTRL,UP,tagtoright
-# niri: Mod+Shift+WheelScrollDown { move-column-left; } Mod+Shift+WheelScrollUp { move-column-right; }
-axisbind=SUPER+SHIFT,DOWN,scroller_stack,left
-axisbind=SUPER+SHIFT,UP,scroller_stack,right
 
 # ----- Rules -----
 # Layer rule
