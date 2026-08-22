@@ -138,7 +138,7 @@ tagrule=id:6,layout_name:scroller
 tagrule=id:7,layout_name:scroller
 tagrule=id:8,layout_name:scroller
 tagrule=id:9,layout_name:scroller
-circle_layout=scroller,dwindle,tile,monocle,grid,deck
+circle_layout=scroller,tile,monocle,grid,deck
 
 # ----- Key bindings -----
 # key names from `wev`; modifier names: super, ctrl, alt, shift, none.
@@ -153,10 +153,9 @@ bind=SUPER,r,spawn,vicinae toggle
 bind=SUPER,d,spawn,nemo
 bind=SUPER,b,spawn,firefox
 bind=SUPER+ALT,l,spawn,swaylock
-# niri: Super+L { noctalia msg session lock } == Super+Shift+L, which mango sees as
-# SUPER+SHIFT,l (keysyms case-insensitive). That chord previously ran focus-monitor-right;
-# niri shadows focus-monitor-right with lock on the same chord, so lock wins here too.
-bind=SUPER+SHIFT,l,spawn,noctalia msg session lock
+# niri also binds Super+L { noctalia msg session lock } but that chord (Super+Shift+L)
+# is SUPER+SHIFT,l here and already taken by focus-monitor-right; mango keysyms are
+# case-insensitive so lock cannot coexist. Skipped.
 bind=SUPER+ALT,s,spawn,pkill orca || exec orca
 bind=SUPER,q,killclient
 bind=SUPER+SHIFT,e,quit
@@ -199,7 +198,7 @@ bind=SUPER+SHIFT,Right,focusmon,right
 bind=SUPER+SHIFT,Up,focusmon,up
 bind=SUPER+SHIFT,Down,focusmon,down
 bind=SUPER+SHIFT,h,focusmon,left
-# SUPER+SHIFT,l removed: that chord is now the niri Super+L lock (see launcher binds).
+bind=SUPER+SHIFT,l,focusmon,right
 bind=SUPER+SHIFT,k,focusmon,up
 bind=SUPER+SHIFT,j,focusmon,down
 bind=SUPER+SHIFT+CTRL,Left,tagmon,left
