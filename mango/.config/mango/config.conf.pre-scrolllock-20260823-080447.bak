@@ -254,8 +254,6 @@ bind=SUPER+SHIFT,f,togglefullscreen
 bind=SUPER+CTRL,f,set_proportion,1.0
 bind=SUPER,c,togglemaximizescreen
 bind=SUPER+CTRL,c,toggleoverview
-# Scroll Lock alone centers the focused window (niri Mod+C center-column equivalent).
-bind=NONE,Scroll_Lock,centerwin
 bind=SUPER,minus,set_proportion,-0.1
 bind=SUPER,equal,set_proportion,+0.1
 # niri: Mod+Shift+Minus { set-window-height "-10%"; } Mod+Shift+Equal { set-window-height "+10%"; }
