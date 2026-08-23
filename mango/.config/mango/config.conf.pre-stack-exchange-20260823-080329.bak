@@ -76,10 +76,7 @@ scroller_focus_center=0
 scroller_prefer_center=0
 scroller_prefer_overspread=1
 edge_scroller_pointer_focus=1
-# MUST be 1: mango 0.16.1's switch_proportion_preset returns early when
-# visible_tiling_clients==1 && !scroller_ignore_proportion_single, so 0 would
-# silently block Super+G resizing on single-window tags. 1 allows it.
-scroller_ignore_proportion_single=1
+scroller_ignore_proportion_single=0
 scroller_default_proportion_single=0.5
 scroller_proportion_preset=0.3333,0.5,0.6
 
@@ -192,9 +189,9 @@ bind=SUPER+CTRL,k,exchange_client,up
 bind=SUPER+CTRL,j,exchange_client,down
 # Size-focused shortcuts Joe asked for while testing scroller.
 # niri: Mod+Apostrophe { move-column-right; }  Mod+Semicolon { move-column-left; }
-# Mango: exchange_stack_client swaps the window's position in the stack (no consume/expel).
-bind=SUPER,apostrophe,exchange_stack_client,next
-bind=SUPER,semicolon,exchange_stack_client,prev
+# Mango scroller closest: move focused window's column right/left.
+bind=SUPER,apostrophe,scroller_stack,right
+bind=SUPER,semicolon,scroller_stack,left
 
 # Monitor focus / move-to-monitor binds
 bind=SUPER+SHIFT,Left,focusmon,left
