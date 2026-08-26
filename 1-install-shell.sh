@@ -195,7 +195,18 @@ ensure_default_shell() {
 
 configure_systemd_resolved() {
     log "Configuring systemd-resolved to use DHCP-provided DNS"
-    log "Service enablement is owned by manifests/services/common.enable"
+    # The service must be running for the stub at /run/systemd/resolve/stub-resolv.conf
+    # to exist; otherwise /etc/resolv.conf points at a dead socket and ALL lookups
+    # fail (NXDOMAIN/unknown unit). Enable+start here so script 1 is self-sufficient;
+    # manifests/services/common.enable keeps this enforced for step-2 hosts too.
+    if ! systemctl is-enabled --quiet systemd-resolved; then
+        log "Enabling systemd-resolved.service"
+        sudo systemctl enable systemd-resolved
+    fi
+    if ! systemctl is-active --quiet systemd-resolved; then
+        log "Starting systemd-resolved.service"
+        sudo systemctl start systemd-resolved
+    fi
 
     sudo mkdir -p /etc/systemd/resolved.conf.d
     sudo tee /etc/systemd/resolved.conf.d/dns.conf > /dev/null << 'EOF'
@@ -232,7 +243,7 @@ EOF
 
     sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
-    log "systemd-resolved configuration written; service state is reconciled separately"
+    log "systemd-resolved is enabled, active, and configured for DHCP-provided DNS"
 }
 
 configure_pacman_colors() {
