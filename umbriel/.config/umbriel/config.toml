@@ -18,7 +18,10 @@ files = [
 ]
 
 [general]
-autostart = []
+autostart = [
+    "noctalia",
+    "vicnae server"
+]
 # mod_key = "Super"            # Mod in keybinds; defaults to Super (Alt when nested)
 xwayland = true                # requires restart to change
 show_cheatsheet = true         # show keybinds overlay on startup
