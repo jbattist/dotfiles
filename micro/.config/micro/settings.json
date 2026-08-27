@@ -1,6 +1,6 @@
 {
-    "clipboard": "external",
-    "colorscheme": "catppuccin-mocha-transparent",
-    "softwrap": true,
-    "wordwrap": true
+  "clipboard": "external",
+  "colorscheme": "noctalia",
+  "softwrap": true,
+  "wordwrap": true
 }
