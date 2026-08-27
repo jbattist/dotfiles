@@ -18,9 +18,7 @@
 "Mod+S" = "spawn:bash -c \"$TERMINAL -e fish -c fe\""
 
 # Locking --------------------------------------------------------------------
-"Super+Alt+L" = "spawn:swaylock"
-"Super+L" = "spawn:noctalia msg session lock"
-"Super+Alt+S" = { action = "spawn:pkill orca || exec orca", allow_when_locked = true }
+"Mod+L" = "spawn:noctalia msg session lock"
 
 # Volume / media / brightness (usable while locked) --------------------------
 "XF86AudioRaiseVolume" = { action = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0", allow_when_locked = true }
@@ -51,7 +49,7 @@
 "Mod+H"     = "window-focus-left"
 "Mod+J"     = "window-focus-down"
 "Mod+K"     = "window-focus-up"
-"Mod+L"     = "window-focus-right"
+# "Mod+L"     = "window-focus-right"
 
 # Move (within workspace) ----------------------------------------------------
 "Mod+Ctrl+Left"  = "column-move-left"
