@@ -1,0 +1,53 @@
+# Keybinds (see docs/user/keybinds.md) --------------------------------------
+
+[keybinds]
+# Runtime switchers can use `window-focus-warp:<id>` to move both focus and the
+# cursor. Window ids come from `umbriel windows`, so they are not static binds.
+"Mod+T" = "spawn:ghostty"
+"Mod+V" = "window-toggle-floating"
+"Mod+Shift+V" = "window-focus-switch-floating"
+"Mod+P" = "window-toggle-pinned"
+"Mod+M" = "window-toggle-maximize-to-edges"
+"Mod+Q" = "window-close"
+"Mod+Shift+Space" = "window-move-to-scratchpad"
+"Mod+Space" = "scratchpad-toggle"
+"Mod+Ctrl+Space" = "window-restore-from-scratchpad"
+"Mod+Tab" = "scratchpad-focus-next"
+# Add `:DP-1` to any scratchpad action to target that output from anywhere.
+# "Mod+0" = "scratchpad-toggle:DP-1"
+# "Mod+Shift+0" = "window-move-to-scratchpad:DP-1"
+# "Mod+Ctrl+0" = "window-restore-from-scratchpad:DP-1"
+# "Mod+Alt+0" = "scratchpad-focus-next:DP-1"
+"Mod" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+O" = "overview-toggle"
+# "Mod+Space" is taken above; pick a free chord for layout switching.
+# "Mod+Shift+K" = "keyboard-layout-next"
+
+# Output, workspace, and window movement actions.
+# "Mod+Home" = "column-focus-first"
+# "Mod+End" = "column-focus-last"
+# "Mod+Shift+Home" = "column-move-to-first"
+# "Mod+Shift+End" = "column-move-to-last"
+# "Mod+Comma" = "workspace-previous"
+# "Mod+Period" = "workspace-next"
+# "Mod+Shift+Comma" = "window-move-to-workspace-previous"
+# "Mod+Shift+Period" = "window-move-to-workspace-next"
+# "Mod+Ctrl+Comma" = "workspace-move-up"
+# "Mod+Ctrl+Period" = "workspace-move-down"
+# "Mod+Ctrl+H" = "output-focus-left"
+# "Mod+Shift+O" = "dpms-off"        # input activity powers displays back on
+# "Mod+Ctrl+O" = "dpms-off:DP-1"   # target one connector
+# "Mod+Minus" = "window-modify-width:-0.1"
+# "Mod+C" = "column-center"
+# "Mod+Shift+C" = "window-center"
+# "Mod+Shift+T" = "workspace-set-layout:toggle"
+
+# Media and volume (see docs/user/keybinds.md#example-media-and-brightness-keys)
+# "XF86AudioRaiseVolume" = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+# "XF86AudioLowerVolume" = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+# "Mod+XF86AudioMute"   = "spawn:wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+# "XF86AudioPlay"       = "spawn:playerctl play-pause"
+# "XF86AudioNext"       = "spawn:playerctl next"
+# "XF86AudioPrev"       = "spawn:playerctl prev"
+# Controls intended to remain usable while the session is locked use the table form.
+# "XF86MonBrightnessDown" = { action = "spawn:noctalia msg brightness-down 10", allow_when_locked = true }
