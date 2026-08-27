@@ -20,7 +20,7 @@ files = [
 [general]
 autostart = [
     "noctalia",
-    "vicnae server"
+    "vicinae server"
 ]
 # mod_key = "Super"            # Mod in keybinds; defaults to Super (Alt when nested)
 xwayland = true                # requires restart to change
