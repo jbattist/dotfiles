@@ -25,7 +25,9 @@ show_cheatsheet = true         # show keybinds overlay on startup
 focus_on_activate = false      # activation requests mark urgent without stealing focus
 honor_restored_maximize = false # let apps restore their saved maximized state
 
-# [environment]
+
+[environment]
+TERMINAL = "ghostty"
 # GTK_THEME = "Adwaita:dark"
 # QT_QPA_PLATFORMTHEME = "qt5ct"
 
