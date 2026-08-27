@@ -36,6 +36,7 @@
 # niri: Mod+Tab { toggle-overview }  (replaces Umbriel's scratchpad-focus-next
 # default on this chord, since niri's Mod+Tab is overview)
 "Mod+Tab" = { action = "overview-toggle", repeat = false }
+"Mod+W" = "workspace-set-layout"
 "Mod+O" = "overview-toggle"
 
 # Close ----------------------------------------------------------------------
@@ -187,6 +188,5 @@
 #   Mod+Shift+R / Mod+Ctrl+R / Mod+Shift+Minus / Mod+Shift+Equal  (window-height actions)
 #   Mod+Ctrl+F   (expand-column-to-available-width)
 #   Mod+Ctrl+C   (center-visible-columns)
-#   Mod+W        (toggle-column-tabbed-display)
 #   Mod+Escape   (toggle-keyboard-shortcuts-inhibit)
 #   XF86Launch6/7/8 (spawn "" no-ops)
