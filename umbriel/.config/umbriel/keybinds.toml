@@ -36,7 +36,7 @@
 # niri: Mod+Tab { toggle-overview }  (replaces Umbriel's scratchpad-focus-next
 # default on this chord, since niri's Mod+Tab is overview)
 "Mod+Tab" = { action = "overview-toggle", repeat = false }
-"Mod+W" = "workspace-set-layout"
+"Mod+W" = "workspace-set-layout:toggle"
 "Mod+O" = "overview-toggle"
 
 # Close ----------------------------------------------------------------------
