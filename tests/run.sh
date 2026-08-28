@@ -7,11 +7,16 @@ mapfile -t manifests < <(list_package_manifests)
 contains interactive "${manifests[@]}"
 contains work-apps "${manifests[@]}"
 contains gaming "${manifests[@]}"
+contains desktop-umbriel "${manifests[@]}"
 if contains shell "${manifests[@]}"; then exit 1; fi
 if contains README.md "${manifests[@]}"; then exit 1; fi
 packages=$(resolve_manifests interactive work-apps)
 grep -qx obsidian <<<"$packages"
 grep -qx slack-desktop <<<"$packages"
+umbriel_pkgs=$(resolve_manifests desktop-umbriel)
+grep -qx umbriel-git <<<"$umbriel_pkgs"
+grep -qx noctalia-greeter <<<"$umbriel_pkgs"
+grep -qx greetd <<<"$umbriel_pkgs"
 if resolve_manifests notes >/dev/null 2>&1; then exit 1; fi
 
 TMP=$(mktemp -d)

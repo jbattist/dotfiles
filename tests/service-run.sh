@@ -6,6 +6,8 @@ ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 
 selected_enabled=$(resolve_service_action enable bluetooth printing snapshots)
 selected_disabled=$(resolve_service_action disable bluetooth printing snapshots)
+umbriel_enabled=$(resolve_service_action enable desktop-umbriel)
+umbriel_disabled=$(resolve_service_action disable desktop-umbriel)
 grep -qx sshd.service <<<"$selected_enabled"
 grep -qx systemd-resolved.service <<<"$selected_enabled"
 grep -qx bluetooth.service <<<"$selected_enabled"
@@ -13,6 +15,8 @@ grep -qx cups.service <<<"$selected_enabled"
 grep -qx snapper-timeline.timer <<<"$selected_enabled"
 grep -qx snapper-cleanup.timer <<<"$selected_enabled"
 grep -qx NetworkManager-wait-online.service <<<"$selected_disabled"
+grep -qx greetd.service <<<"$umbriel_enabled"
+grep -qx gdm.service <<<"$umbriel_disabled"
 if grep -qx snapper-timeline.service <<<"$selected_enabled"; then exit 1; fi
 
 TMP=$(mktemp -d)

@@ -1,0 +1,2 @@
+# Greetd runs the Noctalia greeter as the display manager for the Umbriel desktop
+greetd.service

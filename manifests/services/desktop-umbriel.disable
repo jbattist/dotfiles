@@ -1,0 +1,2 @@
+# GDM yields to greetd when the Umbriel desktop is selected
+gdm.service

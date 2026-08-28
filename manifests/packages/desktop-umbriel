@@ -1,0 +1,4 @@
+# Umbriel compositor with the Noctalia greeter (greetd) display-manager stack
+umbriel-git
+noctalia-greeter
+greetd
