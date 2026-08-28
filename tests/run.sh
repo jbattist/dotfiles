@@ -8,6 +8,7 @@ contains interactive "${manifests[@]}"
 contains work-apps "${manifests[@]}"
 contains gaming "${manifests[@]}"
 contains desktop-niri "${manifests[@]}"
+contains noctalia-greeter "${manifests[@]}"
 if contains shell "${manifests[@]}"; then exit 1; fi
 if contains README.md "${manifests[@]}"; then exit 1; fi
 packages=$(resolve_manifests interactive work-apps)
@@ -15,8 +16,10 @@ grep -qx obsidian <<<"$packages"
 grep -qx slack-desktop <<<"$packages"
 desktop_pkgs=$(resolve_manifests desktop-niri)
 grep -qx umbriel-git <<<"$desktop_pkgs"
-grep -qx noctalia-greeter <<<"$desktop_pkgs"
-grep -qx greetd <<<"$desktop_pkgs"
+if grep -qx greetd <<<"$desktop_pkgs"; then exit 1; fi
+greeter_pkgs=$(resolve_manifests noctalia-greeter)
+grep -qx noctalia-greeter <<<"$greeter_pkgs"
+grep -qx greetd <<<"$greeter_pkgs"
 if resolve_manifests notes >/dev/null 2>&1; then exit 1; fi
 
 TMP=$(mktemp -d)
