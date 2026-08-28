@@ -24,7 +24,7 @@ autostart = [
 ]
 # mod_key = "Super"            # Mod in keybinds; defaults to Super (Alt when nested)
 xwayland = true                # requires restart to change
-show_cheatsheet = true         # show keybinds overlay on startup
+show_cheatsheet = false         # show keybinds overlay on startup
 focus_on_activate = false      # activation requests mark urgent without stealing focus
 honor_restored_maximize = false # let apps restore their saved maximized state
 
@@ -58,8 +58,8 @@ curve = "easeout"
 [animation.windows_in]
 enabled = true
 duration_ms = 150
-curve = "easeout"
-style = "popin"                # popin, zoom, slide, fade, none
+curve = "easeout"              # linear, ease, easeout, snappy, bounce, or elastic
+style = "slide"                # popin, zoom, slide, fade, none
 scale = 0.85                   # 0.1-1.0, used by popin
 
 [animation.windows_out]
