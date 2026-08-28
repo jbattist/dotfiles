@@ -1,0 +1,2 @@
+[input.keyboard]
+numlock_toggle = true # true enables NumLock when a keyboard connects; false leaves it off
