@@ -17,7 +17,7 @@ Current standard:
 - `bluetooth.service`: enabled when `bluetooth` is selected.
 - `cups.service`: enabled when `printing` is selected.
 - `snapper-timeline.timer` and `snapper-cleanup.timer`: enabled when `snapshots` is selected.
-- `greetd.service`: enabled when `desktop-umbriel` is selected.
-- `gdm.service`: disabled when `desktop-umbriel` is selected.
+- `greetd.service`: enabled when `desktop-niri` is selected.
+- `gdm.service`: disabled when `desktop-niri` is selected.
 
 `2-install-pkgs.sh` invokes `scripts/service-reconcile.sh` automatically with the selected package manifests. The reconciler applies only declared units and never touches unlisted services.
