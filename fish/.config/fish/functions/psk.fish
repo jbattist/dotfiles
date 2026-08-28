@@ -46,11 +46,9 @@ function psk --description "Interactive process killer (fzf); psk [pattern]"
 
     echo
     printf '%s\n' $picks
-    echo -n "Send SIG$sig to the selected processes? [y/N] "
-    # shellcheck disable=SC2162
-    read -l ans
+    read -l -P "Are you sure (y/N) " ans
     if not string match -q -i 'y' -- "$ans"
-        echo "Aborted — nothing was killed."
+        echo "Aborted - nothing was killed."
         return 1
     end
 
