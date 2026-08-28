@@ -1,0 +1,2 @@
+# Greetd runs the Noctalia greeter; the fleet display manager replacing GDM
+greetd.service
