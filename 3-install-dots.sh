@@ -213,6 +213,7 @@ main() {
     # so it is safe to backup/replace the folder.
     backup_and_stow niri ".config/niri"
     backup_and_stow noctalia ".config/noctalia"
+    backup_and_stow umbriel ".config/umbriel"
     backup_and_stow fuzzel ".config/fuzzel"
     backup_and_stow hyprland ".config/hypr"
 
