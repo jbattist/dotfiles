@@ -27,6 +27,8 @@ It never removes packages. Selecting `gaming` enables multilib. Selecting `bluet
 
 Selecting `desktop-niri` installs the fleet desktop: the niri and Umbriel compositors plus Noctalia. The display manager is a separate choice: selecting `noctalia-greeter` installs the Noctalia greeter (greetd) and applies the fleet switch from GDM to the greeter (GDM is disabled). The `noctalia-greeter` package prints one-time setup steps after installation (create the `greeter` user, write `/etc/greetd/config.toml` from `noctalia-greeter-print-greetd-config`); the service standard only handles enabling greetd.
 
+The greeter binary is a per-host choice: `noctalia-greeter` is the fleet default; the CachyOS host keeps `cosmic-greeter` (also greetd-based, so the greetd/GDM service standard still applies) and does not select the `noctalia-greeter` manifest.
+
 `work-apps` currently contains `slack-desktop`. Notes applications are included in `interactive`; there is no separate notes manifest.
 
 ## Promotion workflow

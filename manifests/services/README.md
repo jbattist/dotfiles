@@ -20,4 +20,6 @@ Current standard:
 - `greetd.service`: enabled when `noctalia-greeter` is selected.
 - `gdm.service`: disabled when `noctalia-greeter` is selected.
 
+The fleet DM standard is greetd (GDM retired); the greeter binary is per-host — `noctalia-greeter` by default, `cosmic-greeter` on the CachyOS host.
+
 `2-install-pkgs.sh` invokes `scripts/service-reconcile.sh` automatically with the selected package manifests. The reconciler applies only declared units and never touches unlisted services.
