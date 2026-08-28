@@ -8,6 +8,10 @@ app_icon_color = "secondary"
 app_icon_colorize = true
 settings_show_advanced = true
 font_family = "Inter"
+polkit_agent = true
+
+    [shell.greeter_sync]
+    auto_sync = true
 
 [bar.default]
 background_opacity = 0.6
