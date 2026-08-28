@@ -177,7 +177,7 @@
 "XF86Calculator" = "spawn:gnome-calculator"
 
 # Umbriel / Noctalia extras (kept from the prior stub) ------------------------------
-"Mod" = "spawn:noctalia msg panel-toggle launcher"
+# "Mod" = "spawn:noctalia msg panel-toggle launcher"
 "Mod+P" = "window-toggle-pinned"
 "Mod+M" = "window-toggle-maximize-to-edges"
 "Mod+Shift+Space" = "window-move-to-scratchpad"
