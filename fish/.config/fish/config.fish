@@ -41,7 +41,7 @@ fish_add_path ~/.npm-global/bin
 
 # Aliases #####################################################################
 alias serve "python -m http.server"
-alias psaux "ps auxw -e -H"
+# psaux is now a function: fish/.config/fish/functions/psaux.fish
 alias hermes-tui "ssh -t hermes.home 'hermes --tui'"
 alias tree "eza --tree --icons"
 
