@@ -142,9 +142,9 @@
 # Consume / expel columns -----------------------------------------------------
 # niri's consume-or-expel-window-left/right split into two actions here.
 "Mod+BracketLeft"  = "window-consume-left"
-"Mod+BracketRight" = "window-expel-right"
+# "Mod+BracketRight" = "window-expel-right"
 "Mod+Comma"  = "window-consume-left"
-"Mod+Period" = "window-expel-right"
+# "Mod+Period" = "window-expel-right"
 
 # Size / state -----------------------------------------------------------------
 "Mod+G" = "window-cycle-width"
