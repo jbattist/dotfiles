@@ -227,5 +227,4 @@ hl.window_rule({ name = "pavucontrol-floating", match = { class = "pavucontrol$"
 hl.window_rule({ name = "calculator-floating", match = { class = "org.gnome.Calculator$" }, float = true })
 hl.window_rule({ name = "ghostty-home-width", match = { class = "com.mitchellh.ghostty" }, scrolling_width = 0.3333 })
 
--- For Noctalia Color templates
-require("noctalia")
+
