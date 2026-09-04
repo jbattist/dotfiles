@@ -169,7 +169,7 @@ hl.bind(mainMod .. " + Minus", hl.dsp.layout("colresize -0.1"))
 hl.bind(mainMod .. " + Equal", hl.dsp.layout("colresize +0.1"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + V", hypr_dispatch("cyclenext floating"))
-hl.bind(mainMod .. " + W", sh("current=$(hyprctl activeworkspace -j | jq -r .tiled_layout); case $current in dwindle) next=master;; master) next=scrolling;; *) next=dwindle;; esac; hyprctl eval \"hl.config({ general = { layout = \\\"$next\\\" } })\""), { repeating = false, description = "Cycle layout: dwindle/master/scrolling" })
+hl.bind(mainMod .. " + W", sh([[hyprctl dispatch layoutmsg setlayout "$(hyprctl activeworkspace -j | jq -r .tiled_layout | awk '{if ($1=="dwindle") print "master"; else if ($1=="master") print "scrolling"; else print "dwindle"}')"]]), { repeating = false, description = "Cycle layout: dwindle/master/scrolling" })
 hl.bind(mainMod .. " + comma", hl.dsp.layout("cyclenext"), { description = "Focus next master window" })
 hl.bind(mainMod .. " + semicolon", hl.dsp.layout("cycleprev"), { description = "Focus previous master window" })
 hl.bind(mainMod .. " + Return", hl.dsp.layout("swapwithmaster master"), { description = "Swap active window with master" })
@@ -224,5 +224,3 @@ hl.window_rule({
 hl.window_rule({ name = "pavucontrol-floating", match = { class = "pavucontrol$" }, float = true })
 hl.window_rule({ name = "calculator-floating", match = { class = "org.gnome.Calculator$" }, float = true })
 hl.window_rule({ name = "ghostty-home-width", match = { class = "com.mitchellh.ghostty" }, scrolling_width = 0.3333 })
-
-
