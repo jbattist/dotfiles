@@ -30,7 +30,7 @@ hl.config({
         col = { active_border = "rgb(7fc8ff)", inactive_border = "rgb(505050)" },
         resize_on_border = false,
         allow_tearing = false,
-        layout = "scrolling",
+        layout = "master",
     },
     decoration = {
         rounding = 12,
@@ -43,7 +43,10 @@ hl.config({
     animations = { enabled = true },
     misc = { force_default_wallpaper = -1, disable_hyprland_logo = true },
     dwindle = { preserve_split = true },
-    master = { new_status = "master" },
+    master = {
+        orientation = "center",
+        new_status = "master",
+    },
     scrolling = {
         fullscreen_on_one_column = false,
         column_width = 0.5,
@@ -99,7 +102,6 @@ local function hypr_dispatch(cmd)
     return function() hl.exec_cmd("hyprctl dispatch " .. cmd) end
 end
 
-local layoutCycleScript = "/home/joe/.config/hypr/scripts/cycle-layout.sh"
 local columnSizeScript  = "/home/joe/.config/hypr/scripts/cycle-column-size.sh"
 local fullscreenScript  = "/home/joe/.config/hypr/scripts/maximize-or-fullscreen.sh"
 
@@ -125,9 +127,7 @@ end
 
 -- Scrolling-layout column/window movement approximating niri's column workflow.
 hl.bind(mainMod .. " + period", hl.dsp.layout("move +col"))
-hl.bind(mainMod .. " + comma", hl.dsp.layout("move -col"))
 hl.bind(mainMod .. " + apostrophe", hl.dsp.layout("swapcol r"))
-hl.bind(mainMod .. " + semicolon", hl.dsp.layout("swapcol l"))
 hl.bind(mainMod .. " + CTRL + Right", hl.dsp.layout("swapcol r"))
 hl.bind(mainMod .. " + CTRL + Left", hl.dsp.layout("swapcol l"))
 hl.bind(mainMod .. " + CTRL + H", hl.dsp.layout("swapcol l"))
@@ -169,7 +169,10 @@ hl.bind(mainMod .. " + Minus", hl.dsp.layout("colresize -0.1"))
 hl.bind(mainMod .. " + Equal", hl.dsp.layout("colresize +0.1"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + V", hypr_dispatch("cyclenext floating"))
-hl.bind(mainMod .. " + W", sh(layoutCycleScript), { repeating = false, description = "Cycle layout: scrolling/dwindle/master/monocle" })
+hl.bind(mainMod .. " + Tab", sh("current=$(hyprctl activeworkspace -j | jq -r .tiled_layout); case $current in dwindle) next=master;; master) next=scrolling;; *) next=dwindle;; esac; hyprctl eval \"hl.config({ general = { layout = \\\"$next\\\" } })\""), { repeating = false, description = "Cycle layout: dwindle/master/scrolling" })
+hl.bind(mainMod .. " + comma", hl.dsp.layout("cyclenext"), { description = "Focus next master window" })
+hl.bind(mainMod .. " + semicolon", hl.dsp.layout("cycleprev"), { description = "Focus previous master window" })
+hl.bind(mainMod .. " + Return", hl.dsp.layout("swapwithmaster master"), { description = "Swap active window with master" })
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + BracketLeft", hl.dsp.layout("colresize -conf"))
 hl.bind(mainMod .. " + BracketRight", hl.dsp.layout("colresize +conf"))
