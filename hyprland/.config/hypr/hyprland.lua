@@ -3,7 +3,7 @@
 -- Reference: https://wiki.hypr.land/Configuring/Start/
 
 -- niri home profile uses a single ultrawide on DP-1 at scale 1.
-hl.monitor({ output = "DP-1", mode = "preferred", position = "0x0", scale = 1 })
+hl.monitor({ output = "DP-1", mode = "preferred", position = "0x0", scale = 1.33 })
 
 local terminal    = "ghostty"
 local fileManager = "nemo"
@@ -203,8 +203,6 @@ hl.bind("XF86Launch5", sh("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"), { locked
 hl.bind("XF86Calculator", sh("gnome-calculator"))
 hl.bind(mainMod .. " + S", sh("$TERMINAL -e fish -c fe"))
 
--- Noctalia colors override base borders/groups.
-require("noctalia.noctalia-colors")
 
 hl.window_rule({ name = "suppress-maximize-events", match = { class = ".*" }, suppress_event = "maximize" })
 hl.window_rule({
