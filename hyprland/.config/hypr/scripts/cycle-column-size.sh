@@ -6,7 +6,7 @@ set -euo pipefail
 layout=$(hyprctl getoption general:layout -j | jq -r '.str // empty')
 
 if [[ "$layout" == "scrolling" ]]; then
-    exec hyprctl eval 'hl.dispatch(hl.dsp.layout("colresize +conf"))'
+    exec hyprctl eval 'hl.dispatch(hl.dsp.layout("colresize -conf"))'
 fi
 
 if [[ "$layout" == "dwindle" ]]; then
