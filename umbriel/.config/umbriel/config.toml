@@ -140,7 +140,6 @@ enabled = true
 softness = 10                  # 0-200, 0 = hard edge
 offset_x = 2                   # -200 to 200
 offset_y = 2
-color = "#0000007F"
 
 # Overview -------------------------------------------------------------------
 
@@ -177,12 +176,12 @@ zoom = 0.5                     # 0.1-0.75
 [layout]
 mode = "scrolling"             # "scrolling", "dwindle", or "master"
 gap = 8                        # 0-500
-width_presets = [0.333, 0.5, 0.667] # shared by scrolling, dwindle, and master
+extent_presets = [0.333, 0.5, 0.667] # shared by scrolling, dwindle, and master
 
 [layout.scrolling]
 # Vertical workspaces stack horizontal lanes from top to bottom.
 # direction = "horizontal"
-default_width_fraction = 0.5  # remove to let clients choose their initial width
+default_extent_fraction = 0.5  # initial extent for new columns
 center_underfull_strip = true  # center the strip whenever it is narrower than the viewport
 
 [layout.master]
