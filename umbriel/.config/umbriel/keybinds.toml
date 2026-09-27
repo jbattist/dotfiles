@@ -147,12 +147,12 @@
 # "Mod+Period" = "window-expel-right"
 
 # Size / state -----------------------------------------------------------------
-"Mod+G" = "window-cycle-width"
+"Mod+G" = "window-cycle-primary-extent"
 "Mod+F" = "window-toggle-maximize"
 "Mod+Shift+F" = "window-toggle-fullscreen"
 "Mod+C" = "column-center"
-"Mod+Minus" = "window-modify-width:-0.1"
-"Mod+Equal" = "window-modify-width:0.1"
+"Mod+Minus" = "window-modify-primary-extent:-0.1"
+"Mod+Equal" = "window-modify-primary-extent:0.1"
 
 # Floating -----------------------------------------------------------------------
 "Mod+V" = "window-toggle-floating"
