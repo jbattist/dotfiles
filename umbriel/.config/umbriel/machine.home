@@ -1,14 +1,14 @@
+# Home profile: copy to machine.toml to activate.
+# Niri machine.kdl.home: default 0.5, Ghostty 0.3333.
 [layout]
-extent_presets = [0.333, 0.5, 0.667] # shared by scrolling, dwindle, and master
-
-[layout.master]
-default_width_fraction = 0.55  # 0.1-0.9
+extent_presets = [0.3333, 0.5, 0.6]
 
 [layout.scrolling]
-# Vertical workspaces stack horizontal lanes from top to bottom.
-# direction = "horizontal"
-default_width_fraction = 0.33  # remove to let clients choose their initial width
+default_extent_fraction = 0.5
+
+[layout.master]
+default_width_fraction = 0.55
 
 [[window_rule]]
-match.app_id = "^com.mitchellh.ghostty"
-default_scrolling_extent = 0.333
+match.app_id = '^com\.mitchellh\.ghostty$'
+default_scrolling_extent = 0.3333
