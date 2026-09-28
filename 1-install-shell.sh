@@ -70,6 +70,46 @@ resolve_script_dir() {
 	fi
 }
 
+install_on_ubuntu() {
+	local script_dir repo_root pkg apt_pkg
+	local -a missing=()
+	script_dir=$(cd "$(dirname "$(resolve_script_dir)")" && pwd)
+	repo_root=$(cd "$script_dir" && pwd)
+	# shellcheck source=/dev/null
+	. "$repo_root/scripts/package-lib.sh"
+	require_cmd apt-get
+	require_cmd apt-cache
+	sudo apt-get update
+	while IFS= read -r pkg; do
+		case "$pkg" in
+			fd) apt_pkg=fd-find ;;
+			bind-tools) apt_pkg=dnsutils ;;
+			nfs-utils) apt_pkg=nfs-common ;;
+			herdr-bin|sysz|isd|ghostty|wezterm|fastfetch|yazi|starship)
+				case "$pkg" in herdr-bin) apt_pkg=herdr ;; *) apt_pkg=$pkg ;; esac
+				if command -v "$apt_pkg" >/dev/null 2>&1; then
+					log "$pkg already installed ($apt_pkg)"
+				else
+					missing+=("$pkg (no Ubuntu APT package in this installer)")
+				fi
+				continue ;;
+			*) apt_pkg=$pkg ;;
+		esac
+		if dpkg-query -W -f='${Status}' "$apt_pkg" 2>/dev/null | grep -qx 'install ok installed'; then
+			log "$apt_pkg already installed"
+		elif apt-cache show "$apt_pkg" >/dev/null 2>&1; then
+			log "Installing $apt_pkg via APT"
+			sudo apt-get install -y "$apt_pkg"
+		else
+			missing+=("$pkg (APT package $apt_pkg unavailable)")
+		fi
+	done < <(parse_manifest "$repo_root/manifests/packages/shell" | dedupe_lines)
+	if ((${#missing[@]})); then
+		err "Ubuntu packages requiring separate installation:"
+		printf '[!]   %s\n' "${missing[@]}" >&2
+	fi
+}
+
 install_with_yay() {
 	local script_dir repo_root
 	script_dir=$(cd "$(dirname "$(resolve_script_dir)")" && pwd)
@@ -241,19 +281,27 @@ EOF
 dns=systemd-resolved
 EOF
 
-        while IFS=: read -r name device; do
-            if [[ -n "$device" ]]; then
-                log "Setting dns-search on connection: $name ($device)"
-                sudo nmcli con modify "$name" ipv4.dns-search "home"
-                sudo nmcli con modify "$name" ipv6.dns-search "home"
+        # Only configure host uplinks, not Docker bridges or loopback profiles.
+        # Those may use ipv6.method=link-local, which rejects ipv6.dns-search.
+        while IFS=: read -r uuid type device; do
+            case "$type" in
+                802-3-ethernet|802-11-wireless) ;;
+                *) continue ;;
+            esac
+            [[ -n "$device" ]] || continue
 
-                # Remove manual DNS overrides and allow DHCP to provide DNS
-                sudo nmcli con modify "$name" ipv4.dns ""
-                sudo nmcli con modify "$name" ipv6.dns ""
-                sudo nmcli con modify "$name" ipv4.ignore-auto-dns no
-                sudo nmcli con modify "$name" ipv6.ignore-auto-dns no
+            log "Setting dns-search on connection: $uuid ($device)"
+            sudo nmcli con modify "$uuid" ipv4.dns-search "home"
+            if [[ "$(nmcli -g ipv6.method con show "$uuid")" != link-local ]]; then
+                sudo nmcli con modify "$uuid" ipv6.dns-search "home"
             fi
-        done < <(nmcli -t -f NAME,DEVICE con show --active)
+
+            # Remove manual DNS overrides and allow DHCP to provide DNS
+            sudo nmcli con modify "$uuid" ipv4.dns ""
+            sudo nmcli con modify "$uuid" ipv6.dns ""
+            sudo nmcli con modify "$uuid" ipv4.ignore-auto-dns no
+            sudo nmcli con modify "$uuid" ipv6.ignore-auto-dns no
+        done < <(nmcli -t -f UUID,TYPE,DEVICE con show --active)
     else
         log "No NetworkManager, using systemd-networkd with resolved"
     fi
@@ -272,15 +320,32 @@ configure_pacman_colors() {
 }
 
 main() {
-	install_with_yay
-	configure_pacman_colors
-	configure_systemd_resolved
+	# Arch-specific DNS and pacman changes must never be applied on Ubuntu.
+	# Check the OS before package bootstrap or any system configuration.
+	# shellcheck source=/dev/null
+	. /etc/os-release
+	case "$ID" in
+		arch|endeavouros|manjaro)
+			install_with_yay
+			configure_pacman_colors
+			configure_systemd_resolved
+			;;
+		ubuntu)
+			install_on_ubuntu
+			;;
+		*)
+			err "Unsupported distribution: $ID. No changes made."
+			return 1
+			;;
+	esac
 	link_dotfiles
 	ensure_sudo_access
 	ensure_default_shell
 
-	# Fix nsswitch.conf to prioritize DNS over LLMNR for name resolution
-	sudo sed -i 's/^hosts:.*/hosts: files dns resolve myhostname mymachines/' /etc/nsswitch.conf
+	if [[ "$ID" != ubuntu ]]; then
+		# Arch's nsswitch policy; Ubuntu retains its distribution defaults.
+		sudo sed -i 's/^hosts:.*/hosts: files dns resolve myhostname mymachines/' /etc/nsswitch.conf
+	fi
 	
 	log "Setup complete. Open a new terminal session to use your selected shell."
 	echo
