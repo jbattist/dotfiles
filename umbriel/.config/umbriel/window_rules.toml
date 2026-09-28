@@ -1,3 +1,8 @@
 [[window_rule]]
 match.app_id = "^com.mitchellh.ghostty"
 default_scrolling_extent = 0.333
+
+# Zoom's XWayland hover surfaces can arrive as top-level windows. Keep them out of the tile layout.
+[[window_rule]]
+match.app_id = "(?i)^zoom$"
+default_floating = true
