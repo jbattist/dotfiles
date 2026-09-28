@@ -135,11 +135,12 @@ brightness = 0.9               # 0.0-2.0
 contrast = 0.9                 # 0.0-2.0
 saturation = 1.1               # 0.0-2.0
 
-[appearance.shadow]
-enabled = true
-softness = 10                  # 0-200, 0 = hard edge
-offset_x = 2                   # -200 to 200
-offset_y = 2
+# [appearance.shadow]
+# enabled = true
+# softness = 10                  # 0-200, 0 = hard edge
+# offset_x = 2                   # -200 to 200
+# offset_y = 2
+# color = "#0000007F"
 
 # Overview -------------------------------------------------------------------
 
@@ -181,7 +182,7 @@ gap = 8                        # 0-500
 [layout.scrolling]
 # Vertical workspaces stack horizontal lanes from top to bottom.
 # direction = "horizontal"
-default_extent_fraction = 0.5  # initial extent for new columns
+default_width_fraction = 0.25  # remove to let clients choose their initial width
 center_underfull_strip = true  # center the strip whenever it is narrower than the viewport
 
 [layout.master]
