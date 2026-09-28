@@ -188,6 +188,17 @@ previewers = [
 	{ url = "*", run = "file" },
 ]
 
+# Show Git status alongside file names, including directory status.
+[[plugin.prepend_fetchers]]
+url   = "*"
+run   = "git"
+group = "git"
+
+[[plugin.prepend_fetchers]]
+url   = "*/"
+run   = "git"
+group = "git"
+
 [input]
 cursor_blink = false
 
