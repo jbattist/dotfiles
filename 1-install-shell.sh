@@ -325,7 +325,7 @@ main() {
 	# shellcheck source=/dev/null
 	. /etc/os-release
 	case "$ID" in
-		arch|endeavouros|manjaro)
+		arch|cachyos|endeavouros|manjaro)
 			install_with_yay
 			configure_pacman_colors
 			configure_systemd_resolved
