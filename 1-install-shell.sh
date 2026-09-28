@@ -119,12 +119,17 @@ link_dotfiles() {
 	backup_and_stow "$repo_root" nvim ".config/nvim"
     backup_and_stow "$repo_root" wezterm ".wezterm.lua"
     backup_and_stow "$repo_root" micro ".config/micro"
-	# Keep Yazi's plugins/ directory writable for `ya pkg install`; stow only
-	# the tracked config files, preserving any already-installed plugins.
+	# Stow tracked Yazi config files without absorbing generated plugins/flavors.
+	# Pick up newly added top-level configs (e.g. yazi.toml) automatically.
 	mkdir -p "$HOME/.config/yazi"
-	local yazi_file
-	for yazi_file in init.lua keymap.toml package.toml; do
-		backup_path "$HOME/.config/yazi/$yazi_file"
+	local yazi_source yazi_target
+	for yazi_source in "$repo_root/yazi/.config/yazi/"*.lua "$repo_root/yazi/.config/yazi/"*.toml; do
+		[ -f "$yazi_source" ] || continue
+		yazi_target="$HOME/.config/yazi/$(basename "$yazi_source")"
+		if [ "$yazi_target" -ef "$yazi_source" ]; then
+			continue
+		fi
+		backup_path "$yazi_target"
 	done
 	stow_pkg "$repo_root" yazi
 	if command -v ya >/dev/null 2>&1; then

@@ -3,5 +3,10 @@ use = "uhs-robert/sshfs"
 rev = "a8b8903"
 hash = "8c1b36103121a66b37308afaf7124575"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "f703392"
+hash = "347cc6b190eb0c2fd60513cc7ae37412"
+
 [flavor]
 deps = []
