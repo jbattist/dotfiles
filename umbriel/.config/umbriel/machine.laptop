@@ -1,0 +1,14 @@
+# Laptop profile: copy to machine.toml to activate.
+# Niri machine.kdl.laptop: default 0.6666, Ghostty 0.5.
+[layout]
+extent_presets = [0.3333, 0.5, 0.6666, 0.8]
+
+[layout.scrolling]
+default_extent_fraction = 0.6666
+
+[layout.master]
+default_width_fraction = 0.55
+
+[[window_rule]]
+match.app_id = '^com\.mitchellh\.ghostty$'
+default_scrolling_extent = 0.5

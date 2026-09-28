@@ -1,8 +1,3 @@
-[[window_rule]]
-match.app_id = "^com.mitchellh.ghostty"
-default_scrolling_extent = 0.333
-
-# Zoom's XWayland hover surfaces can arrive as top-level windows. Keep them out of the tile layout.
-[[window_rule]]
-match.app_id = "(?i)^zoom$"
-default_floating = true
+# Shared window rules only. Profile-specific rules live in machine.home,
+# machine.work, and machine.laptop (copy one to machine.toml).
+# Do not float all Zoom windows: that would also float meeting windows.
