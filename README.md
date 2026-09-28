@@ -65,6 +65,11 @@ Sets your default shell (fish recommended).
 bash 1-install-shell.sh
 ```
 
+On Ubuntu, step 1 installs available shell packages with APT and reports tools that
+need separate installation (for example Ghostty, WezTerm, Yazi, Fastfetch,
+Starship, sysz, isd, and Herdr). It does not run Arch's yay/pacman or rewrite
+Ubuntu's resolver and nsswitch configuration.
+
 ### Step 3 — GUI and system packages
 
 Shows an interactive multi-select list of package manifests, then installs the selected groups immediately. Machine profiles are reserved for dotfile customizations such as Niri KDL files.
