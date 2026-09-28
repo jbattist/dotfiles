@@ -12,3 +12,13 @@ default_width_fraction = 0.55
 [[window_rule]]
 match.app_id = '^com\.mitchellh\.ghostty$'
 default_scrolling_extent = 0.5
+
+[general]
+autostart = [
+    "noctalia",
+    "vicinae server",
+    # use grep -liE 'gmail|calendar' ~/.local/share/applications/chrome-*.desktop to find
+    # "gtk-launch chrome-fmgjjmmmlfnkbppncabfkddbjimcfncm-Profile_1",
+    # "gtk-launch chrome-kjbdgfilnfhdoflbpgamdcdgpehopbep-Profile_1",
+    # "slack"
+]
