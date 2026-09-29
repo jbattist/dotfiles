@@ -29,5 +29,6 @@ autostart = [
     # use grep -liE 'gmail|calendar' ~/.local/share/applications/chrome-*.desktop to find
     "gtk-launch chrome-fmgjjmmmlfnkbppncabfkddbjimcfncm-Profile_1",
     "gtk-launch chrome-kjbdgfilnfhdoflbpgamdcdgpehopbep-Profile_1",
-    "slack"
+    "slack",
+    "keylight-controller"
 ]
