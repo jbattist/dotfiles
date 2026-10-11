@@ -10,8 +10,9 @@ local config = wezterm.config_builder()
 -- config.initial_cols = 120
 -- config.initial_rows = 28
 
--- or, changing the font size and color scheme.
-config.font_size = 12
+-- Match the Ghostty terminal profile.
+config.font = wezterm.font('JetBrainsMono Nerd Font Mono')
+config.font_size = 11
 
 -- Noctalia theme (see ~/.config/wezterm/colors/noctalia.toml)
 config.color_scheme_dirs = { wezterm.home_dir .. '/.config/wezterm/colors' }

@@ -214,6 +214,9 @@ main() {
     backup_and_stow niri ".config/niri"
     backup_and_stow noctalia ".config/noctalia"
     backup_and_stow umbriel ".config/umbriel"
+    backup_and_stow ghostty ".config/ghostty"
+    backup_and_stow wezterm ".wezterm.lua"
+    backup_and_stow kitty ".config/kitty"
     backup_and_stow fuzzel ".config/fuzzel"
     backup_and_stow hyprland ".config/hypr"
 
