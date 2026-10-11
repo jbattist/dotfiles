@@ -20,8 +20,7 @@ output "__NIRI_OUTPUT__" {
 }
 
 window-rule {
-    match title="Ghostty" 
-    //Laptop
+    match app-id=r#"^(com\.mitchellh\.ghostty|org\.wezfurlong\.wezterm|wezterm|kitty)$"#
+    // Laptop terminal default
     default-column-width { proportion 0.5; }
-    
 }

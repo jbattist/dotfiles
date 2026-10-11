@@ -4,6 +4,7 @@ zsh-autosuggestions
 zsh-syntax-highlighting
 ghostty
 wezterm
+kitty
 starship
 fastfetch
 fzf

@@ -2,12 +2,11 @@
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
-// Open Ghostty at 33%
-
-// Open Wezterm at 33%
+// Keep all managed terminals at the same shared default width. Machine-specific
+// profiles override this rule with their own terminal width below.
 window-rule {
-    match app-id=r#"wezterm"# 
-    default-column-width { proportion 0.333; }
+    match app-id=r#"^(com\.mitchellh\.ghostty|org\.wezfurlong\.wezterm|wezterm|kitty)$"#
+    default-column-width { proportion 0.3333; }
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
@@ -28,10 +27,10 @@ window-rule {
 
 
 window-rule {
-    // Only this specific terminal floats
-    match app-id="com.mitchellh.ghostty" title="floating-terminal"
+    // Only a terminal explicitly launched with this title floats.
+    match app-id=r#"^(com\.mitchellh\.ghostty|org\.wezfurlong\.wezterm|wezterm|kitty)$"# title="floating-terminal"
     open-floating true
-        default-column-width { fixed 840; }
+    default-column-width { fixed 840; }
     default-window-height { fixed 800; }
 }
 
