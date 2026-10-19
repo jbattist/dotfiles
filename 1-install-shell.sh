@@ -241,7 +241,7 @@ install_gaze() {
 	# release asset; fall back to building the pinned tag from source.
 	local base="${FORGEJO_URL:-http://forgejo.home}"
 	local repo="joe/gaze"
-	local fallback_version="v0.2.0"
+	local fallback_version="v0.2.1"
 	# GAZE_VERSION=vX.Y.Z pins a version; otherwise use the newest published release.
 	local version="${GAZE_VERSION:-}"
 	if [[ -z "$version" ]]; then
