@@ -222,6 +222,54 @@ choose_default_shell() {
 	esac
 }
 
+configure_npm_user_prefix() {
+	# Keep npm global packages user-local so tools such as Log4brains do not
+	# write into /usr/lib/node_modules and leave root-owned build artifacts.
+	if ! command -v npm >/dev/null 2>&1; then
+		log "npm not installed; skipping user-local npm configuration"
+		return
+	fi
+
+	local npm_prefix="$HOME/.local"
+	log "Configuring npm global packages under $npm_prefix"
+	npm config set prefix "$npm_prefix"
+	export PATH="$npm_prefix/bin:$PATH"
+}
+
+install_gaze() {
+	# gaze: personal Rust TUI hosted on the homelab Forgejo. Prefer the checksummed
+	# release asset; fall back to building the pinned tag from source.
+	local version="${GAZE_VERSION:-v0.2.0}"
+	local base="${FORGEJO_URL:-http://forgejo.home}"
+	local repo="joe/gaze"
+	local bin_dir="$HOME/.local/bin"
+	local arch asset tmp
+
+	if command -v gaze >/dev/null 2>&1 && [[ "$(gaze --version 2>/dev/null)" == "gaze ${version#v}" ]]; then
+		log "gaze ${version} already installed"
+		return 0
+	fi
+
+	arch="$(uname -m)"
+	asset="gaze-${arch}-linux"
+	tmp="$(mktemp -d)"
+	mkdir -p "$bin_dir"
+
+	log "Installing gaze ${version}"
+	if curl -fsSL --connect-timeout 5 -o "$tmp/$asset" "$base/$repo/releases/download/$version/$asset" \
+		&& curl -fsSL --connect-timeout 5 -o "$tmp/SHA256SUMS" "$base/$repo/releases/download/$version/SHA256SUMS-${arch}" \
+		&& (cd "$tmp" && sha256sum -c SHA256SUMS >/dev/null); then
+		install -m755 "$tmp/$asset" "$bin_dir/gaze"
+	elif command -v cargo >/dev/null 2>&1; then
+		err "gaze release asset unavailable or failed checksum; building $version from source"
+		cargo install --locked --root "$HOME/.local" --git "$base/$repo.git" --tag "$version" gaze \
+			|| { err "gaze install failed; skipping"; rm -rf "$tmp"; return 0; }
+	else
+		err "gaze release unavailable and cargo not installed; skipping"
+	fi
+	rm -rf "$tmp"
+}
+
 ensure_default_shell() {
 	local target_shell shell_path selected_shell
 	selected_shell=$(choose_default_shell)
@@ -339,6 +387,8 @@ main() {
 			;;
 	esac
 	link_dotfiles
+	configure_npm_user_prefix
+	install_gaze
 	ensure_sudo_access
 	ensure_default_shell
 
