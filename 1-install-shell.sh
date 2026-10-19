@@ -239,9 +239,19 @@ configure_npm_user_prefix() {
 install_gaze() {
 	# gaze: personal Rust TUI hosted on the homelab Forgejo. Prefer the checksummed
 	# release asset; fall back to building the pinned tag from source.
-	local version="${GAZE_VERSION:-v0.2.0}"
 	local base="${FORGEJO_URL:-http://forgejo.home}"
 	local repo="joe/gaze"
+	local fallback_version="v0.2.0"
+	# GAZE_VERSION=vX.Y.Z pins a version; otherwise use the newest published release.
+	local version="${GAZE_VERSION:-}"
+	if [[ -z "$version" ]]; then
+		version="$(curl -fsSL --connect-timeout 5 "$base/api/v1/repos/$repo/releases/latest" 2>/dev/null \
+			| grep -o '"tag_name": *"[^"]*"' | head -1 | sed 's/.*"\([^"]*\)"$/\1/')" || true
+		if [[ ! "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+			err "Could not resolve latest gaze release; using $fallback_version"
+			version="$fallback_version"
+		fi
+	fi
 	local bin_dir="$HOME/.local/bin"
 	local arch asset tmp
 
