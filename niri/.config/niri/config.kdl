@@ -275,10 +275,8 @@ animations {
     }
 }
 
-// Try to fix lag in Arc Raiders
-debug {
-    render-drm-device "/dev/dri/card1"
-}
+// Machine-specific render devices belong in jb.desktop.niri.renderDrmDevice.
+// Leaving this unset lets niri select the correct DRM device on any machine.
 
 // Environment vars to set
 environment {

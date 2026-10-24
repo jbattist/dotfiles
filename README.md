@@ -2,6 +2,17 @@
 
 Personal Linux dotfiles for Arch-family desktops, centered on niri and Noctalia. The shell bootstrap also has an Ubuntu path; the interactive desktop package installer is Arch-only. Configs are grouped as GNU Stow packages, while package and system-service manifests are separate from dotfile installation.
 
+## NixOS migration
+
+A portable flake now provides `generic`, `generic-work`, and `generic-laptop`
+NixOS configurations. It uses home-manager for user config and disko for a
+generic UEFI/GPT/Btrfs install selected by disk at install time—there is no
+committed machine hostname, disk UUID, connector, or hardware scan.
+
+Start with [`docs/INSTALL-NIXOS.md`](docs/INSTALL-NIXOS.md). Design decisions and
+the old-to-new mapping are in [`docs/MIGRATION.md`](docs/MIGRATION.md). The Arch
+scripts remain available during the transition.
+
 ## v3 at a glance
 
 - Package groups live in `manifests/packages/`; systemd service policy lives in `manifests/services/`. Selecting groups installs packages and reconciles their services.
