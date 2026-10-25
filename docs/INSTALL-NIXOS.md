@@ -32,7 +32,7 @@ builds and installs NixOS, and prompts for the initial `joe` password.
 
 Profiles:
 
-- `generic`: core desktop (recommended for a 32 GiB test VM)
+- `generic`: core Umbriel desktop, ~8 GiB closure (recommended)
 - `generic-work`: core desktop with work layout
 - `generic-laptop`: core desktop with laptop layout
 - `generic-full`: default layout plus the large interactive/work application set
@@ -127,6 +127,11 @@ The wallpaper directory is created but deliberately empty. Populate:
 ```
 
 ## Current limitations
+
+- Desktop is **Umbriel only**, started by greetd/tuigreet. Niri and Hyprland are
+  not installed. Noctalia (shell and greeter) is temporarily removed: its
+  Quickshell fork does not compile against the pinned Qt 6.12. Re-enable it once
+  nixpkgs ships a fixed `noctalia-qs`.
 
 - UEFI x86_64 only.
 - Common NVMe/SATA/USB storage drivers are included; unusual controllers need a

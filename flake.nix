@@ -168,8 +168,6 @@
           in
           lib.nameValuePair "${name}-generated-config" (
             pkgs.linkFarm "${name}-generated-config" [
-              { name = "niri/output.kdl"; path = pick "niri/output.kdl"; }
-              { name = "niri/machine.kdl"; path = pick "niri/machine.kdl"; }
               { name = "umbriel/output.toml"; path = pick "umbriel/output.toml"; }
               { name = "umbriel/machine.toml"; path = pick "umbriel/machine.toml"; }
             ]

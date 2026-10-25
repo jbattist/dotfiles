@@ -38,20 +38,14 @@ let
   desktopPackages =
     with pkgs;
     lib.optionals desktop [
-      niri
       umbriel
-      noctalia-shell
       vicinae
-      xwayland-satellite
       flameshot
       cliphist
       wl-clipboard # cliphist and the fish `quick-share` function both need it
-      jq # used by 3-install-dots.sh's output probe; kept because niri scripts use it
       gnome-network-displays
       # Noctalia's polkit_agent = true expects an agent on the bus.
       kdePackages.polkit-kde-agent-1
-      # swaylock is bound to Super+Alt+L in keybinds.kdl.
-      swaylock
     ];
 in
 {
@@ -83,13 +77,12 @@ in
   security.rtkit.enable = lib.mkDefault cfg.audio;
 
   # ---------------------------------------------------------------------------
-  # Compositor + shell — was manifests/packages/desktop-niri
+  # Compositor + shell — Umbriel only in the core profile
   # ---------------------------------------------------------------------------
-  programs.niri.enable = lib.mkDefault desktop;
-
-  # niri >= 25.08 spawns xwayland-satellite itself and sets DISPLAY for
-  # children. config.kdl documents this explicitly and warns against hardcoding
-  # DISPLAY; the package just has to be present.
+  # Umbriel ships start-umbriel and share/wayland-sessions/umbriel.desktop. The
+  # package wraps its compositor with xwayland-satellite, so neither the Niri
+  # session nor the Hyprland package is installed.
+  programs.niri.enable = false;
   programs.xwayland.enable = lib.mkDefault desktop;
 
   xdg.portal = lib.mkIf desktop {
@@ -99,28 +92,21 @@ in
     # compositor restart (so Flameshot would not hang). Both are handled:
     # the portal package here, the drop-in in nix/modules/home/services.nix.
     extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-    # niri implements the wlr screencopy/layer-shell protocols; without these
-    # settings screen sharing silently fails.
+    # Umbriel is wlroots-based and supports the wlr portal protocols.
     wlr.enable = true;
     config.common.default = lib.mkDefault "gnome";
   };
 
   # ---------------------------------------------------------------------------
-  # Display manager — was manifests/packages/noctalia-greeter
+  # Display manager — greetd/tuigreet launches Umbriel directly
   # ---------------------------------------------------------------------------
-  # The old service standard enabled greetd.service and disabled gdm.service.
-  # On NixOS you do not "disable GDM" as a separate step: GDM is only present if
-  # `services.xserver.displayManager.gdm.enable` is set, and it is not set
-  # anywhere in this configuration. The `.disable` manifest disappears.
-  services.greetd = lib.mkIf cfg.noctalia-greeter {
+  services.greetd = lib.mkIf desktop {
     enable = true;
-    # The NixOS greetd module creates the `greeter` user, so nothing here has to
-    # (the old package printed manual "create the greeter user" steps).
-    settings.default_session.command = "${pkgs.noctalia-greeter}/bin/noctalia-greeter-session";
+    settings.default_session = {
+      user = "greeter";
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd ${pkgs.umbriel}/bin/start-umbriel";
+    };
   };
-
-  # The greeter package ships tmpfiles.d rules for its state directory.
-  systemd.tmpfiles.packages = lib.optionals cfg.noctalia-greeter [ pkgs.noctalia-greeter ];
 
   # ---------------------------------------------------------------------------
   # Gaming — was manifests/packages/gaming

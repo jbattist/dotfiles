@@ -375,7 +375,6 @@ in
         autostart = mkOption {
           type = types.listOf types.str;
           default = [
-            "noctalia"
             "vicinae server"
           ];
           description = "Was `[general].autostart`. The per-profile Chrome app-window and Slack entries move to the host that actually has them.";

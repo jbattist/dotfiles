@@ -125,7 +125,9 @@ let
     + debug;
 in
 {
-  config = lib.mkIf (jbRoles.desktop-niri || jbRoles.shell) {
+  # Kept as a migration module, but not activated by the Umbriel-only generic
+  # profile. Re-enable explicitly when Niri returns as a supported compositor.
+  config = lib.mkIf false {
     xdg.configFile = {
       # Hand-written, machine-independent. Deployed verbatim.
       "niri/config.kdl".source = root + "/niri/.config/niri/config.kdl";
@@ -139,10 +141,6 @@ in
       "niri/machine.kdl".text = machineKdl;
     };
 
-    home.packages = with pkgs; [
-      # `niri msg` is used by the fish helper functions and by anything that
-      # wants to script the compositor.
-      niri
-    ];
+    home.packages = [ ];
   };
 }

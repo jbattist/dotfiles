@@ -57,7 +57,6 @@
         }
       ];
       autostart = [
-        "noctalia"
         "vicinae server"
         "gtk-launch chrome-fmgjjmmmlfnkbppncabfkddbjimcfncm-Profile_1"
         "gtk-launch chrome-kjbdgfilnfhdoflbpgamdcdgpehopbep-Profile_1"

@@ -37,10 +37,7 @@
           default_scrolling_extent = 0.3333;
         }
       ];
-      autostart = [
-        "noctalia"
-        "vicinae server"
-      ];
+      autostart = [ "vicinae server" ];
     };
   };
 }

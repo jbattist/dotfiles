@@ -284,22 +284,8 @@ in
           )
         );
 
-        # -------------------------------------------------------------------------
-        # Hyprland
-        # -------------------------------------------------------------------------
-        # Secondary compositor. hyprland.conf's first live line is
-        #   source = /home/joe/.config/hypr/noctalia/noctalia-colors.conf
-        # a path that does not exist in the repository: Noctalia generates it at
-        # runtime. So the hyprland tree is deployed verbatim and that file is left
-        # for Noctalia to own. The tracked
-        # hyprland.conf.pre-lua-20260517-093505.bak is not deployed, for the same
-        # reason as the settings.ini.bak files above.
-      }
-      {
-        xdg.configFile."hypr" = {
-          source = root + "/hyprland/.config/hypr";
-          recursive = true;
-        };
+        # Hyprland is deliberately not activated by the Umbriel-only generic
+        # profile. The old files stay in the repository for the Arch migration.
 
         # -------------------------------------------------------------------------
         # Plasma

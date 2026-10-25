@@ -10,7 +10,9 @@
     bluetooth = true;
     printing = true;
     desktop-niri = true;
-    noctalia-greeter = true;
+    # Noctalia's Quickshell fork currently fails against pinned Qt 6.12. Use
+    # greetd/tuigreet to start Umbriel directly until upstream is compatible.
+    noctalia-greeter = false;
     # Keep the first-boot profile small enough for a 32 GiB test VM. The full
     # application suite (Chrome, Obsidian, VS Code, Zed, Kiro, Claude Code,
     # OpenCode) is enabled by nix/profiles/full.nix.

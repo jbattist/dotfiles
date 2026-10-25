@@ -70,6 +70,27 @@ if [[ $(id -u) -ne 0 ]]; then
   fi
 fi
 
+# Keep a complete transcript in the live environment. On failure, show the
+# useful tail on the real console instead of leaving the diagnostic above the
+# framebuffer's tiny scrollback. `tee` starts only after elevation so one run
+# has one log file.
+log_file=/tmp/dotfiles-nixos-install.log
+: >"$log_file"
+exec > >(tee -a "$log_file") 2>&1
+on_error() {
+  rc=$?
+  trap - ERR
+  {
+    printf '\nINSTALLATION FAILED (exit %s)\n' "$rc"
+    printf 'Full log: %s\n' "$log_file"
+    printf '%s\n' '---------------- last 100 lines ----------------'
+    tail -n 100 "$log_file"
+    printf '%s\n' '------------------------------------------------'
+  } >/dev/tty
+  exit "$rc"
+}
+trap on_error ERR
+
 [[ -d /sys/firmware/efi ]] || fail "this installer supports UEFI boot only; boot the ISO in UEFI mode"
 [[ -b "$disk" ]] || fail "'$disk' is not a block device"
 
@@ -145,7 +166,9 @@ cat <<'EOF'
 
 Set the initial password for user joe. You will be prompted twice.
 EOF
-nixos-enter --root /mnt -c 'passwd joe'
+# stdin may still be the exhausted `curl | sh` stream; attach passwd directly
+# to the controlling terminal so both hidden password prompts work reliably.
+nixos-enter --root /mnt -c 'passwd joe' </dev/tty >/dev/tty 2>/dev/tty
 
 sync
 cat <<'EOF'
