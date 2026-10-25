@@ -9,8 +9,10 @@ NixOS configurations. It uses home-manager for user config and disko for a
 generic UEFI/GPT/Btrfs install selected by disk at install time—there is no
 committed machine hostname, disk UUID, connector, or hardware scan.
 
-Start with [`docs/INSTALL-NIXOS.md`](docs/INSTALL-NIXOS.md). Design decisions and
-the old-to-new mapping are in [`docs/MIGRATION.md`](docs/MIGRATION.md). The Arch
+Start with [`docs/INSTALL-NIXOS.md`](docs/INSTALL-NIXOS.md). The supported
+installer-console flow is four steps and does not require cloning the repo,
+installing Git/jq, or invoking disko manually. Design decisions and the
+old-to-new mapping are in [`docs/MIGRATION.md`](docs/MIGRATION.md). The Arch
 scripts remain available during the transition.
 
 ## v3 at a glance

@@ -34,8 +34,9 @@ does not manage the collection.
 - `generic-laptop`: old `laptop` layout and touchpad policy.
 
 None pins a connector, hostname belonging to an existing machine, disk UUID,
-GPU, or machine-specific hardware scan. Displays are autodetected. During a
-fresh install, `disko-install --disk system <device>` supplies the target disk.
+GPU, or machine-specific hardware scan. Displays are autodetected. The
+repository's `#install` app supplies the selected disk through one scoped,
+impure evaluation; normal flake evaluation remains pure.
 
 ## Mapping
 
@@ -92,4 +93,7 @@ nix build .#nixosConfigurations.generic.config.system.build.toplevel
 nix run .#generic-vm     # login: joe / test; VM only
 ```
 
-For destructive installation, follow [INSTALL-NIXOS.md](INSTALL-NIXOS.md).
+For installation, follow the four-step process in
+[INSTALL-NIXOS.md](INSTALL-NIXOS.md). It uses the repository's installer app,
+not the upstream `disko-install` wrapper, so old installer-ISO Nix versions do
+not leak into partitioning or system evaluation.

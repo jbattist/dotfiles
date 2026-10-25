@@ -72,6 +72,22 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      installApp = pkgs.writeShellApplication {
+        name = "install-nixos";
+        runtimeInputs = with pkgs; [
+          nix
+          coreutils
+          gnugrep
+          util-linux
+          sudo
+          nixos-install-tools
+        ];
+        text = ''
+          export DOTFILES_FLAKE=${lib.escapeShellArg (toString self)}
+          ${builtins.readFile ./nix/install.sh}
+        '';
+      };
     in
     {
       overlays.default = overlay;
@@ -79,8 +95,22 @@
       packages.${system} =
         (lib.mapAttrs' (name: cfg: lib.nameValuePair "${name}-vm" cfg.config.system.build.vm) systems)
         // {
+          install = installApp;
           installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
         };
+
+      apps.${system} = {
+        default = {
+          type = "app";
+          program = "${installApp}/bin/install-nixos";
+          meta.description = "Install the generic NixOS configuration onto one disk";
+        };
+        install = {
+          type = "app";
+          program = "${installApp}/bin/install-nixos";
+          meta.description = "Install the generic NixOS configuration onto one disk";
+        };
+      };
 
       # Installer ISO using the default generic/home profile. It evaluates the
       # same NixOS + home-manager modules, but imports the standard graphical
@@ -98,6 +128,7 @@
             {
               networking.hostName = "nixos-installer";
               system.stateVersion = lib.mkForce "26.11";
+              environment.systemPackages = [ installApp ];
               nixpkgs.overlays = [ overlay ];
               jb.roles.noctalia-greeter = lib.mkForce false;
               jb.disk.device = lib.mkForce "/dev/null";

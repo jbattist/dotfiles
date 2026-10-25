@@ -54,7 +54,13 @@
 
   disko.devices.disk.system = {
     type = "disk";
-    device = config.jb.disk.device;
+    # The install app exports this only for its two `nix build --impure`
+    # evaluations. Normal evaluation remains pure and uses jb.disk.device.
+    device =
+      let
+        installDisk = builtins.getEnv "NIXOS_INSTALL_DISK";
+      in
+      if installDisk != "" then installDisk else config.jb.disk.device;
     content = {
       type = "gpt";
       partitions = {

@@ -1,0 +1,38 @@
+#!/bin/sh
+# Bootstrap for the official NixOS installer.
+#
+# The ISO's Nix can be older than the flake/disko versions pinned here.
+# nix-shell can still supply a current Nix, after which the real installer app
+# validates the disk, confirms destruction, partitions, builds, and installs.
+set -eu
+
+usage() {
+  echo "Usage: install-nixos [--dry-run] DISK [generic|generic-work|generic-laptop]" >&2
+  exit 2
+}
+
+dry=""
+if [ "${1:-}" = "--dry-run" ]; then
+  dry="--dry-run"
+  shift
+fi
+
+[ "$#" -ge 1 ] && [ "$#" -le 2 ] || usage
+disk=$1
+profile=${2:-generic}
+
+# Validate before interpolating into nix-shell --run.
+case "$disk" in
+  /dev/*) ;;
+  *) echo "ERROR: disk must be an absolute /dev/... path" >&2; exit 2 ;;
+esac
+case "$disk" in
+  *[!A-Za-z0-9_./-]*) echo "ERROR: unsupported character in disk path" >&2; exit 2 ;;
+esac
+case "$profile" in
+  generic|generic-work|generic-laptop) ;;
+  *) echo "ERROR: unknown profile '$profile'" >&2; exit 2 ;;
+esac
+
+exec nix-shell -p nixVersions.latest --run \
+  "nix --extra-experimental-features 'nix-command flakes' run github:jbattist/dotfiles#install -- $dry $disk $profile"

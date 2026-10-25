@@ -1,228 +1,131 @@
-# Test and install the generic NixOS configuration
+# Install and test the generic NixOS configuration
 
-The commands below assume this repository is checked out as `~/dotfiles`.
+## The four-step install process
 
-## Available builds
-
-| Flake target | Use |
-|---|---|
-| `generic` | Default/home desktop profile |
-| `generic-work` | Work layout and app rules |
-| `generic-laptop` | Wider laptop columns and touchpad policy |
-| `installer` | Graphical NixOS installer ISO |
-
-The three installed targets share the same package and service selection. Their
-only intentional differences are the niri/Umbriel layouts migrated from the old
-`home`, `work`, and `laptop` templates. Outputs are autodetected; no connector
-name, hostname, or existing machine is baked into the build.
-
-## 1. Evaluate it without installing NixOS
-
-On any Linux machine with flakes enabled:
+Boot the official NixOS installer and connect it to the network:
 
 ```bash
-cd ~/dotfiles
-nix flake check
-nix eval .#nixosConfigurations.generic.config.system.build.toplevel.drvPath
+# 1. Identify the disposable whole target disk.
+lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,MOUNTPOINTS
+
+# 2. Install. Replace /dev/vda if step 1 showed another whole disk.
+curl -fsSL https://raw.githubusercontent.com/jbattist/dotfiles/main/install-nixos \
+  | sh -s -- /dev/vda generic
+
+# 3. Wait for "INSTALLATION COMPLETE" and set the joe password when prompted.
+
+# 4. Reboot and remove the installer ISO.
+reboot
 ```
 
-`nix flake check` evaluates all profiles and builds the generated niri and
-Umbriel files. It does not build the entire graphical application closure.
+That is the supported installation interface. You do **not** clone the repo,
+install Git or jq, set `NIX_CONFIG`, invoke disko, edit a Nix file, or generate a
+password hash. The bootstrap supplies a current Nix even when the ISO's Nix is
+old; the real installer app then uses this repo's pinned inputs.
 
-To build the full system without changing the current OS:
+The app validates the disk, refuses partitions/mounted disks, prints the exact
+target, requires an exact destructive confirmation, partitions/formats/mounts,
+builds and installs NixOS, and prompts for the initial `joe` password.
+
+> **Destructive operation:** installation erases the entire selected disk. The
+> generic layout uses UEFI/GPT and Btrfs. It does not support dual boot, BIOS
+> boot, encryption, or in-place conversion.
+
+Profiles: `generic` (default/home), `generic-work`, and `generic-laptop`.
+
+## Non-destructive installer test
+
+Use the same command with `--dry-run` after the app separator:
 
 ```bash
-nix build .#nixosConfigurations.generic.config.system.build.toplevel
+curl -fsSL https://raw.githubusercontent.com/jbattist/dotfiles/main/install-nixos \
+  | sh -s -- --dry-run /dev/vda generic
 ```
 
-This can download/build several gigabytes (Chrome, Obsidian, IDEs, etc.).
+The app validates the disk and builds the pinned disk-layout script, but does
+not execute it. A successful result ends with `DRY RUN PASSED`.
 
-## 2. Boot it safely in a VM
+## Test the configuration in a VM instead
 
-Requirements: Linux, KVM (`/dev/kvm`), and a graphical session.
+On an existing Linux system with Nix and KVM:
 
 ```bash
-cd ~/dotfiles
-nix run .#generic-vm
+nix --extra-experimental-features 'nix-command flakes' \
+  run github:jbattist/dotfiles#generic-vm
 ```
 
-For another profile:
-
-```bash
-nix run .#generic-work-vm
-nix run .#generic-laptop-vm
-```
-
-The VM-specific login is:
+Login:
 
 ```text
 user: joe
 password: test
 ```
 
-That password is defined only in `virtualisation.vmVariant`; it is not present
-in the real installation configuration. VM disk state is disposable.
+The password exists only in the disposable VM variant; it is not part of a real
+installation.
 
-## 3. Optionally build the installer ISO
+Other VM profiles:
 
 ```bash
-cd ~/dotfiles
-nix build .#installer-iso
-ls -lh result/iso/
+nix --extra-experimental-features 'nix-command flakes' \
+  run github:jbattist/dotfiles#generic-work-vm
+
+nix --extra-experimental-features 'nix-command flakes' \
+  run github:jbattist/dotfiles#generic-laptop-vm
 ```
 
-Write the ISO to a USB drive using your preferred tool. Double-check the target:
+## Custom installer ISO
+
+The custom ISO contains the installer as a normal `install-nixos` command, so
+its console flow is even shorter:
 
 ```bash
-lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINTS
-sudo dd if=result/iso/*.iso of=/dev/disk/by-id/usb-YOUR_USB_DEVICE \
-  bs=4M status=progress oflag=sync
-```
-
-The `dd` destination is destroyed.
-
-You can also use the official graphical NixOS ISO; `disko-install` only requires
-a Linux environment with Nix and internet access.
-
-## 4. Install to a machine
-
-> **Destructive operation:** the command below replaces the entire selected disk
-> with GPT, a 1 GiB EFI system partition, and Btrfs subvolumes for `/`, `/home`,
-> `/nix`, `/var/log`, and `/.snapshots`. It does not support dual boot.
-
-Boot a NixOS installer and connect to the network. The official installer does
-not guarantee that Git or jq is installed, so enter a temporary shell containing
-both tools first:
-
-```bash
-nix-shell -p git jq
-```
-
-Stay in that shell for the remaining installation commands, then clone the
-configuration:
-
-```bash
-git clone https://github.com/jbattist/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-git pull --ff-only
-
 lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,MOUNTPOINTS
-ls -l /dev/disk/by-id/
+sudo install-nixos /dev/vda generic
+reboot
 ```
 
-Alternatively, clone without opening a shell:
+Build it from another Nix machine with:
 
 ```bash
-nix run nixpkgs#git -- clone https://github.com/jbattist/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+nix --extra-experimental-features 'nix-command flakes' \
+  build github:jbattist/dotfiles#installer-iso
 ```
 
-The later password-generation step uses `jq`, so the temporary shell is the
-recommended path.
+## After first boot
 
-Choose a stable **whole-disk** path such as
-`/dev/disk/by-id/nvme-Samsung_SSD_...`, not a partition ending in `-part1`.
-Store it in a shell variable and verify it twice:
+The system is already installed from the pinned flake. Clone the repository only
+when you want to edit and rebuild it locally:
 
 ```bash
-DISK=/dev/disk/by-id/nvme-YOUR_DISK
-readlink -f "$DISK"
-lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,MOUNTPOINTS "$DISK"
-```
-
-Choose a profile:
-
-```bash
-PROFILE=generic             # or generic-work / generic-laptop
-```
-
-### Dry run
-
-This asks disko-install to print what it would do:
-
-```bash
-sudo nix run github:nix-community/disko/latest#disko-install -- \
-  --dry-run \
-  --flake ".#$PROFILE" \
-  --disk system "$DISK"
-```
-
-Read the output and ensure `system` maps to the intended disk.
-
-### Set the real user's initial password
-
-No credentials are committed. Generate a SHA-512 password hash in the installer
-shell; input is hidden and the hash remains only in the shell variable:
-
-```bash
-read -rsp 'Initial password for joe: ' PASSWORD; echo
-HASH="$(printf '%s' "$PASSWORD" | nix run nixpkgs#mkpasswd -- -m sha-512 -s)"
-unset PASSWORD
-SYSTEM_CONFIG="$(jq -nc --arg hash "$HASH" \
-  '{users:{users:{joe:{hashedPassword:$hash}}}}')"
-unset HASH
-```
-
-### Install
-
-```bash
-sudo nix run github:nix-community/disko/latest#disko-install -- \
-  --write-efi-boot-entries \
-  --flake ".#$PROFILE" \
-  --disk system "$DISK" \
-  --system-config "$SYSTEM_CONFIG"
-unset SYSTEM_CONFIG
-```
-
-This is the upstream `disko-install` interface. `--disk system ...` overrides
-the fallback disk in `nix/hardware/generic.nix`; `--system-config` adds only the
-password hash to this evaluation. The installer invokes `nixos-install` with no
-root password; log in as `joe` after reboot and use `sudo`.
-
-Reboot only after `disko-install succeeded`:
-
-```bash
-sudo reboot
-```
-
-## 5. After the first boot
-
-Clone this repository to the location expected for future rebuilds:
-
-```bash
+nix-shell -p git
 git clone https://github.com/jbattist/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-sudo nixos-rebuild switch --flake .#generic   # use the profile installed above
+sudo nixos-rebuild switch --flake .#generic
 ```
 
-Then check:
+Use the profile selected during installation. Then inspect failures:
 
 ```bash
 systemctl --failed
 systemctl --user --failed
 resolvectl status
-niri validate 2>/dev/null || true
 ```
 
-The wallpaper directory is intentionally not populated by Nix. Copy or sync the
-collection into:
+The wallpaper directory is created but deliberately empty. Populate:
 
 ```text
 ~/.local/share/wallpapers
 ```
 
-If the display needs fixed scaling or placement, add an output entry to the
-selected profile or create a small host override. Keeping outputs empty is the
-portable default.
+## Current limitations
 
-## Known limitations before relying on this as your only system
-
-- The generic initrd covers common NVMe/SATA/USB hardware, not every storage
-  controller. Test the VM and installer first; unusual machines need a hardware
-  override.
-- No disk encryption is configured yet.
-- The full desktop closure has not been boot-tested on physical hardware.
+- UEFI x86_64 only.
+- Common NVMe/SATA/USB storage drivers are included; unusual controllers need a
+  hardware override.
+- No disk encryption or dual boot yet.
+- Outputs are autodetected. Fixed scale/position needs a profile override later.
+- The full desktop has not yet been boot-tested on physical hardware.
 - Noctalia/Vicinae/Plasma files managed by home-manager are read-only; use the
-  `jb.opts.desktop.manage*` toggles if their GUIs need to own those files.
-- The homelab role is off in generic profiles; this avoids requiring Forgejo and
-  CIFS credentials on an arbitrary machine.
+  `jb.opts.desktop.manage*` switches if their GUIs need ownership.
+- Homelab packages and CIFS mounts are disabled in generic profiles.
