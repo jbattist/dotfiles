@@ -7,7 +7,7 @@
 set -eu
 
 usage() {
-  echo "Usage: install-nixos [--dry-run] DISK [generic|generic-work|generic-laptop]" >&2
+  echo "Usage: install-nixos [--dry-run] [DISK] [generic|generic-work|generic-laptop]" >&2
   exit 2
 }
 
@@ -17,9 +17,22 @@ if [ "${1:-}" = "--dry-run" ]; then
   shift
 fi
 
-[ "$#" -ge 1 ] && [ "$#" -le 2 ] || usage
-disk=$1
-profile=${2:-generic}
+# With no arguments, prompt on the real terminal. Reading /dev/tty is important:
+# stdin contains this script when invoked as `curl ... | sh`.
+if [ "$#" -eq 0 ]; then
+  echo "Available whole disks:" >/dev/tty
+  lsblk -d -o PATH,SIZE,MODEL,SERIAL,TYPE >/dev/tty
+  printf '\nTarget whole disk (example /dev/vda): ' >/dev/tty
+  IFS= read -r disk </dev/tty
+  printf 'Profile [generic/generic-work/generic-laptop] (default generic): ' >/dev/tty
+  IFS= read -r profile </dev/tty
+  profile=${profile:-generic}
+elif [ "$#" -le 2 ]; then
+  disk=$1
+  profile=${2:-generic}
+else
+  usage
+fi
 
 # Validate before interpolating into nix-shell --run.
 case "$disk" in

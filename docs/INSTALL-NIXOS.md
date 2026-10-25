@@ -8,11 +8,10 @@ Boot the official NixOS installer and connect it to the network:
 # 1. Identify the disposable whole target disk.
 lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,MOUNTPOINTS
 
-# 2. Install. Replace /dev/vda if step 1 showed another whole disk.
-curl -fsSL https://raw.githubusercontent.com/jbattist/dotfiles/main/install-nixos \
-  | sh -s -- /dev/vda generic
+# 2. Start the installer. It asks for the disk and profile.
+curl -fsSL https://raw.githubusercontent.com/jbattist/dotfiles/main/install-nixos | sh
 
-# 3. Wait for "INSTALLATION COMPLETE" and set the joe password when prompted.
+# 3. Answer its prompts, then wait for "INSTALLATION COMPLETE".
 
 # 4. Reboot and remove the installer ISO.
 reboot
@@ -32,6 +31,7 @@ builds and installs NixOS, and prompts for the initial `joe` password.
 > boot, encryption, or in-place conversion.
 
 Profiles: `generic` (default/home), `generic-work`, and `generic-laptop`.
+Press Enter at the profile prompt to select `generic`.
 
 ## Non-destructive installer test
 
