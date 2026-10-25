@@ -80,7 +80,6 @@
           coreutils
           gnugrep
           util-linux
-          sudo
           nixos-install-tools
         ];
         text = ''

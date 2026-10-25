@@ -52,10 +52,20 @@ esac
 # The flake app is first built as the live installer user. Re-executing the
 # already-built store path with sudo avoids making root fetch/evaluate it again.
 if [[ $(id -u) -ne 0 ]]; then
+  # On NixOS, privilege-bearing programs live in /run/wrappers/bin. A plain
+  # `pkgs.sudo` in /nix/store intentionally has no setuid bit and cannot elevate.
+  # Use the system wrapper explicitly so package PATH ordering cannot shadow it.
+  sudo_bin=/run/wrappers/bin/sudo
+  if [[ ! -x $sudo_bin ]]; then
+    sudo_bin=$(command -v sudo || true)
+  fi
+  [[ -n $sudo_bin && -x $sudo_bin ]] \
+    || fail "no privilege-bearing sudo wrapper found; run this installer as root"
+
   if $dry_run; then
-    exec sudo "$0" --dry-run "$disk" "$profile"
+    exec "$sudo_bin" "$0" --dry-run "$disk" "$profile"
   else
-    exec sudo "$0" "$disk" "$profile"
+    exec "$sudo_bin" "$0" "$disk" "$profile"
   fi
 fi
 
