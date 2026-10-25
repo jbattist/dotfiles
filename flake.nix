@@ -178,7 +178,8 @@
         // {
           installer-app = pkgs.runCommand "installer-app-check" { nativeBuildInputs = [ pkgs.shellcheck ]; } ''
             shellcheck ${./install-nixos} ${./nix/install.sh}
-            grep -q 'nixos-install.*--flake' ${./nix/install.sh} || {
+            grep -q '^nixos-install' ${./nix/install.sh}
+            grep -Fq -- '--flake "$flake#$profile"' ${./nix/install.sh} || {
               echo "installer must build directly into the target store" >&2
               exit 1
             }
