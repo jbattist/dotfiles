@@ -40,7 +40,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'catppuccin_macchiato'
+palette = 'hermes'
 
 # ============================================================================
 # DARK PALETTE
@@ -324,6 +324,22 @@ text_dark = "#2c2525"
 text_time = "#2c2525"
 success_fg = "#adda78"
 error_fg = "#fd6883"
+
+# ============================================================================
+# OMNIROUTE PALETTE (dark theme from OmniRoute 3.8.53 :next, --ci-* tokens)
+# ============================================================================
+[palettes.omniroute]
+os_section_bg     = "#1e2c2f"   # neutral-800
+dir_section_bg    = "#d8ff00"   # lime-400 (brand accent)
+git_section_bg    = "#9bb800"   # lime-600
+lang_section_bg   = "#689ed7"   # announcement-info
+docker_section_bg = "#394446"   # neutral-700
+time_section_bg   = "#9570e3"   # announcement-violet
+text_light        = "#f1f7f7"   # observed-inverse
+text_dark         = "#040d10"   # neutral-950
+text_time         = "#040d10"
+success_fg        = "#5dd6a5"   # success (dark)
+error_fg          = "#ff8f8f"   # danger (dark)
 
 # ============================================================================
 # HERMES PALETTE
