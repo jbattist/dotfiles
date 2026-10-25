@@ -17,9 +17,12 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  # Broad enough for common NVMe/SATA/USB installer targets. The installed
-  # initrd includes only these drivers; add a host override for unusual storage.
+  # Storage drivers the initrd needs to find the root disk. Without the right
+  # one the system stops at initrd.target in emergency mode. Covers physical
+  # NVMe/SATA/USB plus the common hypervisors: Proxmox/QEMU/KVM (virtio-blk and
+  # virtio-scsi), Hyper-V and VMware.
   boot.initrd.availableKernelModules = [
+    # physical
     "ahci"
     "nvme"
     "sd_mod"
@@ -27,6 +30,16 @@
     "usb_storage"
     "usbhid"
     "xhci_pci"
+    # Proxmox / QEMU / KVM
+    "virtio_pci"
+    "virtio_blk"
+    "virtio_scsi"
+    "virtio_mmio"
+    # Hyper-V
+    "hv_storvsc"
+    "hv_vmbus"
+    # VMware
+    "vmw_pvscsi"
   ];
   # Do not force vendor-specific GPU/CPU/KVM modules in the generic build.
   # Kernel modaliases load the right drivers; a future host module may opt into
