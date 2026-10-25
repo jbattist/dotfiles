@@ -48,4 +48,4 @@ case "$profile" in
 esac
 
 exec nix-shell -p nixVersions.latest --run \
-  "nix --extra-experimental-features 'nix-command flakes' run github:jbattist/dotfiles#install -- $dry $disk $profile"
+  "nix --extra-experimental-features 'nix-command flakes' run --refresh github:jbattist/dotfiles#install -- $dry $disk $profile"
