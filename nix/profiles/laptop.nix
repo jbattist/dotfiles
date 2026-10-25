@@ -35,6 +35,7 @@
         }
       ];
       autostart = [
+        "noctalia"
         "vicinae server"
       ];
       touchpad = {

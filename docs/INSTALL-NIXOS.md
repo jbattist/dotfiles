@@ -128,11 +128,9 @@ The wallpaper directory is created but deliberately empty. Populate:
 
 ## Current limitations
 
-- Desktop is **Umbriel only**, started by greetd/tuigreet. Niri and Hyprland are
-  not installed. Noctalia (shell and greeter) is temporarily removed: its
-  Quickshell fork does not compile against the pinned Qt 6.12. Re-enable it once
-  nixpkgs ships a fixed `noctalia-qs`.
-
+- Desktop is **Umbriel + Noctalia v5**, logged in through the Noctalia greeter.
+  Niri and Hyprland are not installed. (Noctalia v5 is native C++; the old v4
+  `noctalia-shell` Quickshell build does not compile against Qt 6.12.)
 - UEFI x86_64 only.
 - Common NVMe/SATA/USB storage drivers are included; unusual controllers need a
   hardware override.

@@ -6,7 +6,7 @@
 #
 # Package renames versus the Arch manifests:
 #   umbriel-git          -> umbriel
-#   noctalia             -> noctalia-shell
+#   noctalia             -> noctalia (v5, native C++; not v4 noctalia-shell)
 #   vicinae-bin          -> vicinae
 #   xorg-xwayland        -> xwayland
 #   gst-plugin-pipewire  -> built by the pipewire derivation itself
@@ -39,6 +39,7 @@ let
     with pkgs;
     lib.optionals desktop [
       umbriel
+      noctalia
       vicinae
       flameshot
       cliphist
@@ -96,6 +97,12 @@ in
   # Register share/wayland-sessions/umbriel.desktop for session pickers.
   services.displayManager.sessionPackages = lib.optionals desktop [ pkgs.umbriel ];
 
+  # noctalia-greeter discovers sessions in /run/current-system/sw/share/
+  # wayland-sessions. sessionPackages alone only feeds the display-manager's
+  # private desktops path, so also link Umbriel's session file into the system
+  # profile or the greeter shows no session to start.
+  environment.pathsToLink = lib.optionals desktop [ "/share/wayland-sessions" ];
+
   xdg.portal = lib.mkIf desktop {
     enable = true;
     # The old manifest installed xdg-desktop-portal-gnome and
@@ -115,9 +122,17 @@ in
     enable = true;
     settings.default_session = {
       user = "greeter";
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd ${pkgs.umbriel}/bin/start-umbriel";
+      command =
+        if cfg.noctalia-greeter then
+          "${pkgs.noctalia-greeter}/bin/noctalia-greeter-session"
+        else
+          "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd /run/current-system/sw/bin/start-umbriel";
     };
   };
+
+  # noctalia-greeter ships tmpfiles rules for its state directory and lists
+  # sessions from share/wayland-sessions (registered via sessionPackages above).
+  systemd.tmpfiles.packages = lib.optionals (desktop && cfg.noctalia-greeter) [ pkgs.noctalia-greeter ];
 
   # ---------------------------------------------------------------------------
   # Gaming — was manifests/packages/gaming
