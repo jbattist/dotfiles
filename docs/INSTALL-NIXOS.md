@@ -90,7 +90,16 @@ a Linux environment with Nix and internet access.
 > with GPT, a 1 GiB EFI system partition, and Btrfs subvolumes for `/`, `/home`,
 > `/nix`, `/var/log`, and `/.snapshots`. It does not support dual boot.
 
-Boot a NixOS installer, connect to the network, then:
+Boot a NixOS installer and connect to the network. The official installer does
+not guarantee that Git or jq is installed, so enter a temporary shell containing
+both tools first:
+
+```bash
+nix-shell -p git jq
+```
+
+Stay in that shell for the remaining installation commands, then clone the
+configuration:
 
 ```bash
 git clone https://github.com/jbattist/dotfiles.git ~/dotfiles
@@ -100,6 +109,16 @@ git pull --ff-only
 lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,MOUNTPOINTS
 ls -l /dev/disk/by-id/
 ```
+
+Alternatively, clone without opening a shell:
+
+```bash
+nix run nixpkgs#git -- clone https://github.com/jbattist/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+```
+
+The later password-generation step uses `jq`, so the temporary shell is the
+recommended path.
 
 Choose a stable **whole-disk** path such as
 `/dev/disk/by-id/nvme-Samsung_SSD_...`, not a partition ending in `-part1`.
