@@ -85,6 +85,17 @@ in
   programs.niri.enable = false;
   programs.xwayland.enable = lib.mkDefault desktop;
 
+  # start-umbriel does not exec the compositor itself: under systemd it runs
+  # `systemctl --user --wait start umbriel.service`. Listing the package only in
+  # systemPackages does NOT register its units, so that start failed instantly
+  # and greetd returned to the login prompt (indistinguishable from a bad
+  # password). systemd.packages links share/systemd/user/{umbriel.service,
+  # umbriel-session.target,umbriel-shutdown.target} into /etc/systemd/user.
+  systemd.packages = lib.optionals desktop [ pkgs.umbriel ];
+
+  # Register share/wayland-sessions/umbriel.desktop for session pickers.
+  services.displayManager.sessionPackages = lib.optionals desktop [ pkgs.umbriel ];
+
   xdg.portal = lib.mkIf desktop {
     enable = true;
     # The old manifest installed xdg-desktop-portal-gnome and
