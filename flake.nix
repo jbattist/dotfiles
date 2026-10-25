@@ -35,13 +35,14 @@
       };
 
       profiles = {
-        generic = ./nix/profiles/home.nix;
-        generic-work = ./nix/profiles/work.nix;
-        generic-laptop = ./nix/profiles/laptop.nix;
+        generic = [ ./nix/profiles/home.nix ];
+        generic-work = [ ./nix/profiles/work.nix ];
+        generic-laptop = [ ./nix/profiles/laptop.nix ];
+        generic-full = [ ./nix/profiles/home.nix ./nix/profiles/full.nix ];
       };
 
       mkSystem =
-        name: profile:
+        name: profileModules:
         lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
@@ -51,7 +52,9 @@
             ./nix/modules
             ./nix/hardware/generic.nix
             ./nix/profiles/default.nix
-            profile
+            {
+              imports = profileModules;
+            }
             {
               networking.hostName = name;
               nixpkgs.overlays = [ overlay ];
@@ -156,32 +159,32 @@
       # A full desktop closure is intentionally not a cheap CI check. Flake
       # evaluation type-checks every profile; these derivations additionally
       # build the machine files that replaced the old sed/copy installers.
-      checks.${system} = lib.mapAttrs' (
-        name: cfg:
-        let
-          files = cfg.config.home-manager.users.joe.xdg.configFile;
-          pick = n: files.${n}.source;
-        in
-        lib.nameValuePair "${name}-generated-config" (
-          pkgs.linkFarm "${name}-generated-config" [
-            {
-              name = "niri/output.kdl";
-              path = pick "niri/output.kdl";
+      checks.${system} =
+        (lib.mapAttrs' (
+          name: cfg:
+          let
+            files = cfg.config.home-manager.users.joe.xdg.configFile;
+            pick = n: files.${n}.source;
+          in
+          lib.nameValuePair "${name}-generated-config" (
+            pkgs.linkFarm "${name}-generated-config" [
+              { name = "niri/output.kdl"; path = pick "niri/output.kdl"; }
+              { name = "niri/machine.kdl"; path = pick "niri/machine.kdl"; }
+              { name = "umbriel/output.toml"; path = pick "umbriel/output.toml"; }
+              { name = "umbriel/machine.toml"; path = pick "umbriel/machine.toml"; }
+            ]
+          )
+        ) systems)
+        // {
+          installer-app = pkgs.runCommand "installer-app-check" { nativeBuildInputs = [ pkgs.shellcheck ]; } ''
+            shellcheck ${./install-nixos} ${./nix/install.sh}
+            grep -q 'nixos-install.*--flake' ${./nix/install.sh} || {
+              echo "installer must build directly into the target store" >&2
+              exit 1
             }
-            {
-              name = "niri/machine.kdl";
-              path = pick "niri/machine.kdl";
-            }
-            {
-              name = "umbriel/output.toml";
-              path = pick "umbriel/output.toml";
-            }
-            {
-              name = "umbriel/machine.toml";
-              path = pick "umbriel/machine.toml";
-            }
-          ]
-        )
-      ) systems;
+            ! grep -q 'system_path=.*nix build' ${./nix/install.sh}
+            touch $out
+          '';
+        };
     };
 }

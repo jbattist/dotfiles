@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 set -euo pipefail
 
 usage() {
@@ -9,7 +10,7 @@ Usage:
 
 Arguments:
   DISK       Whole disk, for example /dev/sda or /dev/vda (not /dev/sda1)
-  PROFILE    generic (default), generic-work, or generic-laptop
+  PROFILE    generic (default), generic-work, generic-laptop, or generic-full
 
 Examples:
   install-nixos --dry-run /dev/vda generic
@@ -45,7 +46,7 @@ disk=$1
 profile=${2:-generic}
 
 case "$profile" in
-  generic|generic-work|generic-laptop) ;;
+  generic|generic-work|generic-laptop|generic-full) ;;
   *) fail "unknown profile '$profile' (use generic, generic-work, or generic-laptop)" ;;
 esac
 
@@ -128,14 +129,16 @@ IFS= read -r confirmation </dev/tty
 printf '\nPartitioning, formatting, and mounting at /mnt...\n'
 "$disko_script"
 
-printf '\nBuilding the complete pinned NixOS system...\n'
-system_path=$(nix build --impure --no-link --print-out-paths "$attribute.toplevel")
-
-printf '\nInstalling NixOS and the boot loader...\n'
+printf '\nBuilding directly into the target disk and installing NixOS...\n'
+# Do not pre-build the toplevel in the live ISO's /nix/store. nixos-install's
+# flake mode evaluates the same pinned source but sets --store /mnt, so the large
+# desktop closure is downloaded once, directly to the target disk. Pre-building
+# here doubled the peak space and could fill a 32 GiB VM disk/live overlay.
 nixos-install \
   --no-channel-copy \
   --no-root-password \
-  --system "$system_path" \
+  --impure \
+  --flake "$flake#$profile" \
   --root /mnt
 
 cat <<'EOF'

@@ -7,7 +7,7 @@
 set -eu
 
 usage() {
-  echo "Usage: install-nixos [--dry-run] [DISK] [generic|generic-work|generic-laptop]" >&2
+  echo "Usage: install-nixos [--dry-run] [DISK] [generic|generic-work|generic-laptop|generic-full]" >&2
   exit 2
 }
 
@@ -24,7 +24,7 @@ if [ "$#" -eq 0 ]; then
   lsblk -d -o PATH,SIZE,MODEL,SERIAL,TYPE >/dev/tty
   printf '\nTarget whole disk (example /dev/vda): ' >/dev/tty
   IFS= read -r disk </dev/tty
-  printf 'Profile [generic/generic-work/generic-laptop] (default generic): ' >/dev/tty
+  printf 'Profile [generic/generic-work/generic-laptop/generic-full] (default generic): ' >/dev/tty
   IFS= read -r profile </dev/tty
   profile=${profile:-generic}
 elif [ "$#" -le 2 ]; then
@@ -43,7 +43,7 @@ case "$disk" in
   *[!A-Za-z0-9_./-]*) echo "ERROR: unsupported character in disk path" >&2; exit 2 ;;
 esac
 case "$profile" in
-  generic|generic-work|generic-laptop) ;;
+  generic|generic-work|generic-laptop|generic-full) ;;
   *) echo "ERROR: unknown profile '$profile'" >&2; exit 2 ;;
 esac
 

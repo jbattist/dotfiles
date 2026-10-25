@@ -30,8 +30,16 @@ builds and installs NixOS, and prompts for the initial `joe` password.
 > generic layout uses UEFI/GPT and Btrfs. It does not support dual boot, BIOS
 > boot, encryption, or in-place conversion.
 
-Profiles: `generic` (default/home), `generic-work`, and `generic-laptop`.
-Press Enter at the profile prompt to select `generic`.
+Profiles:
+
+- `generic`: core desktop (recommended for a 32 GiB test VM)
+- `generic-work`: core desktop with work layout
+- `generic-laptop`: core desktop with laptop layout
+- `generic-full`: default layout plus the large interactive/work application set
+
+Press Enter at the profile prompt to select `generic`. `generic-full` includes
+Chrome, Obsidian, VS Code, Zed, Kiro, Claude Code, OpenCode, Slack and the three
+Craft applications; use a substantially larger virtual disk for it.
 
 ## Non-destructive installer test
 
@@ -125,7 +133,9 @@ The wallpaper directory is created but deliberately empty. Populate:
   hardware override.
 - No disk encryption or dual boot yet.
 - Outputs are autodetected. Fixed scale/position needs a profile override later.
-- The full desktop has not yet been boot-tested on physical hardware.
+- The core desktop has not yet been boot-tested on physical hardware.
+- A 32 GiB disk is for the core test profile. Use at least 64 GiB (preferably
+  100+ GiB) for `generic-full` and long-lived Nix generations.
 - Noctalia/Vicinae/Plasma files managed by home-manager are read-only; use the
   `jb.opts.desktop.manage*` switches if their GUIs need ownership.
 - Homelab packages and CIFS mounts are disabled in generic profiles.
