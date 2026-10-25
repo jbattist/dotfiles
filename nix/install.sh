@@ -117,9 +117,12 @@ EOF
   exit 0
 fi
 
-printf '\nTHIS ERASES THE ENTIRE DISK: %s\n' "$canonical_disk"
-printf 'Type exactly: ERASE %s\n> ' "$canonical_disk"
-IFS= read -r confirmation
+printf '\nTHIS ERASES THE ENTIRE DISK: %s\n' "$canonical_disk" >/dev/tty
+printf 'Type exactly: ERASE %s\n> ' "$canonical_disk" >/dev/tty
+# stdin may be the exhausted `curl | sh` pipe used by the bootstrap. Read from
+# the controlling terminal explicitly so confirmation cannot be mistaken for a
+# command after the installer exits.
+IFS= read -r confirmation </dev/tty
 [[ $confirmation == "ERASE $canonical_disk" ]] || fail "confirmation did not match; nothing changed"
 
 printf '\nPartitioning, formatting, and mounting at /mnt...\n'
