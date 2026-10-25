@@ -102,6 +102,18 @@ canonical_disk=$(readlink -f "$disk")
 [[ $(lsblk -dnro TYPE "$canonical_disk") == "disk" ]] \
   || fail "'$disk' is not a whole disk; select the parent disk, not a partition"
 
+# A previous failed run of this installer leaves the target mounted under /mnt
+# (and possibly swap active). Those mounts are ours, so release them. Anything
+# mounted elsewhere -- especially / -- means the wrong disk was chosen.
+mounts=$(lsblk -nrpo MOUNTPOINTS "$canonical_disk" | grep -v '^$' || true)
+if [[ -n $mounts ]] && ! grep -qvE '^(/mnt(/.*)?|\[SWAP\])$' <<<"$mounts"; then
+  printf 'Releasing mounts left by a previous attempt under /mnt...\n'
+  umount -R /mnt 2>/dev/null || true
+  while read -r part; do
+    swapoff "$part" 2>/dev/null || true
+  done < <(lsblk -nrpo NAME,MOUNTPOINTS "$canonical_disk" | awk '$2=="[SWAP]"{print $1}')
+fi
+
 # Refuse to overwrite the live installer media or any disk with mounted content.
 if lsblk -nrpo MOUNTPOINTS "$canonical_disk" | grep -q '[^[:space:]]'; then
   lsblk -o NAME,SIZE,MODEL,TYPE,MOUNTPOINTS "$canonical_disk" >&2
