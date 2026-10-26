@@ -151,6 +151,24 @@ EOF
   exit 0
 fi
 
+# Hostname: the config deliberately leaves /etc/hostname unmanaged (profiles are
+# machine *kinds*, not machines), so it is set once here. NetworkManager sends it
+# in DHCP option 12, which is what home DNS registers (e.g. nix-test.home).
+# Asked before the erase prompt so a typo cannot waste an install.
+hostname=${NIXOS_INSTALL_HOSTNAME:-}
+while :; do
+  if [[ -z $hostname ]]; then
+    printf '\nHostname for this machine (e.g. nix-test, lowercase letters/digits/-): ' >/dev/tty
+    IFS= read -r hostname </dev/tty
+  fi
+  # RFC 1123 label: 1-63 chars, alphanumeric and '-', no leading/trailing '-'.
+  if [[ $hostname =~ ^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$ ]]; then
+    break
+  fi
+  printf 'Invalid hostname %q. Use lowercase a-z, 0-9 and -, max 63 chars.\n' "$hostname" >/dev/tty
+  hostname=
+done
+
 printf '\nTHIS ERASES THE ENTIRE DISK: %s\n' "$canonical_disk" >/dev/tty
 printf 'Type exactly: ERASE %s\n> ' "$canonical_disk" >/dev/tty
 # stdin may be the exhausted `curl | sh` pipe used by the bootstrap. Read from
@@ -174,6 +192,10 @@ nixos-install \
   --flake "$flake#$profile" \
   --root /mnt
 
+printf '%s\n' "$hostname" >/mnt/etc/hostname
+chmod 0644 /mnt/etc/hostname
+printf 'Hostname set to: %s\n' "$hostname"
+
 cat <<'EOF'
 
 Set the initial password for user joe. You will be prompted twice.
@@ -186,6 +208,8 @@ sync
 cat <<'EOF'
 
 INSTALLATION COMPLETE
+
+Change the hostname later with:  sudo hostnamectl set-hostname <name>
 
 You can now run:
 

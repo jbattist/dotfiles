@@ -11,7 +11,8 @@ lsblk -o NAME,SIZE,MODEL,SERIAL,TYPE,MOUNTPOINTS
 # 2. Start the installer. It asks for the disk and profile.
 curl -fsSL https://raw.githubusercontent.com/jbattist/dotfiles/main/install-nixos | sh
 
-# 3. Answer its prompts, then wait for "INSTALLATION COMPLETE".
+# 3. Answer its prompts (disk, profile, hostname, erase confirmation),
+#    then wait for "INSTALLATION COMPLETE".
 
 # 4. Reboot and remove the installer ISO.
 reboot

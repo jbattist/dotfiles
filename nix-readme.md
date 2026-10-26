@@ -104,8 +104,9 @@ nix/
    ```bash
    curl -fsSL https://raw.githubusercontent.com/jbattist/dotfiles/main/install-nixos | sh
    ```
-3. Choose the whole disk (e.g. `/dev/sda`), press Enter for `generic`, type the
-   exact `ERASE /dev/...` confirmation, then set the `joe` password.
+3. Choose the whole disk (e.g. `/dev/sda`), press Enter for `generic`, enter a
+   hostname (e.g. `nix-test`), type the exact `ERASE /dev/...` confirmation,
+   then set the `joe` password.
 4. On `INSTALLATION COMPLETE`, remove the ISO and `reboot`.
 
 Dry run (no disk changes): append `-s -- --dry-run` style arguments, i.e.
@@ -129,6 +130,21 @@ sudo nixos-rebuild switch --refresh --flake github:jbattist/dotfiles#generic
 Use the profile you installed. From a local checkout: `--flake .#generic`.
 Roll back with `sudo nixos-rebuild switch --rollback`, or pick an older
 generation from the boot menu.
+
+### Hostname
+
+The config does **not** set a hostname (`networking.hostName = ""` in
+`flake.nix`), so `/etc/hostname` is a normal file. The installer writes it; to
+change it later:
+
+```bash
+sudo hostnamectl set-hostname nix-test
+sudo nmcli con up "Wired connection 1"   # re-announce via DHCP so DNS updates
+```
+
+NetworkManager sends the hostname in DHCP option 12; home DNS (Technitium)
+registers `<hostname>.home` from it. Never derive the hostname from the profile
+name: every install of a profile would announce the same name and collide.
 
 ### Remote access
 
@@ -258,6 +274,7 @@ image with the repo mounted, or `nix develop` for the tooling.
 | Login screen bounces back as if bad password | `start-umbriel` runs `umbriel.service`, which wasn't registered | `systemd.packages = [ pkgs.umbriel ]` in `desktop.nix` |
 | Greeter shows no session | Session file not in system profile | `environment.pathsToLink = [ "/share/wayland-sessions" ]` |
 | Black screen, no bar | Shell not running / wrong Noctalia version | Use `pkgs.noctalia` (v5), autostarted by Umbriel |
+| Every install named `generic`, DNS collisions | Hostname was derived from the profile name | `networking.hostName = ""`; installer prompts for it |
 | Installer out of disk space | Built closure in live ISO store | `nixos-install --flake` builds straight into `/mnt` |
 | `sudo must be owned by uid 0` | Store copy of sudo shadowed the setuid wrapper | Installer uses `/run/wrappers/bin/sudo` |
 | `unknown setting no-write-lock-file` | ISO's old Nix vs `disko-install` | Bootstrap fetches `nixVersions.latest`; `disko-install` not used |

@@ -56,7 +56,15 @@
               imports = profileModules;
             }
             {
-              networking.hostName = name;
+              # Profiles describe a *kind* of machine, so the hostname must not
+              # come from the profile name (every `generic` install would then
+              # announce itself as `generic` over DHCP and collide in DNS).
+              # An empty hostName makes NixOS leave /etc/hostname unmanaged:
+              # the installer writes it once, and `hostnamectl set-hostname`
+              # changes persist across rebuilds.
+              networking.hostName = "";
+              # Boot-menu/generation label only (would otherwise read "unnamed").
+              system.name = name;
               nixpkgs.overlays = [ overlay ];
 
               home-manager = {
