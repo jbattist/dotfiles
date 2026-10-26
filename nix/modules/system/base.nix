@@ -105,9 +105,10 @@
   services.openssh = {
     enable = true;
     settings = {
-      # The fleet relied on key auth and the `hermes.home` / `heimdallama.home`
-      # hop pattern in fish functions; password auth is not used.
-      PasswordAuthentication = false;
+      # Password login is allowed so a fresh install is reachable before any
+      # key is deployed. Keys still work and take precedence. Root can never
+      # log in remotely, so a password attack can only target `joe`.
+      PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
     };
