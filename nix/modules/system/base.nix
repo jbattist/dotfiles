@@ -51,6 +51,13 @@
   # ---------------------------------------------------------------------------
   # hermes currently boots via systemd-boot on UEFI (verified with `bootctl`).
   # Hosts override this in hosts/<name>/hardware-configuration.nix if they differ.
+  # Latest mainline kernel rather than NixOS's LTS default, matching the Arch
+  # fleet (rolling kernel) and giving recent AMD/Intel hardware support. Safe
+  # here because nothing in this config uses out-of-tree modules (ZFS, NVIDIA)
+  # that lag behind new kernels. mkDefault so a host can pin
+  # pkgs.linuxPackages (LTS) if a kernel regression bites.
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+
   boot.loader = {
     systemd-boot.enable = lib.mkDefault true;
     efi.canTouchEfiVariables = lib.mkDefault true;

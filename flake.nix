@@ -135,8 +135,14 @@
             ./nix/profiles/default.nix
             ./nix/profiles/home.nix
             "${nixpkgs.outPath}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-            {
+            (
+              { pkgs, ... }:
+              {
               networking.hostName = "nixos-installer";
+              # The ISO bundles ZFS (installer-base), and zfs-kernel is marked
+              # broken on linuxPackages_latest. The ISO only installs; keep it
+              # on LTS. Installed systems still get the latest kernel.
+              boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
               system.stateVersion = lib.mkForce "26.11";
               environment.systemPackages = [ installApp ];
               nixpkgs.overlays = [ overlay ];
@@ -149,7 +155,8 @@
                 extraSpecialArgs = { inherit inputs; };
                 users.joe.imports = [ ./nix/modules/home ];
               };
-            }
+              }
+            )
           ];
         };
       };

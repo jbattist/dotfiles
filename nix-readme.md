@@ -7,6 +7,7 @@ config files (fish functions, Umbriel TOML, GTK css, etc.).
 - Current release: **`nix-v0.1.0`**
 - Desktop: **Umbriel** compositor + **Noctalia v5** shell, Noctalia greeter
 - Target: UEFI x86_64, single disk, verified on a Proxmox VM
+- Kernel: `linuxPackages_latest` (mainline, like Arch); installer ISO stays on LTS
 
 Related docs: [`docs/INSTALL-NIXOS.md`](docs/INSTALL-NIXOS.md) (install detail),
 [`docs/MIGRATION.md`](docs/MIGRATION.md) (old-to-new mapping and decisions).
@@ -245,6 +246,15 @@ nix flake update nixpkgs        # or home-manager / disko
 This moves every package. **Always do a full system build afterwards** (see
 below); version bumps have broken builds before (the Noctalia v4/Qt 6.12
 failure). Commit `flake.lock` with the change.
+
+### Kernel
+
+`boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;` in
+`nix/modules/system/base.nix`. If a new kernel regresses, pin LTS for a host or
+profile with `boot.kernelPackages = pkgs.linuxPackages;`. Out-of-tree modules
+(ZFS, NVIDIA) often lag `_latest`; the installer ISO forces LTS for exactly that
+reason (it bundles ZFS). Adding ZFS/NVIDIA to installed systems means revisiting
+this.
 
 ### Verification (required before pushing)
 
