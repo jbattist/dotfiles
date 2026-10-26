@@ -3,6 +3,15 @@ config_version = 8
 [location]
 address = ""
 
+[theme]
+builtin = "Tokyo-Night"
+community_palette = "Tokyo Night Moon"
+mode = "dark"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "ghostty", "hyprland", "kcolorscheme", "kitty", "mango", "niri", "qt", "umbriel", "wezterm" ]
+    community_ids = [ "micro", "vicinae", "fastfetch", "herdr", "yazi" ]
+
 [shell]
 app_icon_color = "secondary"
 app_icon_colorize = true
@@ -15,6 +24,9 @@ polkit_agent = true
 
 [bar.default]
 background_opacity = 0.6
+
+start = [ "launcher", "wallhaven", "widget_2", "umbriel-companion", "umbriel-displays" ]
+
 end = [
     "sysmon",
     "spacer_2",
@@ -35,7 +47,6 @@ font_family = "Inter"
 margin_ends = 0
 radius_top_left = 0
 radius_top_right = 0
-start = [ "launcher", "wallhaven" ]
 
 [desktop_widgets]
 schema_version = 2
@@ -118,7 +129,7 @@ terminal = "ghostty"
 show_activity_graph = true
 
 [plugins]
-enabled = [ "noctalia/wallhaven", "yuuto/arch-updater" ]
+enabled = [ "noctalia/wallhaven", "yuuto/arch-updater", "noctalia/umbriel-companion", "prponkshe/umbriel-displays" ]
 
 [widget.spacer_2]
 length = 60
@@ -126,6 +137,12 @@ type = "spacer"
 
 [widget.wallhaven]
 type = "noctalia/wallhaven:wallhaven"
+
+[widget.umbriel-companion]
+type = "noctalia/umbriel-companion:bar"
+
+[widget.umbriel-displays]
+type = "prponkshe/umbriel-displays:bar"
 
 [widget.widget]
 hide_on_empty = true
