@@ -284,6 +284,7 @@ image with the repo mounted, or `nix develop` for the tooling.
 | Login screen bounces back as if bad password | `start-umbriel` runs `umbriel.service`, which wasn't registered | `systemd.packages = [ pkgs.umbriel ]` in `desktop.nix` |
 | Greeter shows no session | Session file not in system profile | `environment.pathsToLink = [ "/share/wayland-sessions" ]` |
 | Black screen, no bar | Shell not running / wrong Noctalia version | Use `pkgs.noctalia` (v5), autostarted by Umbriel |
+| `hostnamectl`: "/etc/hostname is in a read-only filesystem" | NixOS redirects hostnamed to `/etc/static/hostname` (read-only store) | `systemd.services.systemd-hostnamed.environment` forced back to `/etc` in `flake.nix` |
 | Every install named `generic`, DNS collisions | Hostname was derived from the profile name | `networking.hostName = ""`; installer prompts for it |
 | Installer out of disk space | Built closure in live ISO store | `nixos-install --flake` builds straight into `/mnt` |
 | `sudo must be owned by uid 0` | Store copy of sudo shadowed the setuid wrapper | Installer uses `/run/wrappers/bin/sudo` |

@@ -63,6 +63,15 @@
               # the installer writes it once, and `hostnamectl set-hostname`
               # changes persist across rebuilds.
               networking.hostName = "";
+              # NixOS points systemd-hostnamed at /etc/static/hostname (inside
+              # the read-only Nix store) so it never fights a Nix-managed file.
+              # With the hostname unmanaged that redirect is wrong: hostnamectl
+              # fails with "read-only filesystem". Point it back at the real
+              # /etc so `hostnamectl set-hostname` writes a persistent file.
+              systemd.services.systemd-hostnamed.environment = {
+                SYSTEMD_ETC_HOSTNAME = lib.mkForce "/etc/hostname";
+                SYSTEMD_ETC_MACHINE_INFO = lib.mkForce "/etc/machine-info";
+              };
               # Boot-menu/generation label only (would otherwise read "unnamed").
               system.name = name;
               nixpkgs.overlays = [ overlay ];
