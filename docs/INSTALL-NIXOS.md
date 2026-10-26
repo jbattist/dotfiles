@@ -1,5 +1,9 @@
 # Install and test the generic NixOS configuration
 
+Stable release: `nix-v1.0.0`. The bootstrap below tracks `main`; for an exact
+release, run `nix --extra-experimental-features 'nix-command flakes' run
+github:jbattist/dotfiles/nix-v1.0.0#install`.
+
 ## The four-step install process
 
 Boot the official NixOS installer and connect it to the network:

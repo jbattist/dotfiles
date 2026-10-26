@@ -4,13 +4,22 @@ A NixOS + home-manager flake that reproduces this repo's Arch dotfiles
 declaratively. It lives alongside the original Arch scripts; both read the same
 config files (fish functions, Umbriel TOML, GTK css, etc.).
 
-- Current release: **`nix-v0.1.0`**
+- Current release: **`nix-v1.0.0`**
 - Desktop: **Umbriel** compositor + **Noctalia v5** shell, Noctalia greeter
 - Target: UEFI x86_64, single disk, verified on a Proxmox VM
 - Kernel: `linuxPackages_latest` (mainline, like Arch); installer ISO stays on LTS
 
 Related docs: [`docs/INSTALL-NIXOS.md`](docs/INSTALL-NIXOS.md) (install detail),
 [`docs/MIGRATION.md`](docs/MIGRATION.md) (old-to-new mapping and decisions).
+
+---
+
+## Releases
+
+| Tag | Status | Notes |
+|---|---|---|
+| `nix-v1.0.0` | Current stable | Generic installer, Umbriel + Noctalia v5, latest kernel, hostname prompt |
+| `nix-v0.1.0` | Historical preview | First successful VM install |
 
 ---
 
@@ -116,7 +125,7 @@ Dry run (no disk changes): append `-s -- --dry-run` style arguments, i.e.
 Pin to a release instead of `main`:
 ```bash
 nix --extra-experimental-features 'nix-command flakes' \
-  run github:jbattist/dotfiles/nix-v0.1.0#install
+  run github:jbattist/dotfiles/nix-v1.0.0#install
 ```
 
 The installer logs to `/tmp/dotfiles-nixos-install.log` and prints the last 100
@@ -299,11 +308,12 @@ systemctl --failed; systemctl --user --failed
 
 ---
 
-## 6. Known gaps (as of nix-v0.1.0)
+## 6. Known gaps (as of nix-v1.0.0)
 
 - Umbriel only; Niri and Hyprland modules exist but are disabled.
 - No disk encryption, no dual boot, UEFI x86_64 only.
 - Noctalia plugins (wallhaven, arch-updater) not installed.
+- SSH password authentication is enabled for `joe`; do not expose port 22 to the internet.
 - `generic-full` needs ~100 GB+.
 - Neovim still uses lazy.nvim at runtime (plugins not pinned in Nix).
 - `wallpapers/` (455 MB) is not managed; populate `~/.local/share/wallpapers` manually.
