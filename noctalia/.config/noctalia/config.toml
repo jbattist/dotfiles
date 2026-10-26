@@ -12,6 +12,13 @@ mode = "dark"
     builtin_ids = [ "gtk3", "gtk4", "ghostty", "hyprland", "kcolorscheme", "kitty", "mango", "niri", "qt", "umbriel", "wezterm" ]
     community_ids = [ "micro", "vicinae", "fastfetch", "herdr", "yazi" ]
 
+[wallpaper]
+directory = "/home/joe/.local/share/wallpapers"
+
+    [wallpaper.default]
+    path = "/home/joe/.local/share/wallpapers/wallhaven-w55q6p.jpg"
+
+
 [shell]
 app_icon_color = "secondary"
 app_icon_colorize = true
@@ -117,10 +124,6 @@ show_label = false
 
     [widget.network.actions]
     right = "none"
-
-[wallpaper]
-directory = "/home/joe/.local/share/wallpapers"
-    
 
 [plugin_settings."yuuto/arch-updater"]
 aur_helper = "yay"
