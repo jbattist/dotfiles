@@ -70,9 +70,80 @@ resolve_script_dir() {
 	fi
 }
 
+install_release_ubuntu() {
+	# Install tools that have no Ubuntu APT package from their upstream
+	# release assets into ~/.local/bin (deb via apt for fastfetch).
+	local pkg m arch_rust arch_deb tmp folder asset
+	pkg="$1"
+	m=$(uname -m)
+	case "$m" in
+		x86_64) arch_rust=x86_64; arch_deb=amd64 ;;
+		aarch64|arm64) arch_rust=aarch64; arch_deb=arm64 ;;
+		*) err "Unsupported architecture $m for $pkg"; return 1 ;;
+	esac
+	mkdir -p "$HOME/.local/bin"
+	tmp=$(mktemp -d)
+	case "$pkg" in
+		starship)
+			log "Installing starship from starship.rs into ~/.local/bin"
+			curl -fsSL https://starship.rs/install.sh | sh -s -- -b "$HOME/.local/bin" -y \
+				|| { err "starship install failed"; rm -rf "$tmp"; return 1; }
+			;;
+		yazi)
+			if ! command -v unzip >/dev/null 2>&1; then
+				sudo apt-get install -y unzip
+			fi
+			folder="yazi-${arch_rust}-unknown-linux-gnu"
+			asset="${folder}.zip"
+			log "Installing yazi from GitHub releases (${asset})"
+			curl -fsSL -o "$tmp/$asset" \
+				"https://github.com/sxyazi/yazi/releases/latest/download/$asset" \
+				|| { err "yazi download failed"; rm -rf "$tmp"; return 1; }
+			unzip -o -q "$tmp/$asset" -d "$tmp" \
+				|| { err "yazi unzip failed"; rm -rf "$tmp"; return 1; }
+			install -m755 "$tmp/$folder/yazi" "$HOME/.local/bin/"
+			install -m755 "$tmp/$folder/ya" "$HOME/.local/bin/"
+			;;
+		fastfetch)
+			asset="fastfetch-linux-${arch_deb}.deb"
+			log "Installing fastfetch from GitHub releases (${asset})"
+			curl -fsSL -o "$tmp/$asset" \
+				"https://github.com/fastfetch-cli/fastfetch/releases/latest/download/$asset" \
+				|| { err "fastfetch download failed"; rm -rf "$tmp"; return 1; }
+			sudo apt-get install -y "$tmp/$asset" \
+				|| { err "fastfetch deb install failed"; rm -rf "$tmp"; return 1; }
+			;;
+		*)
+			err "install_release_ubuntu: unknown package $pkg"
+			rm -rf "$tmp"
+			return 1
+			;;
+	esac
+	rm -rf "$tmp"
+	if command -v "$pkg" >/dev/null 2>&1; then
+		log "$pkg installed ($(command -v "$pkg"))"
+	else
+		err "$pkg installed but not on PATH; ensure ~/.local/bin is in your PATH"
+	fi
+}
+
+install_thefuck_ubuntu() {
+	# Ubuntu's apt thefuck (3.29) is broken on Python 3.12+ (imports the
+	# removed 'imp' module). Replace it with a working pipx build.
+	log "Installing thefuck via pipx (apt build is broken on Python 3.12+)"
+	command -v pipx >/dev/null 2>&1 || sudo apt-get install -y pipx
+	if dpkg-query -W -f='${Status}' thefuck 2>/dev/null | grep -qx 'install ok installed'; then
+		log "Removing broken apt thefuck before pipx install"
+		sudo apt-get remove -y thefuck
+	fi
+	pipx install thefuck || { err "pipx install thefuck failed"; return 1; }
+	log "thefuck installed via pipx"
+}
+
 install_on_ubuntu() {
 	local script_dir repo_root pkg apt_pkg
 	local -a missing=()
+	export PATH="$HOME/.local/bin:$PATH"
 	script_dir=$(cd "$(dirname "$(resolve_script_dir)")" && pwd)
 	repo_root=$(cd "$script_dir" && pwd)
 	# shellcheck source=/dev/null
@@ -82,10 +153,28 @@ install_on_ubuntu() {
 	sudo apt-get update
 	while IFS= read -r pkg; do
 		case "$pkg" in
+			starship|yazi|fastfetch)
+				if command -v "$pkg" >/dev/null 2>&1; then
+					log "$pkg already installed ($pkg)"
+				else
+					install_release_ubuntu "$pkg" \
+						|| missing+=("$pkg (release install failed)")
+				fi
+				continue ;;
+			thefuck)
+				# Probe with --version: apt's 3.29 crashes on Python 3.12+
+				# before the dpkg check can pass it as healthy.
+				if command -v fuck >/dev/null 2>&1 && fuck --version >/dev/null 2>&1; then
+					log "thefuck already installed"
+				else
+					install_thefuck_ubuntu \
+						|| missing+=("thefuck (pipx install failed)")
+				fi
+				continue ;;
 			fd) apt_pkg=fd-find ;;
 			bind-tools) apt_pkg=dnsutils ;;
 			nfs-utils) apt_pkg=nfs-common ;;
-			herdr-bin|sysz|isd|ghostty|wezterm|fastfetch|yazi|starship)
+			herdr-bin|sysz|isd|ghostty|wezterm)
 				case "$pkg" in herdr-bin) apt_pkg=herdr ;; *) apt_pkg=$pkg ;; esac
 				if command -v "$apt_pkg" >/dev/null 2>&1; then
 					log "$pkg already installed ($apt_pkg)"
