@@ -1,3 +1,4 @@
+
 """Retry an unresolved bare SSH hostname with the local `.home` suffix.
 
 Examples:
