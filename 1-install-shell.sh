@@ -128,22 +128,47 @@ install_release_ubuntu() {
 }
 
 install_thefuck_ubuntu() {
-	# Ubuntu's apt thefuck (3.29) is broken on Python 3.12+ (imports the
-	# removed 'imp' module). Replace it with a working pipx build.
+	# apt's thefuck (3.29) and PyPI's 3.32 both die on Python 3.12+:
+	# removed 'distutils' and 'imp' stdlib modules. Install via pipx, then
+	# patch the venv: setuptools restores distutils, a shim restores imp.
+	local venv sp
 	log "Installing thefuck via pipx (apt build is broken on Python 3.12+)"
 	command -v pipx >/dev/null 2>&1 || sudo apt-get install -y pipx
 	if dpkg-query -W -f='${Status}' thefuck 2>/dev/null | grep -qx 'install ok installed'; then
 		log "Removing broken apt thefuck before pipx install"
 		sudo apt-get remove -y thefuck
 	fi
+	if command -v fuck >/dev/null 2>&1 && fuck --version >/dev/null 2>&1; then
+		log "thefuck already installed and working"
+		return 0
+	fi
 	pipx install thefuck || { err "pipx install thefuck failed"; return 1; }
-	log "thefuck installed via pipx"
+	venv="$HOME/.local/share/pipx/venvs/thefuck"
+	sp="$venv/lib/python3.*/site-packages"
+	log "Patching thefuck venv for Python 3.12 (setuptools + imp shim)"
+	pipx inject thefuck setuptools >/dev/null 2>&1
+	# shellcheck disable=SC2086
+	cat > ${sp}/imp.py <<'EOF'
+"""Compatibility shim: imp was removed in Python 3.12; thefuck still uses it."""
+from importlib.machinery import SourceFileLoader
+
+def load_source(name, path):
+    loader = SourceFileLoader(name, path)
+    return loader.load_module()
+EOF
+	if command -v fuck >/dev/null 2>&1 && fuck --version >/dev/null 2>&1; then
+		log "thefuck installed via pipx and working"
+	else
+		err "thefuck still not working after patch; leaving install as-is"
+		return 1
+	fi
 }
 
 install_on_ubuntu() {
 	local script_dir repo_root pkg apt_pkg
 	local -a missing=()
 	export PATH="$HOME/.local/bin:$PATH"
+	mkdir -p "$HOME/.local/bin"
 	script_dir=$(cd "$(dirname "$(resolve_script_dir)")" && pwd)
 	repo_root=$(cd "$script_dir" && pwd)
 	# shellcheck source=/dev/null
@@ -186,9 +211,18 @@ install_on_ubuntu() {
 		esac
 		if dpkg-query -W -f='${Status}' "$apt_pkg" 2>/dev/null | grep -qx 'install ok installed'; then
 			log "$apt_pkg already installed"
+			# Ubuntu ships renamed binaries for conflicting package names.
+			case "$apt_pkg" in
+				bat) [ -e "$HOME/.local/bin/bat" ] || ln -s /usr/bin/batcat "$HOME/.local/bin/bat" ;;
+				fd-find) [ -e "$HOME/.local/bin/fd" ] || ln -s /usr/bin/fdfind "$HOME/.local/bin/fd" ;;
+			esac
 		elif apt-cache show "$apt_pkg" >/dev/null 2>&1; then
 			log "Installing $apt_pkg via APT"
 			sudo apt-get install -y "$apt_pkg"
+			case "$apt_pkg" in
+				bat) ln -s /usr/bin/batcat "$HOME/.local/bin/bat" ;;
+				fd-find) ln -s /usr/bin/fdfind "$HOME/.local/bin/fd" ;;
+			esac
 		else
 			missing+=("$pkg (APT package $apt_pkg unavailable)")
 		fi
