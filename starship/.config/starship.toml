@@ -40,7 +40,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'hermes'
+palette = 'docker_blue'
 
 # ============================================================================
 # DARK PALETTE
@@ -372,6 +372,25 @@ text_dark = "#11111b"
 text_time = "#11111b"
 success_fg = "#b4befe"
 error_fg = "#f38ba8"
+
+# ============================================================================
+# DOCKER BLUE PALETTE
+# Docker brand blue #2496ED as baseline, mixed toward white in progressive
+# steps along the prompt nodes: os -> dir -> git -> lang -> docker -> time.
+# Foregrounds are dark navy so contrast *increases* as sections get lighter.
+# ============================================================================
+[palettes.docker_blue]
+os_section_bg     = "#2496ed"   # Docker blue (baseline, f=0.00)
+dir_section_bg    = "#4ba9f0"   # +18% toward white
+git_section_bg    = "#73bcf3"   # +36%
+lang_section_bg   = "#9cd0f7"   # +55%
+docker_section_bg = "#c6e4fa"   # +74%
+time_section_bg   = "#e9f4fd"   # +90%
+text_light        = "#07293f"   # deep navy, for the darkest sections
+text_dark         = "#041827"   # ink, for mid/light sections
+text_time         = "#041827"
+success_fg        = "#1a9c6b"
+error_fg          = "#d1343f"
 
 # ============================================================================
 # OS CONFIGURATION
