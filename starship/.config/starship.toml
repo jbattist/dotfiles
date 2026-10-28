@@ -40,7 +40,7 @@ $time\
 [ ](fg:time_section_bg)\
 $line_break$character"""
 
-palette = 'docker_blue'
+palette = 'omniroute'
 
 # ============================================================================
 # DARK PALETTE
