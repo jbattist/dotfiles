@@ -44,6 +44,11 @@ alias serve "python -m http.server"
 # psaux is now a function: fish/.config/fish/functions/psaux.fish
 alias hermes-tui "ssh -t hermes.home 'hermes --tui'"
 alias tree "eza --tree --icons"
+# Ghostty 1.4 SSH wrapper: installs xterm-ghostty terminfo on the remote and
+# forwards COLORTERM/TERM_PROGRAM/TERM_PROGRAM_VERSION. The body calls ghostty,
+# not ssh, so there's no recursion. Requires ghostty >= 1.4; on 1.3 `+ssh`
+# doesn't exist — bypass the alias with `\ssh` until the upgrade lands.
+alias ssh "ghostty +ssh --"
 
 # Sources / Inits #############################################################
 
