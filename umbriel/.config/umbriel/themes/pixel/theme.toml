@@ -1,0 +1,44 @@
+# Theme pack: pixel — low-res / chunky look.
+# This file is NOT active until copied to ~/.config/umbriel/theme.toml
+# (or symlinked). Effects are DEFINED but unselected on purpose: unselected
+# presets add zero render cost; nothing changes visually until you toggle:
+#   umbriel msg effect-window-set downres     # pixelate every window
+#   umbriel msg effect-window-toggle          # suppress instantly
+# Compile/activation state: umbriel effects   (or the /effects pane)
+#
+# Preset declarations live next to their shaders (shader paths resolve
+# relative to the declaring TOML), so each effects/<name>/ is self-contained.
+
+[include]
+files = [
+    "/usr/share/umbriel/effects/animation/reveal/effect.toml",
+    "/usr/share/umbriel/effects/window/scanlines/effect.toml",
+    "themes/pixel/effects/stepin/effect.toml",
+    "themes/pixel/effects/downres/effect.toml",
+]
+
+# Chrome: hard-edged, small stepped motion -----------------------------------
+
+[appearance]
+corner_radius = 0
+border_width = 2
+
+[appearance.blur]
+enabled = false
+
+[appearance.shadow]
+enabled = false
+
+[animation.windows_in]
+duration_ms = 140
+curve = "easeout"
+effect = "stepin"          # quantized reveal wipe (see compile state above)
+
+[animation.windows_out]
+duration_ms = 100
+
+[animation.border]
+duration_ms = 100
+
+[appearance.title_bar]
+font = "monospace 10"

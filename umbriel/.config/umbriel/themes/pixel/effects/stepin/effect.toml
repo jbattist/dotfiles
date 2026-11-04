@@ -1,0 +1,5 @@
+# Chunky stepped window entrance (quantized reveal wipe). Include, then:
+#   [animation.windows_in] effect = "stepin"
+[effects.preset.stepin]
+kind = "animation"
+shader = "shader.glsl"

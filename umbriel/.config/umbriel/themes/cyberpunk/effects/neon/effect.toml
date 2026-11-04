@@ -1,0 +1,12 @@
+# Palette-cycling neon border with glow bleed. Include, then select:
+#   [effects] border = "neon"   (static)  or  umbriel msg effect-border-set neon (live)
+[effects.preset.neon]
+kind = "border"
+shader = "shader.glsl"
+palette = true          # ring cycles accent_primary → secondary → warning → error
+speed = 0.6
+
+[effects.preset.neon.light]
+spread = 140            # neon bleed onto the desktop
+intensity = 1.6
+threshold = 0.25

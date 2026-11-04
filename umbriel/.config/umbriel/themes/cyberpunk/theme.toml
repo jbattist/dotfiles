@@ -1,0 +1,54 @@
+# Theme pack: cyberpunk — neon borders, CRT grain, cursor trail.
+# NOT active until copied/symlinked to ~/.config/umbriel/theme.toml.
+# Bundled presets included here are DEFINED but unselected (zero render
+# cost while unselected); turn them on live:
+#   umbriel msg effect-border-set pulse     # focused-window neon pulse
+#   umbriel msg effect-screen-set vignette  # screen-edge darkening
+#   umbriel msg effect-window-set scanlines # CRT lines over windows
+# or via keybinds.toml. Selections made with msg persist until
+# `umbriel msg effect-border-reset` or a config reload.
+
+[include]
+files = [
+    "/usr/share/umbriel/effects/border/pulse/effect.toml",
+    "/usr/share/umbriel/effects/border/audio/effect.toml",
+    "/usr/share/umbriel/effects/window/scanlines/effect.toml",
+    "/usr/share/umbriel/effects/screen/vignette/effect.toml",
+    "/usr/share/umbriel/effects/cursor/trail/effect.toml",
+    "themes/cyberpunk/effects/neon/effect.toml",
+]
+
+# Custom preset (full definition lives with its shader — one declaration only,
+# duplicating the preset table here would be an "already declared" error):
+
+# To make the look static instead of live-toggled, uncomment a selector:
+# [effects]
+# border = "neon"          # replaces pulse when uncommented (same slot)
+# screen = "vignette"
+# window = "scanlines"
+# cursor = "trail"
+
+# Chrome: dark slabs, hot ring, terminal fonts ---------------------------------
+
+[appearance]
+corner_radius = 4
+border_width = 3
+
+[appearance.shadow]
+enabled = false
+
+[animation.windows_in]
+duration_ms = 180
+curve = "easeout"
+
+[animation.windows_out]
+duration_ms = 120
+
+[animation.border]
+duration_ms = 120
+
+[appearance.title_bar]
+font = "JetBrainsMono Nerd Font 9"
+
+[appearance.tab_bar]
+font = "JetBrainsMono Nerd Font 9"

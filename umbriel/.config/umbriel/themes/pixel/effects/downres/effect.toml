@@ -1,0 +1,5 @@
+# Pixelate window content into low-res blocks. Include, then select:
+#   [effects] window = "downres"   (static)  or  umbriel msg effect-window-set downres (live)
+[effects.preset.downres]
+kind = "window"
+shader = "shader.glsl"
