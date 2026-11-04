@@ -1,0 +1,95 @@
+# Omarchy look-and-feel, ported to Umbriel.
+#
+# Source: omacom/omarchy (quattro branch) default/hypr/looknfeel.lua +
+# agents/skills/motion.md. Motion signature: strong ease-out (cubic-bezier
+# 0.23,1,0.32,1), entrances <= 250ms, exits about two-thirds of entrances,
+# nothing over 300ms, no bounce/overshoot, workspace switches unanimated.
+# Chrome signature: square corners, 2px borders, no blur, no shadows.
+#
+# Enable:  cp themes/omarchy.toml theme.toml   (then hot-reloads on save)
+# Disable: rm theme.toml
+#
+# NOTE on border color: Omarchy's active border is a 45-degree gradient
+# rgba(33ccffee) -> rgba(00ff99ee). Umbriel's border is a single color, so this
+# pins the gradient's lead stop. The unfocused border is the exact stock value.
+
+# Curves -----------------------------------------------------------------------
+
+[animation.beziers]
+easeOutQuint = [0.23, 1, 0.32, 1]     # movement and entrances
+almostLinear = [0.5, 0.5, 0.75, 1]    # plain fades
+
+# Timing -----------------------------------------------------------------------
+
+[animation]
+enabled = true
+duration_ms = 250
+curve = "easeOutQuint"
+
+[animation.windows_in]
+enabled = true
+duration_ms = 250                     # entrances: 180-250ms
+curve = "easeOutQuint"
+style = "popin"
+scale = 0.87                          # Omarchy: "popin 87%"
+
+[animation.windows_out]
+enabled = true
+duration_ms = 160                     # exits: about two-thirds of entrances
+curve = "easeOutQuint"
+style = "popin"
+scale = 0.87
+
+[animation.windows_move]
+enabled = true
+duration_ms = 200
+curve = "easeOutQuint"
+
+[animation.windows_resize]
+duration_ms = 200
+curve = "easeOutQuint"
+
+[animation.windows_opacity]
+duration_ms = 160
+curve = "almostLinear"
+
+[animation.border]                      # focus-border color fade
+enabled = true
+duration_ms = 200
+curve = "easeOutQuint"
+
+[animation.workspaces]
+enabled = false                         # Omarchy ships workspace animation off;
+                                        # re-enable with duration_ms = 250,
+                                        # curve = "easeOutQuint" if you prefer motion
+
+[animation.overview]
+enabled = true
+duration_ms = 250
+curve = "easeOutQuint"
+
+[animation.layers]                      # bar/OSD map-unmap: fade, fast
+enabled = true
+duration_ms = 140
+curve = "almostLinear"
+
+# Chrome -----------------------------------------------------------------------
+
+[appearance]
+corner_radius = 0                       # Omarchy default is square corners;
+                                        # 10 is their documented opt-in tweak
+border_width = 2
+
+[appearance.shadow]
+enabled = false
+
+[appearance.blur]
+enabled = false
+
+[colors.border]
+focused = "#33CCFFEE"
+unfocused = "#595959AA"
+
+[layout]
+gap = 8                                 # between Omarchy's gaps_in 5 / gaps_out 10;
+                                        # Umbriel has a single gap knob

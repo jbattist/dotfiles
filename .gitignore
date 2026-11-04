@@ -1,3 +1,6 @@
+# Umbriel local theme overlay — created per-machine by copying a file from themes/
+umbriel/.config/umbriel/theme.toml
+
 # Noctalia runtime state — regenerated automatically on theme/color changes
 noctalia/.config/noctalia/colors.json
 
