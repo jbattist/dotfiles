@@ -73,7 +73,8 @@ have their own config).
 ## Packs here
 
 - `pixel/` — square chrome, stepped entrance (`stepin`), blocky content
-  (`downres`, 132-wide grid), bundled scanlines/reveal available.
+  (`downres`, fixed 3-logical-pixel blocks; tune the `block` constant in the
+  shader), bundled scanlines/reveal available.
 - `cyberpunk/` — 3px hot ring via `neon` (palette-cycling + glow light),
   bundled pulse/audio/scanlines/vignette/trail included, JetBrains Mono chrome.
 - `../omarchy.toml` — single-file theme (no effects), kept as the flat example.
