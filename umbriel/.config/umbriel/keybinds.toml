@@ -10,33 +10,33 @@
 "Mod+Shift+Slash" = "cheatsheet-toggle"
 
 # Launch ---------------------------------------------------------------------
-"Mod+T" = "spawn:ghostty"
-"Mod+Shift+T" = "spawn:ghostty --title=floating-terminal --window-height=100 --window-width=100"
-"Mod+R" = "spawn:vicinae toggle"
-"Mod+D" = "spawn:nemo"
-"Mod+B" = "spawn:firefox"
-"Mod+S" = "spawn:bash -c \"$TERMINAL -e fish -c fe\""
+"Mod+T" = "spawn ghostty"
+"Mod+Shift+T" = "spawn ghostty --title=floating-terminal --window-height=100 --window-width=100"
+"Mod+R" = "spawn vicinae toggle"
+"Mod+D" = "spawn nemo"
+"Mod+B" = "spawn firefox"
+"Mod+S" = "spawn bash -c \"$TERMINAL -e fish -c fe\""
 
 # Locking --------------------------------------------------------------------
-"Mod+L" = "spawn:noctalia msg session lock"
+"Mod+L" = "spawn noctalia msg session lock"
 
 # Volume / media / brightness (usable while locked) --------------------------
-"XF86AudioRaiseVolume" = { action = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0", allow_when_locked = true }
-"XF86AudioLowerVolume" = { action = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-", allow_when_locked = true }
-"XF86AudioMute"        = { action = "spawn:wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle", allow_when_locked = true }
-"XF86AudioMicMute"     = { action = "spawn:wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle", allow_when_locked = true }
-"XF86AudioPlay"        = { action = "spawn:playerctl play-pause", allow_when_locked = true }
-"XF86AudioStop"        = { action = "spawn:playerctl stop", allow_when_locked = true }
-"XF86AudioPrev"        = { action = "spawn:playerctl previous", allow_when_locked = true }
-"XF86AudioNext"        = { action = "spawn:playerctl next", allow_when_locked = true }
-"XF86MonBrightnessUp"   = { action = "spawn:brightnessctl --class=backlight set +10%", allow_when_locked = true }
-"XF86MonBrightnessDown" = { action = "spawn:brightnessctl --class=backlight set 10%-", allow_when_locked = true }
+"XF86AudioRaiseVolume" = { action = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0", allow_when_locked = true }
+"XF86AudioLowerVolume" = { action = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-", allow_when_locked = true }
+"XF86AudioMute"        = { action = "spawn wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle", allow_when_locked = true }
+"XF86AudioMicMute"     = { action = "spawn wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle", allow_when_locked = true }
+"XF86AudioPlay"        = { action = "spawn playerctl play-pause", allow_when_locked = true }
+"XF86AudioStop"        = { action = "spawn playerctl stop", allow_when_locked = true }
+"XF86AudioPrev"        = { action = "spawn playerctl previous", allow_when_locked = true }
+"XF86AudioNext"        = { action = "spawn playerctl next", allow_when_locked = true }
+"XF86MonBrightnessUp"   = { action = "spawn brightnessctl --class=backlight set +10%", allow_when_locked = true }
+"XF86MonBrightnessDown" = { action = "spawn brightnessctl --class=backlight set 10%-", allow_when_locked = true }
 
 # Overview -------------------------------------------------------------------
 # niri: Mod+Tab { toggle-overview }  (replaces Umbriel's scratchpad-focus-next
 # default on this chord, since niri's Mod+Tab is overview)
 "Mod+Tab" = { action = "overview-toggle", repeat = false }
-"Mod+W" = "workspace-set-layout:toggle"
+"Mod+W" = "workspace-set-layout toggle"
 "Mod+O" = "overview-toggle"
 
 # Close ----------------------------------------------------------------------
@@ -120,24 +120,24 @@
 "Mod+Ctrl+Shift+WheelUp"   = "column-move-left"
 
 # Workspace numbers --------------------------------------------------------------
-"Mod+1" = "workspace-switch:1"
-"Mod+2" = "workspace-switch:2"
-"Mod+3" = "workspace-switch:3"
-"Mod+4" = "workspace-switch:4"
-"Mod+5" = "workspace-switch:5"
-"Mod+6" = "workspace-switch:6"
-"Mod+7" = "workspace-switch:7"
-"Mod+8" = "workspace-switch:8"
-"Mod+9" = "workspace-switch:9"
-"Mod+Ctrl+1" = "window-move-to-workspace:1"
-"Mod+Ctrl+2" = "window-move-to-workspace:2"
-"Mod+Ctrl+3" = "window-move-to-workspace:3"
-"Mod+Ctrl+4" = "window-move-to-workspace:4"
-"Mod+Ctrl+5" = "window-move-to-workspace:5"
-"Mod+Ctrl+6" = "window-move-to-workspace:6"
-"Mod+Ctrl+7" = "window-move-to-workspace:7"
-"Mod+Ctrl+8" = "window-move-to-workspace:8"
-"Mod+Ctrl+9" = "window-move-to-workspace:9"
+"Mod+1" = "workspace-switch 1"
+"Mod+2" = "workspace-switch 2"
+"Mod+3" = "workspace-switch 3"
+"Mod+4" = "workspace-switch 4"
+"Mod+5" = "workspace-switch 5"
+"Mod+6" = "workspace-switch 6"
+"Mod+7" = "workspace-switch 7"
+"Mod+8" = "workspace-switch 8"
+"Mod+9" = "workspace-switch 9"
+"Mod+Ctrl+1" = "window-move-to-workspace 1"
+"Mod+Ctrl+2" = "window-move-to-workspace 2"
+"Mod+Ctrl+3" = "window-move-to-workspace 3"
+"Mod+Ctrl+4" = "window-move-to-workspace 4"
+"Mod+Ctrl+5" = "window-move-to-workspace 5"
+"Mod+Ctrl+6" = "window-move-to-workspace 6"
+"Mod+Ctrl+7" = "window-move-to-workspace 7"
+"Mod+Ctrl+8" = "window-move-to-workspace 8"
+"Mod+Ctrl+9" = "window-move-to-workspace 9"
 
 # Consume / expel columns -----------------------------------------------------
 # niri's consume-or-expel-window-left/right split into two actions here.
@@ -151,17 +151,17 @@
 "Mod+F" = "window-toggle-maximize"
 "Mod+Shift+F" = "window-toggle-fullscreen"
 "Mod+C" = "column-center"
-"Mod+Minus" = "window-modify-primary-extent:-0.1"
-"Mod+Equal" = "window-modify-primary-extent:0.1"
+"Mod+Minus" = "window-modify-primary-extent -0.1"
+"Mod+Equal" = "window-modify-primary-extent 0.1"
 
 # Floating -----------------------------------------------------------------------
 "Mod+V" = "window-toggle-floating"
 "Mod+Shift+V" = "window-focus-switch-floating"
 
 # Screenshots ---------------------------------------------------------------------
-"Print" = "spawn:flameshot gui --clipboard"
-"Ctrl+Print" = "spawn:flameshot screen --path ~/Pictures/Screenshots"
-"Shift+Print" = "spawn:flameshot gui --clipboard"
+"Print" = "spawn flameshot gui --clipboard"
+"Ctrl+Print" = "spawn flameshot screen --path ~/Pictures/Screenshots"
+"Shift+Print" = "spawn flameshot gui --clipboard"
 
 # Quit / power --------------------------------------------------------------------
 "Mod+Shift+E" = "session-quit"
@@ -170,14 +170,14 @@
 
 # Keychron special keys -------------------------------------------------------------
 # F13 = XF86Tools
-"XF86Tools" = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+"XF86Tools" = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
 # F14 = XF86Launch5
-"XF86Launch5" = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
+"XF86Launch5" = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+"
 # F15 = XF86Calculator
-"XF86Calculator" = "spawn:gnome-calculator"
+"XF86Calculator" = "spawn gnome-calculator"
 
 # Umbriel / Noctalia extras (kept from the prior stub) ------------------------------
-# "Mod" = "spawn:noctalia msg panel-toggle launcher"
+# "Mod" = "spawn noctalia msg panel-toggle launcher"
 "Mod+P" = "window-toggle-pinned"
 "Mod+M" = "window-toggle-maximize-to-edges"
 "Mod+Shift+Space" = "window-move-to-scratchpad"
