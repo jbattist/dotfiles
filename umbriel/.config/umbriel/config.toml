@@ -87,7 +87,7 @@ zoom = 0.5                     # 0.1-0.75
 # layout.scrolling.center_underfull_strip = false
 
 [include.optional]
-files = ["noctalia.toml", "themes/base.toml", "theme.toml"]
+files = ["noctalia.toml", "themes/base.toml", "theme.toml", "~/dotfiles/quake-terminal/quake.toml"]
 # base.toml then theme.toml share one documented list-order, so the theme wins
 # regardless of how [include] and [include.optional] interleave. theme.toml is
 # a local, gitignored look-and-feel overlay. Create it from a theme:

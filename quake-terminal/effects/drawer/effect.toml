@@ -1,0 +1,5 @@
+# Slide-down drawer animation for scratchpad show/hide.
+# Shader path is relative to this file.
+[effects.preset.quake-drawer]
+kind = "animation"
+shader = "shader.glsl"

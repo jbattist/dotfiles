@@ -1,0 +1,72 @@
+# quake-terminal — Umbriel add-in
+#
+# A Ghostty drop-down drawer. Press the hotkey to slide it down from the top
+# of the focused output; press it again to slide it away. The terminal (and
+# its shell session) keeps running while hidden.
+#
+# Install: add this file to [include.optional] in ~/.config/umbriel/config.toml,
+# AFTER themes/base.toml and theme.toml (so its animation settings win):
+#
+#   [include.optional]
+#   files = ["noctalia.toml", "themes/base.toml", "theme.toml",
+#            "~/projects/quake-terminal/quake.toml"]
+#
+# Optional include = machines without this checkout simply skip it.
+
+[include]
+files = ["effects/drawer/effect.toml"]
+
+# --- Scratchpads ---------------------------------------------------------------
+# Defining any named scratchpad removes Umbriel's implicit "default" pad, so
+# the general-purpose pad is re-declared as "main" and its bindings below are
+# repointed at it.
+
+[[scratchpad]]
+name = "quake"
+# First press launches the terminal straight into the pad; later presses only
+# show/hide it. --class gives a unique app_id for the window rule below;
+# single-instance off keeps it a separate process from your normal Ghostty.
+spawn_when_empty = "ghostty --class=dev.joe.quake --gtk-single-instance=false --window-decoration=none --title=quake"
+# If the shell exits, hide the pad so the next press relaunches immediately.
+hide_when_empty = true
+
+[[scratchpad]]
+name = "main"
+
+# --- Window placement ----------------------------------------------------------
+
+[[window_rule]]
+match.app_id = '^dev\.joe\.quake$'
+default_scratchpad = "quake"
+default_floating_size = { width = 0.8, height = 0.6 }   # fraction of usable area
+default_position = { x = 0, y = 0, anchor = "top" }
+title_bar = "off"
+corner_radius = 0
+border_width = 0
+# opacity = 0.95
+
+# Optional: proportional resize when the drawer follows you to another monitor.
+# (Must be set on the [[scratchpad]] entry: proportional_size = true)
+
+# --- Animation -----------------------------------------------------------------
+# Scratchpad animation is global (applies to "main" too). The theme base
+# disables it; the drawer needs it on.
+
+[animation.scratchpad]
+enabled = true
+duration_ms = 220
+curve = "easeout"
+effect = "quake-drawer"
+dim = 0.25
+
+# --- Keybinds --------------------------------------------------------------------
+
+[keybinds]
+# The drawer. Mod+` (grave / backtick), the classic quake key.
+"Mod+Grave" = { action = "scratchpad-toggle quake", repeat = false }
+# Alternatives:  "F12" = ...   "Ctrl+Grave" = ...
+
+# Existing general-purpose scratchpad bindings, repointed to "main".
+"Mod+Shift+Space" = "window-move-to-scratchpad main"
+"Mod+Space"       = "scratchpad-toggle main"
+"Mod+Ctrl+Space"  = "window-restore-from-scratchpad main"
