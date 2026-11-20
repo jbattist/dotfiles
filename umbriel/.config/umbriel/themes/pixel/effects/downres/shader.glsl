@@ -7,7 +7,7 @@ vec4 window(vec2 uv) {
   //   6.0+ = arcade / "too aggressive for reading"
   // Fixed pixel size (not a window fraction) so a maximized window and a
   // floating one pixelate the same amount.
-  float block = 3.0;
+  float block = 1.5;
   vec2 g = max(umbriel_size / block, vec2(1.0));
   vec2 cell = floor(uv * g) / g;
   return umbriel_sample(cell + 0.5 / g);

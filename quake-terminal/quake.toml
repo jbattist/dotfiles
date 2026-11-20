@@ -38,7 +38,7 @@ name = "main"
 [[window_rule]]
 match.app_id = '^dev\.joe\.quake$'
 default_scratchpad = "quake"
-default_floating_size = { width = 0.8, height = 0.6 }   # fraction of usable area
+default_floating_size = { width = 0.3, height = 0.6 }   # fraction of usable area
 default_position = { x = 0, y = 0, anchor = "top" }
 title_bar = "off"
 corner_radius = 0
